@@ -1,7 +1,7 @@
 /*********************************************/ 
 /******************* Modal *******************/
 /*********************************************/  
-/*var modal = document.querySelector('#modal')
+var modal = document.querySelector('#modal')
 var modalToggle = document.querySelector('#modal-toggle')
 var close = document.querySelector('#close-modal')
 // hide and add aria-hidden attribute
@@ -34,7 +34,7 @@ document.onkeydown = function(event) {
     }
   }
 }
-*/
+
 /*********************************************/ 
 /**************** Map ***************/
 /*********************************************/ 
@@ -206,41 +206,7 @@ map.on('load', function() {
             ],
                 firstSymbolId
   })
-/*
-  let expression3 = ["match", ["get", "GEOID10"]]
-  csvPA.forEach(function(row) {
-      let data = row["FuPEV_SM"],
-      color
-    if (data < 56.98760) color = '#B6EDF0'
-    else if (data >= 56.98760 && data < 163.153772) color = '#98D2ED'
-    else if (data >=163.153772 && data < 328.378652) color = '#7CBBEB'
-    else if (data >= 328.378652 && data < 602.083758) color = '#5CA3E6'
-    else if (data >= 602.083758 && data < 1013.329840) color ='#368DE3'
-    else if (data >= 1013.329840 && data < 1649.944320) color = '#2176D9'
-    else if (data >=1649.944320 && data < 2692.761851) color = '#2259C7'
-    else if (data >= 2692.761851 && data < 4469.331348) color = '#1D3EB5'
-    else if (data >= 4469.331348 && data < 7515.466880) color ='#1727A3'
-    else if (data >= 7515.466880 && data < 12267.415228) color ='#090991'
-    else { color = '#08519c'; }
-    expression3.push(row['GEOID10'].toString(), color);
-  });
- // Last value is the default, used where there is no data
-  expression3.push("rgba(0,0,0,0)");
- // map.setPaintProperty('blocks-fill', 'fill-color', expression2)
-   map.addLayer({
-    'id': 'FuPEV SM',
-    'type': 'fill',
-    'source': census,
-    'source-layer': 'blocks',
-    'layout': {},
-    'paint': {
-      'fill-color': expression3,
-      'fill-opacity': 1
-    }
-  }, 
-        firstSymbolId
- // "landcover_crop"
-  )
+
   
   var popup = new mapboxgl.Popup({
     closebutton: false,
@@ -256,7 +222,6 @@ map.on('load', function() {
     map.setFilter('municipality-hover', ['==', 'geoid', ''])
     popup.remove()
   })
-*/
   //map.on('click', 'municipality-fill', function(e){
   //  getReport(e)
  // })
