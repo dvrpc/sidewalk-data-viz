@@ -102,6 +102,7 @@ map.on('load', function() {
     }
   }
 
+  // ADD OUTLINE OF COUNTIES IN BLACK
   map.addLayer({
     'id': 'county-outline',
     'type': 'line',
@@ -109,7 +110,7 @@ map.on('load', function() {
     'source-layer': 'county',
     'paint': {
       'line-width': 2.5,
-      'line-color': '#141414'
+      'line-color': 'rgba(0,0,0,0.7)'
     },
     'filter': [
       '==',
@@ -118,14 +119,16 @@ map.on('load', function() {
     ]
   })
 
+
+  // ADD SIDEWALK SEGMENTS AS DASHED-WHITE
   map.addLayer({
     'id': 'sidewalks',
     'type': 'line',
     'source': sidewalks,
     'source-layer': 'ped_lines',
-    "minzoom": 12,
+    "minzoom": 13,
     'paint': {
-      'line-width': 0.8,
+      'line-width': 1.2,
       'line-color': 'rgba(255,255,255,0.7)',
       "line-dasharray": [5, 1]
     },
@@ -136,8 +139,16 @@ map.on('load', function() {
     ]
   })
 
-
-
+    // ADJUST SIDEWALK WIDTH BY ZOOM LEVEL
+    map.setPaintProperty('sidewalks', 'line-width', [
+      'interpolate',
+      ['exponential', 0.5],
+      ['zoom'],
+      13, 0.8,
+      15, 2.5
+      ]
+    );
+  // ADD CENTERLINES
   map.addLayer({
     'id': 'nj_centerlines',
     'type': 'line',
@@ -150,24 +161,23 @@ map.on('load', function() {
     'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
   })
 
-
-
+  // ADJUST CENTERLINE WIDTH BY ZOOM LEVEL
   map.setPaintProperty('nj_centerlines', 'line-width', [
     'interpolate',
     ['exponential', 0.5],
     ['zoom'],
-    15, 1.5,
-    22, 15
+    13, 1.5,
+    22, 12
     ]
   );
 
-
+  // ADD CROSSWALKS AS THICK WHITE LINE
   map.addLayer({
     'id': 'crosswalks',
     'type': 'line',
     'source': sidewalks,
     'source-layer': 'ped_lines',
-    "minzoom": 12,
+    "minzoom": 13,
     'paint': {
       'line-width': 4,
       'line-color': 'rgba(255,255,255,0.7)'
@@ -179,96 +189,18 @@ map.on('load', function() {
     ]
   })
 
-  // map.addLayer({
-  //   'id': 'municipality-fill',
-  //   'type': 'fill',
-  //   'source': tiles,
-  //   'source-layer': 'municipalities',
-  //   'layout': {},
-  //   'paint': {
-  //       'fill-opacity': 1
-  //   }
-  // }, )
-  // map.addLayer({
-  //   'id': 'municipality-outline',
-  //   'type': 'line',
-  //   'source': tiles,
-  //   'source-layer': 'municipalities',
-  //   'paint': {
-  //       'line-width': 0.5,
-  //       'line-color': '#141414'
-  //   }
-  // })
-  // map.addLayer({
-  //   'id': 'municipality-hover',
-  //   'type': 'line',
-  //   'source': tiles,
-  //   'source-layer': 'municipalities',
-  //   'paint': {
-  //     'line-width': 2,
-  //     'line-color': '#0074ad'
-  //   },
-  //   'filter': [
-  //     '==',
-  //     'geoid',
-  //     ''
-  //   ]
-  // })
+    // ADJUST SIDEWALK WIDTH BY ZOOM LEVEL
+    map.setPaintProperty('crosswalks', 'line-width', [
+      'interpolate',
+      ['exponential', 0.5],
+      ['zoom'],
+      13, 4,
+      15, 5
+      ]
+    );
 
-  // map.addLayer({
-  //   'id': 'crash-point',
-  //   'type': 'circle',
-  //   'source': crash,
-  //   'source-layer': 'pev',
-  //   'paint': {
-  //     // make circles larger as the user zooms from z12 to z22
-  //     'circle-radius': {
-  //     'base': 1.75,
-  //     'stops': [[5, .75],[11, 2], [22, 180]]
-  //     },
-  //     // color circles by ethnicity, using a match expression
-  //     // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-  //     'circle-color': [
-  //     'match',
-  //     ['get', 'TYPE'],
-  //     'current',
-  //     '#EA563D',
-  //     'projected',
-  //     '#3182D1',
-  //   //  'NJ',
-  //   //  '#e55e5e',
-  //    // 2017,
-  //    // '#3bb2d0',
-  //     /* other */ '#ccc'
-  //     ]
-  //     },
-  //      "filter": [
-  //                   "==",
-  //                   "REGION",
-  //                   "PA"
-  //           ],
-  //               firstSymbolId
-  // })
 
-  
-//   var popup = new mapboxgl.Popup({
-//     closebutton: false,
-//     closeOnClick: true
-//   })
-//   map.on('mousemove', 'municipality-fill', function(e){
-//     map.getCanvas().style.cursor = 'pointer'
-//     map.setFilter('municipality-hover', ['==', 'geoid', e.features[0].properties['geoid']])
-//     generatePopup(popup, e)
-//   })
-//   map.on('mouseleave', 'municipality-fill', function(e){
-//     map.getCanvas().style.cursor = ''
-//     map.setFilter('municipality-hover', ['==', 'geoid', ''])
-//     popup.remove()
-//   })
-//   //map.on('click', 'municipality-fill', function(e){
-//   //  getReport(e)
-//  // })
-
+  // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
   let expression = ["match", ["get", "seg_guid"]]
   centerline_classification_data.forEach(function(row) {
     let data = row["sw_coverage"],
@@ -284,5 +216,5 @@ map.on('load', function() {
   // Last value is the default, used where there is no data
   expression.push("rgba(0,0,0,0)");
   map.setPaintProperty('nj_centerlines', 'line-color', expression)
- 
+
 })
