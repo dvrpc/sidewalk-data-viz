@@ -45,30 +45,40 @@ document.onkeydown = function(event) {
 //var ne = {lat: -74.32525634765625, lng: 40.614734298694216}
 //var latLngBounds = new google.maps.LatLngBounds(sw, ne)
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNqZDBkMDZhYjJ6YzczNHJ4cno5eTcydnMifQ.RJNJ7s7hBfrJITOBZBdcOA'
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWFyb25kdnJwYyIsImEiOiJja2NvN2s5dnAwaWR2MnptbzFwYmd2czVvIn0.Fcc34gzGME_zHR5q4RnSOg'
+
+var sidewalks = {
+  "type": "vector",
+  "url": "https://tiles.dvrpc.org/data/pedestrian-network.json"
+}
+
+var analysis_data = {
+  "type": "vector",
+  "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
+}
 
 var tiles = {
     'type': 'vector',
     'url': 'https://tiles.dvrpc.org/data/dvrpc-municipal.json'
 }
 
-var census = {
-    'type': 'vector',
-    'url': 'https://tiles.dvrpc.org/data/census_boundaries.json'
-}
+// var census = {
+//     'type': 'vector',
+//     'url': 'https://tiles.dvrpc.org/data/census_boundaries.json'
+// }
 
-var crash = {
-    'type': 'vector',
-    'url': 'https://tiles.dvrpc.org/data/pev.json'
-}
+// var crash = {
+//     'type': 'vector',
+//     'url': 'https://tiles.dvrpc.org/data/pev.json'
+// }
 
 var map = new mapboxgl.Map({
     container: 'map',
-  //  style: 'mapbox://styles/mapbox/light-v9',
-    style: 'mapbox://styles/crvanpollard/ck5fpyqti0v971itf7edp2eyd',
+   style: 'mapbox://styles/mapbox/dark-v10',
+    // style: 'mapbox://styles/aarondvrpc/ckcw41n8v12761jpejubwq6da',
     attributionControl: false,
-    center: [-77.462261,40.949709 ],
-    zoom: 6
+    center: [-74.790027, 40.077928],
+    zoom: 10
 });
 
 function generatePopup(popup, e){
@@ -107,143 +117,172 @@ map.on('load', function() {
       'Yes'
     ]
   })
+
   map.addLayer({
-    'id': 'municipality-fill',
-    'type': 'fill',
-    'source': tiles,
-    'source-layer': 'municipalities',
-    'layout': {},
-    'paint': {
-        'fill-opacity': 1
-    }
-  }, )
-  map.addLayer({
-    'id': 'municipality-outline',
+    'id': 'sidewalks',
     'type': 'line',
-    'source': tiles,
-    'source-layer': 'municipalities',
+    'source': sidewalks,
+    'source-layer': 'ped_lines',
+    "minzoom": 12,
     'paint': {
-        'line-width': 0.5,
-        'line-color': '#141414'
-    }
-  })
-  map.addLayer({
-    'id': 'municipality-hover',
-    'type': 'line',
-    'source': tiles,
-    'source-layer': 'municipalities',
-    'paint': {
-      'line-width': 2,
-      'line-color': '#0074ad'
+      'line-width': 0.8,
+      'line-color': 'rgba(255,255,255,0.7)',
+      "line-dasharray": [5, 1]
     },
     'filter': [
       '==',
-      'geoid',
-      ''
+      'line_type',
+      1
     ]
   })
- 
- 
-//   let expression2 = ["match", ["get", "GEOID10"]]
-//   csvPA.forEach(function(row) {
-//       let data = row["FutPEV"],
-//       color
-//     if (data < 10) color = '#eff3ff'
-//     else if (data >= 10 && data < 20) color = '#bdd7e7'
-//     else if (data >=20 && data < 40) color = '#6baed6'
-//     else if (data >= 40 && data < 80) color = '#3182bd'
-//     else if (data >= 80 && data < 150) color ='#08519c'
-//     else { color = '#08519c'; }
-//     expression2.push(row['GEOID10'].toString(), color);
-//   });
-//  // Last value is the default, used where there is no data
-//   expression2.push("rgba(0,0,0,0)");
-//  // map.setPaintProperty('blocks-fill', 'fill-color', expression2)
-//    map.addLayer({
-//     'id': 'blocks-fill',
-//     'type': 'fill',
-//     'source': census,
-//     'source-layer': 'blocks',
-//     'layout': {},
-//     'paint': {
-//       'fill-color': expression2,
-//       'fill-opacity': 1
-//     }
-//   }, )
+
 
 
   map.addLayer({
-    'id': 'crash-point',
-    'type': 'circle',
-    'source': crash,
-    'source-layer': 'pev',
+    'id': 'nj_centerlines',
+    'type': 'line',
+    'source': analysis_data,
+    'source-layer': 'nj_centerlines',
     'paint': {
-      // make circles larger as the user zooms from z12 to z22
-      'circle-radius': {
-      'base': 1.75,
-      'stops': [[5, .75],[11, 2], [22, 180]]
-      },
-      // color circles by ethnicity, using a match expression
-      // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-      'circle-color': [
-      'match',
-      ['get', 'TYPE'],
-      'current',
-      '#EA563D',
-      'projected',
-      '#3182D1',
-    //  'NJ',
-    //  '#e55e5e',
-     // 2017,
-     // '#3bb2d0',
-      /* other */ '#ccc'
-      ]
-      },
-       "filter": [
-                    "==",
-                    "REGION",
-                    "PA"
-            ],
-                firstSymbolId
+      'line-width': 4,
+      'line-color': '#CD6155'
+    },
+    'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
   })
+
+
+
+  map.setPaintProperty('nj_centerlines', 'line-width', [
+    'interpolate',
+    ['exponential', 0.5],
+    ['zoom'],
+    15, 1.5,
+    22, 15
+    ]
+  );
+
+
+  map.addLayer({
+    'id': 'crosswalks',
+    'type': 'line',
+    'source': sidewalks,
+    'source-layer': 'ped_lines',
+    "minzoom": 12,
+    'paint': {
+      'line-width': 4,
+      'line-color': 'rgba(255,255,255,0.7)'
+    },
+    'filter': [
+      '==',
+      'line_type',
+      2
+    ]
+  })
+
+  // map.addLayer({
+  //   'id': 'municipality-fill',
+  //   'type': 'fill',
+  //   'source': tiles,
+  //   'source-layer': 'municipalities',
+  //   'layout': {},
+  //   'paint': {
+  //       'fill-opacity': 1
+  //   }
+  // }, )
+  // map.addLayer({
+  //   'id': 'municipality-outline',
+  //   'type': 'line',
+  //   'source': tiles,
+  //   'source-layer': 'municipalities',
+  //   'paint': {
+  //       'line-width': 0.5,
+  //       'line-color': '#141414'
+  //   }
+  // })
+  // map.addLayer({
+  //   'id': 'municipality-hover',
+  //   'type': 'line',
+  //   'source': tiles,
+  //   'source-layer': 'municipalities',
+  //   'paint': {
+  //     'line-width': 2,
+  //     'line-color': '#0074ad'
+  //   },
+  //   'filter': [
+  //     '==',
+  //     'geoid',
+  //     ''
+  //   ]
+  // })
+
+  // map.addLayer({
+  //   'id': 'crash-point',
+  //   'type': 'circle',
+  //   'source': crash,
+  //   'source-layer': 'pev',
+  //   'paint': {
+  //     // make circles larger as the user zooms from z12 to z22
+  //     'circle-radius': {
+  //     'base': 1.75,
+  //     'stops': [[5, .75],[11, 2], [22, 180]]
+  //     },
+  //     // color circles by ethnicity, using a match expression
+  //     // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+  //     'circle-color': [
+  //     'match',
+  //     ['get', 'TYPE'],
+  //     'current',
+  //     '#EA563D',
+  //     'projected',
+  //     '#3182D1',
+  //   //  'NJ',
+  //   //  '#e55e5e',
+  //    // 2017,
+  //    // '#3bb2d0',
+  //     /* other */ '#ccc'
+  //     ]
+  //     },
+  //      "filter": [
+  //                   "==",
+  //                   "REGION",
+  //                   "PA"
+  //           ],
+  //               firstSymbolId
+  // })
 
   
-  var popup = new mapboxgl.Popup({
-    closebutton: false,
-    closeOnClick: true
-  })
-  map.on('mousemove', 'municipality-fill', function(e){
-    map.getCanvas().style.cursor = 'pointer'
-    map.setFilter('municipality-hover', ['==', 'geoid', e.features[0].properties['geoid']])
-    generatePopup(popup, e)
-  })
-  map.on('mouseleave', 'municipality-fill', function(e){
-    map.getCanvas().style.cursor = ''
-    map.setFilter('municipality-hover', ['==', 'geoid', ''])
-    popup.remove()
-  })
-  //map.on('click', 'municipality-fill', function(e){
-  //  getReport(e)
- // })
+//   var popup = new mapboxgl.Popup({
+//     closebutton: false,
+//     closeOnClick: true
+//   })
+//   map.on('mousemove', 'municipality-fill', function(e){
+//     map.getCanvas().style.cursor = 'pointer'
+//     map.setFilter('municipality-hover', ['==', 'geoid', e.features[0].properties['geoid']])
+//     generatePopup(popup, e)
+//   })
+//   map.on('mouseleave', 'municipality-fill', function(e){
+//     map.getCanvas().style.cursor = ''
+//     map.setFilter('municipality-hover', ['==', 'geoid', ''])
+//     popup.remove()
+//   })
+//   //map.on('click', 'municipality-fill', function(e){
+//   //  getReport(e)
+//  // })
 
- let expression = ["match", ["get", "geoid"]]
-  csvData.forEach(function(row) {
-      let data = row["EMIACRE"],
-      color
-    if (data < 10) color = '#1a9850'
-    else if (data >= 10 && data < 20) color = '#91cf60'
-    else if (data >=20 && data < 40) color = '#d9ef8b'
-    else if (data >= 40 && data < 80) color = '#fee08b'
-    else if (data >= 80 && data < 150) color ='#fc8d59'
-    else { color = '#d73027'; }
-    expression.push(row['geoid'].toString(), color);
+  let expression = ["match", ["get", "seg_guid"]]
+  centerline_classification_data.forEach(function(row) {
+    let data = row["sw_coverage"],
+    color
+      if (data == 0) color = 'rgba(215,25,28,0.7)'
+      else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
+      else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
+      else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
+      else { color = 'rgba(26,150,65,0.7)'; 
+  }
+    expression.push(row['seg_guid'], color);
   });
   // Last value is the default, used where there is no data
   expression.push("rgba(0,0,0,0)");
-  map.setPaintProperty('municipality-fill', 'fill-color', expression)
+  map.setPaintProperty('nj_centerlines', 'line-color', expression)
  
 })
-
-//function getReport(e) {
-//  window.open('mcdDetail.aspx?mcdcode='+e.features[0].properties['geoid']);
-//}
