@@ -76,12 +76,13 @@ map.addControl(new mapboxgl.NavigationControl());
 map.on('load', function() {
 
   var layers = map.getStyle().layers;
-    // Find the index of the first symbol layer in the map style
-    var firstSymbolId;
-    for (var i = 0; i < layers.length; i++) {
+  
+  // Find the index of the first symbol layer in the map style
+  var firstSymbolId;
+  for (var i = 0; i < layers.length; i++) {
     if (layers[i].type === 'line') {
-    firstSymbolId = layers[i].id;
-    break;
+      firstSymbolId = layers[i].id;
+      break;
     }
   }
 
@@ -160,7 +161,7 @@ map.on('load', function() {
     'type': 'line',
     'source': sidewalks,
     'source-layer': 'ped_lines',
-    "minzoom": 15,
+    "minzoom": 14,
     'paint': {
       'line-width': 1.2,
       'line-color': 'rgba(255,255,255,0.7)',
