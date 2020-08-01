@@ -11,7 +11,7 @@ body{
   }
   #logo{
     max-height: 2em;
-    padding-right: 0.25em;
+    padding-right: 1em;
     margin-right: 0.25em;
     border-right: 2px solid #f7f7f7;
   }
@@ -70,7 +70,7 @@ body{
   }
   #modal{
     position: fixed;
-    display: none;
+    display: show;
     left: 0%;
     top: 0;
     width: 100%;
