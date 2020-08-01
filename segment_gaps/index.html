@@ -30,16 +30,36 @@
 			<div id="modal-content">
 				<span id="close-modal">&times;</span>
 
-				<h1 class="modal-headers">Segment Gaps </h1>
+				<h3 class="modal-headers"><em>Which roadway segments are missing full sidwalk coverage?</em> </h3>
 					<p>
-						This map contains energy use and greenhouse gas emissions profiles for municipalities in Greater Philadelphia.
-						The data within the profiles are from DVRPC's 2015 <em>Energy Use and Greenhouse Gas Emissions in Greater Philadelphia</em>.
-						To learn more about the methodology behind these profiles and the greater inventory please see <em>Energy Use and Greenhouse Gas
-						Emissions Inventory for Greater Philadelphia: Methods and Sources</em>.
+						This map shows the results of the <strong>sidewalk coverage analysis</strong> for the NJ side of the DVRPC region.
+						The analysis included the following steps for each centerline:
+					</p>
+					<p>
+						<ol>
+							<li>Calculate the length of parallel sidewalks from the regional sidewalk inventory</li>
+							<li>Divide #1 by the centerline length</li>
+							<li>Divide #2 by 2 to account for sidewalks being on both sides of the street</li>
+							<li>Classify #3 from a decimal number into text</li>
+						</ol>
 					</p>
 
 					<p>
-						<strong>Hover</strong> over a municipality to see its name. <strong>Click</strong> within the municipality to download the report.
+						<ul>
+							<li>RED - no sidewalks (0.0)</li>
+							<li>ORANGE - partial sidewalk on one side only (>0.0 & <0.4)</li>
+							<li>YELLOW - continuous on one side, partial on the other (>=0.4 & <0.8)</li>
+							<li>GREEN - full sidewalk coverage (>=0.8)</li>
+							
+
+
+
+
+						</ul>
+					</p>
+
+					<p>
+						
 					</p>
 				
 				<h3 class="modal-headers">Contact Information</h3>
