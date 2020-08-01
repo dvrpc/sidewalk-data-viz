@@ -103,29 +103,6 @@ map.on('load', function() {
     ]
   })
 
-  // ADD CENTERLINES
-  map.addLayer({
-    'id': 'nj_centerlines',
-    'type': 'line',
-    'source': analysis_data,
-    'source-layer': 'nj_centerlines',
-    'minzoom': 12,
-    'paint': {
-      'line-width': 4,
-      'line-color': '#CD6155'
-    },
-    'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
-  })
-
-  // ADJUST CENTERLINE WIDTH BY ZOOM LEVEL
-  map.setPaintProperty('nj_centerlines', 'line-width', [
-    'interpolate',
-    ['exponential', 0.5],
-    ['zoom'],
-    15, 4,
-    22, 22
-    ]
-  );
 
   // ADD CROSSWALKS AS THICK WHITE LINE
   map.addLayer({
@@ -184,22 +161,46 @@ map.on('load', function() {
       ]
     );
 
+  // ADD SIDEWALK NODES
+  map.addLayer({
+    'id': 'sw_nodes',
+    'type': 'circle',
+    'source': analysis_data,
+    'source-layer': 'nodes',
+    'minzoom': 12,
+    'paint': {
+      'circle-radius': 4,
+      'circle-color': 'rgba(0,255,0,0.7)',
+      'circle-stroke-color': "rgba(0,0,0,0.7)",
+      'circle-stroke-width': 2,
+    },
+  })
 
-  // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
-  let expression = ["match", ["get", "seg_guid"]]
-  centerline_classification_data.forEach(function(row) {
-    let data = row["sw_coverage"],
-    color
-      if (data == 0) color = 'rgba(215,25,28,0.7)'
-      else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
-      else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
-      // else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
-      else { color = 'rgba(26,150,65,0.3)'; 
-  }
-    expression.push(row['seg_guid'], color);
-  });
-  // Last value is the default, used where there is no data
-  expression.push("rgba(0,0,0,0)");
-  map.setPaintProperty('nj_centerlines', 'line-color', expression)
+  // ADJUST SW NODE RADIUS BY ZOOM LEVEL
+  map.setPaintProperty('sw_nodes', 'circle-radius', [
+    'interpolate',
+    ['exponential', 0.5],
+    ['zoom'],
+    12, 1,
+    18, 5
+    ]
+  );
+
+  // // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
+  // let expression = ["match", ["get", "seg_guid"]]
+  // centerline_classification_data.forEach(function(row) {
+  //   let data = row["sw_coverage"],
+  //   color
+  //     if (data == 0) color = 'rgba(215,25,28,0.7)'
+  //     else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
+  //     else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
+  //     // else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
+  //     else { color = 'rgba(26,150,65,0.3)'; 
+  // }
+  //   expression.push(row['seg_guid'], color);
+  // });
+  // // Last value is the default, used where there is no data
+  // expression.push("rgba(0,0,0,0)");
+  // map.setPaintProperty('nj_centerlines', 'line-color', expression)
 
 })
