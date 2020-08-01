@@ -62,31 +62,14 @@ var tiles = {
     'url': 'https://tiles.dvrpc.org/data/dvrpc-municipal.json'
 }
 
-// var census = {
-//     'type': 'vector',
-//     'url': 'https://tiles.dvrpc.org/data/census_boundaries.json'
-// }
-
-// var crash = {
-//     'type': 'vector',
-//     'url': 'https://tiles.dvrpc.org/data/pev.json'
-// }
-
 var map = new mapboxgl.Map({
     container: 'map',
    style: 'mapbox://styles/mapbox/dark-v10',
     // style: 'mapbox://styles/aarondvrpc/ckcw41n8v12761jpejubwq6da',
     attributionControl: false,
-    center: [-74.790027, 40.077928],
-    zoom: 10
+    center: [-75.117988, 39.945437],
+    zoom: 15
 });
-
-function generatePopup(popup, e){
-  var props = e.features[0].properties
-  popup.setLngLat(e.lngLat)
-  .setHTML("<p>"+props.name+"</p><hr /><p>"+props.cty+" County</p>")
-  .addTo(map)
-}
 
 map.addControl(new mapboxgl.NavigationControl());
 
@@ -102,6 +85,8 @@ map.on('load', function() {
     }
   }
 
+
+
   // ADD OUTLINE OF COUNTIES IN BLACK
   map.addLayer({
     'id': 'county-outline',
@@ -112,13 +97,62 @@ map.on('load', function() {
       'line-width': 2.5,
       'line-color': 'rgba(0,0,0,0.7)'
     },
-    'filter': [
-      '==',
-      'dvrpc',
-      'Yes'
+    'filter': ["all", ['==', 'dvrpc', 'Yes'],
+                      ['==', 'state', 'NJ']
     ]
   })
 
+  // ADD CENTERLINES
+  map.addLayer({
+    'id': 'nj_centerlines',
+    'type': 'line',
+    'source': analysis_data,
+    'source-layer': 'nj_centerlines',
+    'minzoom': 12,
+    'paint': {
+      'line-width': 4,
+      'line-color': '#CD6155'
+    },
+    'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
+  })
+
+  // ADJUST CENTERLINE WIDTH BY ZOOM LEVEL
+  map.setPaintProperty('nj_centerlines', 'line-width', [
+    'interpolate',
+    ['exponential', 0.5],
+    ['zoom'],
+    15, 4,
+    22, 22
+    ]
+  );
+
+  // ADD CROSSWALKS AS THICK WHITE LINE
+  map.addLayer({
+    'id': 'crosswalks',
+    'type': 'line',
+    'source': sidewalks,
+    'source-layer': 'ped_lines',
+    "minzoom": 15,
+    'paint': {
+      'line-width': 4,
+      'line-color': 'rgba(255,255,255,0.7)'
+    },
+    'filter': [
+      '==',
+      'line_type',
+      2
+    ]
+  })
+
+    // ADJUST CROSSWALK WIDTH BY ZOOM LEVEL
+    map.setPaintProperty('crosswalks', 'line-width', [
+      'interpolate',
+      ['exponential', 0.5],
+      ['zoom'],
+      15, 2,
+      18, 7 
+      ]
+    );
 
   // ADD SIDEWALK SEGMENTS AS DASHED-WHITE
   map.addLayer({
@@ -126,7 +160,7 @@ map.on('load', function() {
     'type': 'line',
     'source': sidewalks,
     'source-layer': 'ped_lines',
-    "minzoom": 13,
+    "minzoom": 15,
     'paint': {
       'line-width': 1.2,
       'line-color': 'rgba(255,255,255,0.7)',
@@ -144,58 +178,8 @@ map.on('load', function() {
       'interpolate',
       ['exponential', 0.5],
       ['zoom'],
-      13, 0.8,
-      15, 2.5
-      ]
-    );
-  // ADD CENTERLINES
-  map.addLayer({
-    'id': 'nj_centerlines',
-    'type': 'line',
-    'source': analysis_data,
-    'source-layer': 'nj_centerlines',
-    'paint': {
-      'line-width': 4,
-      'line-color': '#CD6155'
-    },
-    'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
-  })
-
-  // ADJUST CENTERLINE WIDTH BY ZOOM LEVEL
-  map.setPaintProperty('nj_centerlines', 'line-width', [
-    'interpolate',
-    ['exponential', 0.5],
-    ['zoom'],
-    13, 1.5,
-    22, 12
-    ]
-  );
-
-  // ADD CROSSWALKS AS THICK WHITE LINE
-  map.addLayer({
-    'id': 'crosswalks',
-    'type': 'line',
-    'source': sidewalks,
-    'source-layer': 'ped_lines',
-    "minzoom": 13,
-    'paint': {
-      'line-width': 4,
-      'line-color': 'rgba(255,255,255,0.7)'
-    },
-    'filter': [
-      '==',
-      'line_type',
-      2
-    ]
-  })
-
-    // ADJUST SIDEWALK WIDTH BY ZOOM LEVEL
-    map.setPaintProperty('crosswalks', 'line-width', [
-      'interpolate',
-      ['exponential', 0.5],
-      ['zoom'],
-      13, 4,
-      15, 5
+      15, 1,
+      17, 2.5
       ]
     );
 
@@ -208,8 +192,8 @@ map.on('load', function() {
       if (data == 0) color = 'rgba(215,25,28,0.7)'
       else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
       else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
-      else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
-      else { color = 'rgba(26,150,65,0.7)'; 
+      // else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
+      else { color = 'rgba(26,150,65,0.3)'; 
   }
     expression.push(row['seg_guid'], color);
   });
