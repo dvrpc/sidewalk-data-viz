@@ -171,36 +171,64 @@ map.on('load', function() {
     'paint': {
       'circle-radius': 4,
       'circle-color': 'rgba(0,255,0,0.7)',
-      'circle-stroke-color': "rgba(0,0,0,0.7)",
-      'circle-stroke-width': 2,
+      // 'circle-stroke-color': "rgba(0,0,0,0.7)",
+      // 'circle-stroke-width': 2,
     },
   })
 
   // ADJUST SW NODE RADIUS BY ZOOM LEVEL
   map.setPaintProperty('sw_nodes', 'circle-radius', [
     'interpolate',
-    ['exponential', 0.5],
+    ['linear'],
     ['zoom'],
-    12, 1,
-    18, 5
+    12, 2,
+    16, 8
     ]
   );
 
-  // // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
-  // let expression = ["match", ["get", "seg_guid"]]
-  // centerline_classification_data.forEach(function(row) {
-  //   let data = row["sw_coverage"],
-  //   color
-  //     if (data == 0) color = 'rgba(215,25,28,0.7)'
-  //     else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
-  //     else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
-  //     // else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
-  //     else { color = 'rgba(26,150,65,0.3)'; 
-  // }
-  //   expression.push(row['seg_guid'], color);
-  // });
-  // // Last value is the default, used where there is no data
-  // expression.push("rgba(0,0,0,0)");
-  // map.setPaintProperty('nj_centerlines', 'line-color', expression)
+  // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
+  let expression = ["match", ["get", "sw_node_id"]]
+  network_data.forEach(function(row) {
+    let data = row["school"],
+    color
+      if (data < 5 ) color = 'rgba(8,104,172,0.7)'
+      else if (data >= 5 && data < 10) color = 'rgba(67,162,202,0.7)'
+      else if (data >= 10 && data < 20) color = 'rgba(123,204,196,0.7)'
+      else if (data >= 20 && data < 30) color = 'rgba(168,221,181,0.7)'
+      else if (data >= 30 && data < 60) color = 'rgba(204,235,197,0.7)'
+      else if (data >= 60 && data < 180) color = 'rgba(240,249,232,0.7)'
+      else { color = 'rgba(215,25,28,0.7)'; 
+    }
+    expression.push(parseInt(row['node_id']), color);
+    // console.log(data);
+    // console.log(row["node_id"]);
+  });
+  // Last value is the default, used where there is no data
+  expression.push("rgba(255,255,255,1)");
+  map.setPaintProperty('sw_nodes', 'circle-color', expression);
+
+  function generatePopup(popup, e){
+    var props = e.features[0].properties;
+    var found_node = network_data.find(element => element.node_id == props.sw_node_id);
+    if (found_node.school < 180)
+      msg = "<p>The nearest school is "+ found_node.school.toFixed(2) +" minutes away</p>"
+    else
+      {msg = "<p>No schools are accessible solely via the sidewalk network</p>"}
+    popup.setLngLat(e.lngLat)
+    .setHTML(msg)
+    .addTo(map)
+  }
+
+  var popup = new mapboxgl.Popup({
+    closebutton: false,
+    closeOnClick: true
+  })
+  map.on('mousemove', 'sw_nodes', function(e){
+    generatePopup(popup, e)
+  })
+  map.on('mouseleave', 'sw_nodes', function(e){
+    popup.remove()
+  })
+
 
 })
