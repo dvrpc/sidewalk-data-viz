@@ -167,7 +167,7 @@ map.on('load', function() {
     'type': 'circle',
     'source': analysis_data,
     'source-layer': 'nodes',
-    'minzoom': 12,
+    'minzoom': 9,
     'paint': {
       'circle-radius': 4,
       'circle-color': 'rgba(0,255,0,0.7)',
@@ -181,8 +181,8 @@ map.on('load', function() {
     'interpolate',
     ['linear'],
     ['zoom'],
-    12, 2,
-    16, 8
+    12, 0.8,
+    18, 8
     ]
   );
 
@@ -204,16 +204,16 @@ map.on('load', function() {
     // console.log(row["node_id"]);
   });
   // Last value is the default, used where there is no data
-  expression.push("rgba(255,255,255,1)");
+  expression.push("rgba(255,255,255,0)");
   map.setPaintProperty('sw_nodes', 'circle-color', expression);
 
   function generatePopup(popup, e){
     var props = e.features[0].properties;
     var found_node = network_data.find(element => element.node_id == props.sw_node_id);
     if (found_node.school < 180)
-      msg = "<p>The nearest school is "+ found_node.school.toFixed(2) +" minutes away</p>"
+      msg = "<h1><code>"+ found_node.school.toFixed(1) +" minutes</code></h1><p>to the nearest school by foot</p>"
     else
-      {msg = "<p>No schools are accessible solely via the sidewalk network</p>"}
+      {msg = "<h1><code>🚷</code></h1><p>No schools are accessible solely via the sidewalk network</p>"}
     popup.setLngLat(e.lngLat)
     .setHTML(msg)
     .addTo(map)
