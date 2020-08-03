@@ -1,12 +1,14 @@
 # sidewalk-data-viz
-Interactive webmaps that visualize the outputs of the sidewalk gap analysis
+
+Interactive webmaps that visualize the outputs of the sidewalk gap analysis,
+leveraging data hosted on DVRPC's [vector tile server](https://tiles.dvrpc.org).
+
+Vector tile geometries are styled with attributes saved within a companion text file.
 
 
 ## ``/example/``
 
 Copied from Chris Pollard's [test repo](https://github.com/crvanpollard/webmapapp_testing/tree/master/Mapbox_Vector_Jsontable).
-
-Vector tile geometries are styled with attributes saved within a companion text file.
 
 
 ## ``/html/segment_gaps.html``
@@ -29,3 +31,6 @@ python -m http.server
 
 Visit [http://0.0.0.0:8000/html/network_gaps.html](http://0.0.0.0:8000/html/network_gaps.html)
 or [http://0.0.0.0:8000/html/segment_gaps.html](http://0.0.0.0:8000/html/segment_gaps.html)
+
+
+The example can be seen at [http://0.0.0.0:8000/example/](http://0.0.0.0:8000/example/)
