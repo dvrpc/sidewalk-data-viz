@@ -13,12 +13,12 @@ Copied from Chris Pollard's [test repo](https://github.com/crvanpollard/webmapap
 
 ## ``/html/segment_gaps.html``
 
-Shows the results of the sidewalk classification process: which segments are missing full sidewalk coverage?
+Shows the results of the [sidewalk classification process](https://github.com/dvrpc/network-routing/blob/master/sidewalk_gaps/segments/centerline_sidewalk_coverage.py): which segments are missing full sidewalk coverage?
 
 
 ## ``/html/network_gaps.html``
 
-Shows the results of the ``pandana`` sidewalk analysis: which nodes on the existing sidewalk network are disconnected from other nearby nodes?
+Shows the results of the ``pandana`` [sidewalk network analysis](https://github.com/dvrpc/network-routing): which nodes on the existing sidewalk network are disconnected from other nearby nodes?
 
 
 ## Local development
