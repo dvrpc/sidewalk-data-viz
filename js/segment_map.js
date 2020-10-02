@@ -52,9 +52,9 @@ var sidewalks = {
   "url": "https://tiles.dvrpc.org/data/pedestrian-network.json"
 }
 
-var analysis_data = {
+var centerlines = {
   "type": "vector",
-  "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
+  "url": "http://0.0.0.0:8080/data/cl_classification.json"
 }
 
 var tiles = {
@@ -64,8 +64,7 @@ var tiles = {
 
 var map = new mapboxgl.Map({
     container: 'map',
-   style: 'mapbox://styles/mapbox/dark-v10',
-    // style: 'mapbox://styles/aarondvrpc/ckcw41n8v12761jpejubwq6da',
+    style: 'mapbox://styles/mapbox/dark-v10',
     attributionControl: false,
     center: [-75.117988, 39.945437],
     zoom: 15
@@ -77,17 +76,6 @@ map.on('load', function() {
 
   var layers = map.getStyle().layers;
   
-  // Find the index of the first symbol layer in the map style
-  var firstSymbolId;
-  for (var i = 0; i < layers.length; i++) {
-    if (layers[i].type === 'line') {
-      firstSymbolId = layers[i].id;
-      break;
-    }
-  }
-
-
-
   // ADD OUTLINE OF COUNTIES IN BLACK
   map.addLayer({
     'id': 'county-outline',
@@ -101,24 +89,29 @@ map.on('load', function() {
     'filter': ["all", ['==', 'dvrpc', 'Yes'],
                       ['==', 'state', 'NJ']
     ]
-  })
-
+  });
   // ADD CENTERLINES
   map.addLayer({
-    'id': 'nj_centerlines',
+    'id': 'centerlines',
     'type': 'line',
-    'source': analysis_data,
-    'source-layer': 'nj_centerlines',
+    'source': centerlines,
+    'source-layer': 'centerlines',
     'minzoom': 12,
     'paint': {
       'line-width': 4,
-      'line-color': '#CD6155'
-    },
-    'filter': ['!=', 'seg_guid', "{131D6750-1708-11E3-B5F2-0062151309FF}"],
-  })
-
+      'line-color': {
+        "property": "sw",
+        "stops": [
+          [0, "rgba(215,25,28,0.7)"],
+          [0.00001, "rgba(253,174,97,0.7)"],
+          [0.4, "rgba(255,255,191,0.7)"],
+          [0.8, "rgba(26,150,65,0.3)"]
+        ]
+      }
+    }
+  });
   // ADJUST CENTERLINE WIDTH BY ZOOM LEVEL
-  map.setPaintProperty('nj_centerlines', 'line-width', [
+  map.setPaintProperty('centerlines', 'line-width', [
     'interpolate',
     ['exponential', 0.5],
     ['zoom'],
@@ -126,7 +119,6 @@ map.on('load', function() {
     22, 22
     ]
   );
-
   // ADD CROSSWALKS AS THICK WHITE LINE
   map.addLayer({
     'id': 'crosswalks',
@@ -143,18 +135,16 @@ map.on('load', function() {
       'line_type',
       2
     ]
-  })
-
-    // ADJUST CROSSWALK WIDTH BY ZOOM LEVEL
-    map.setPaintProperty('crosswalks', 'line-width', [
-      'interpolate',
-      ['exponential', 0.5],
-      ['zoom'],
-      15, 2,
-      18, 7 
-      ]
-    );
-
+  });
+  // ADJUST CROSSWALK WIDTH BY ZOOM LEVEL
+  map.setPaintProperty('crosswalks', 'line-width', [
+    'interpolate',
+    ['exponential', 0.5],
+    ['zoom'],
+    15, 2,
+    18, 7 
+    ]
+  );
   // ADD SIDEWALK SEGMENTS AS DASHED-WHITE
   map.addLayer({
     'id': 'sidewalks',
@@ -172,34 +162,34 @@ map.on('load', function() {
       'line_type',
       1
     ]
-  })
-
-    // ADJUST SIDEWALK WIDTH BY ZOOM LEVEL
-    map.setPaintProperty('sidewalks', 'line-width', [
-      'interpolate',
-      ['exponential', 0.5],
-      ['zoom'],
-      15, 1,
-      17, 2.5
-      ]
-    );
-
-
-  // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
-  let expression = ["match", ["get", "seg_guid"]]
-  centerline_classification_data.forEach(function(row) {
-    let data = row["sw_coverage"],
-    color
-      if (data == 0) color = 'rgba(215,25,28,0.7)'
-      else if (data > 0 && data < 0.4) color = 'rgba(253,174,97,0.7)'
-      else if (data >=0.4 && data < 0.8) color = 'rgba(255,255,191,0.7)'
-      // else if (data >= 0.8 && data < 1) color = 'rgba(166,217,106,0.7)'
-      else { color = 'rgba(26,150,65,0.3)'; 
-  }
-    expression.push(row['seg_guid'], color);
   });
-  // Last value is the default, used where there is no data
-  expression.push("rgba(0,0,0,0)");
-  map.setPaintProperty('nj_centerlines', 'line-color', expression)
+  // ADJUST SIDEWALK WIDTH BY ZOOM LEVEL
+  map.setPaintProperty('sidewalks', 'line-width', [
+    'interpolate',
+    ['exponential', 0.5],
+    ['zoom'],
+    15, 1,
+    17, 2.5
+    ]
+  );
+  // HOVER + POPUP
+  function generatePopup(popup, e){
+    var props = e.features[0].properties;
+    msg = "<p>Sidewalk Length ➗ Centerline Length ➗ 2</p><p>="+ props.sw.toFixed(3) +"</p>"
+    popup.setLngLat(e.lngLat)
+    .setHTML(msg)
+    .addTo(map)
+  }
+
+  var popup = new mapboxgl.Popup({
+    closebutton: false,
+    closeOnClick: true
+  })
+  map.on('mousemove', 'centerlines', function(e){
+    generatePopup(popup, e)
+  })
+  map.on('mouseleave', 'centerlines', function(e){
+    popup.remove()
+  })
 
 })
