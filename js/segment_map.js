@@ -54,7 +54,7 @@ var sidewalks = {
 
 var centerlines = {
   "type": "vector",
-  "url": "http://0.0.0.0:8080/data/cl_classification.json"
+  "url": "http://0.0.0.0:8080/data/tiles.json"
 }
 
 var tiles = {
@@ -175,7 +175,7 @@ map.on('load', function() {
   // HOVER + POPUP
   function generatePopup(popup, e){
     var props = e.features[0].properties;
-    msg = "<p>Sidewalk Length ➗ Centerline Length ➗ 2</p><p>="+ props.sw.toFixed(3) +"</p>"
+    msg = "<h3>"+ props.sw.toFixed(3) +"</h3><p>SW len ➗ CL len ➗ 2</p>"
     popup.setLngLat(e.lngLat)
     .setHTML(msg)
     .addTo(map)
