@@ -54,7 +54,7 @@ var sidewalks = {
 
 var analysis_data = {
   "type": "vector",
-  "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
+  "url": "http://0.0.0.0:8080/data/tiles.json"
 }
 
 var tiles = {
@@ -166,13 +166,22 @@ map.on('load', function() {
     'id': 'sw_nodes',
     'type': 'circle',
     'source': analysis_data,
-    'source-layer': 'nodes',
+    'source-layer': 'sw_nodes',
     'minzoom': 9,
     'paint': {
       'circle-radius': 4,
-      'circle-color': 'rgba(0,255,0,0.7)',
-      // 'circle-stroke-color': "rgba(0,0,0,0.7)",
-      // 'circle-stroke-width': 2,
+      'circle-color': {
+        "property": "walk_time",
+        "stops": [
+          [0, "rgba(8,104,172,0.7)"],
+          [5, "rgba(67,162,202,0.7)"],
+          [10, "rgba(123,204,196,0.7)"],
+          [20, "rgba(168,221,181,0.7)"],
+          [30, "rgba(204,235,197,0.7)"],
+          [60, "rgba(240,249,232,0.7)"],
+          [180, "rgba(215,25,28,0.7)"]
+        ]
+      }
     },
   })
 
@@ -186,34 +195,33 @@ map.on('load', function() {
     ]
   );
 
-  // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
-  let expression = ["match", ["get", "sw_node_id"]]
-  network_data.forEach(function(row) {
-    let data = row["school"],
-    color
-      if (data < 5 ) color = 'rgba(8,104,172,0.7)'
-      else if (data >= 5 && data < 10) color = 'rgba(67,162,202,0.7)'
-      else if (data >= 10 && data < 20) color = 'rgba(123,204,196,0.7)'
-      else if (data >= 20 && data < 30) color = 'rgba(168,221,181,0.7)'
-      else if (data >= 30 && data < 60) color = 'rgba(204,235,197,0.7)'
-      else if (data >= 60 && data < 180) color = 'rgba(240,249,232,0.7)'
-      else { color = 'rgba(215,25,28,0.7)'; 
-    }
-    expression.push(parseInt(row['node_id']), color);
-    // console.log(data);
-    // console.log(row["node_id"]);
-  });
-  // Last value is the default, used where there is no data
-  expression.push("rgba(255,255,255,0)");
-  map.setPaintProperty('sw_nodes', 'circle-color', expression);
+  // // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
+  // let expression = ["match", ["get", "sw_node_id"]]
+  // network_data.forEach(function(row) {
+  //   let data = row["school"],
+  //   color
+  //     if (data < 5 ) color = 'rgba(8,104,172,0.7)'
+  //     else if (data >= 5 && data < 10) color = 'rgba(67,162,202,0.7)'
+  //     else if (data >= 10 && data < 20) color = 'rgba(123,204,196,0.7)'
+  //     else if (data >= 20 && data < 30) color = 'rgba(168,221,181,0.7)'
+  //     else if (data >= 30 && data < 60) color = 'rgba(204,235,197,0.7)'
+  //     else if (data >= 60 && data < 180) color = 'rgba(240,249,232,0.7)'
+  //     else { color = 'rgba(215,25,28,0.7)'; 
+  //   }
+  //   expression.push(parseInt(row['node_id']), color);
+  //   // console.log(data);
+  //   // console.log(row["node_id"]);
+  // });
+  // // Last value is the default, used where there is no data
+  // expression.push("rgba(255,255,255,0)");
+  // map.setPaintProperty('sw_nodes', 'circle-color', expression);
 
   function generatePopup(popup, e){
     var props = e.features[0].properties;
-    var found_node = network_data.find(element => element.node_id == props.sw_node_id);
-    if (found_node.school < 180)
-      msg = "<h1><code>"+ found_node.school.toFixed(1) +" minutes</code></h1><p>to the nearest school by foot</p>"
+    if (props.walk_time < 180)
+      msg = "<h1><code>"+ props.walk_time.toFixed(1) +" minutes</code></h1><p>to the nearest transit stop by foot</p>"
     else
-      {msg = "<h1><code>🚷</code></h1><p>No schools are accessible solely via the sidewalk network</p>"}
+      {msg = "<h1><code>🚷</code></h1><p>No transit stops are accessible solely via the sidewalk network</p>"}
     popup.setLngLat(e.lngLat)
     .setHTML(msg)
     .addTo(map)
