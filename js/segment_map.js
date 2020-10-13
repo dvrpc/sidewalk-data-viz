@@ -54,7 +54,8 @@ var sidewalks = {
 
 var centerlines = {
   "type": "vector",
-  "url": "http://0.0.0.0:8080/data/tiles.json"
+  // "url": "http://0.0.0.0:8080/data/tiles.json"
+  "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
 }
 
 var tiles = {
@@ -95,8 +96,8 @@ map.on('load', function() {
     'id': 'centerlines',
     'type': 'line',
     'source': centerlines,
-    'source-layer': 'centerlines',
-    'minzoom': 12,
+    'source-layer': 'nj_centerlines',
+    'minzoom': 9,
     'paint': {
       'line-width': 4,
       'line-color': {
@@ -115,6 +116,7 @@ map.on('load', function() {
     'interpolate',
     ['exponential', 0.5],
     ['zoom'],
+    9, 0.2,
     15, 4,
     22, 22
     ]
