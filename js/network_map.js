@@ -54,7 +54,8 @@ var sidewalks = {
 
 var analysis_data = {
   "type": "vector",
-  "url": "http://0.0.0.0:8080/data/tiles.json"
+  // "url": "http://0.0.0.0:8080/data/tiles.json"
+  "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
 }
 
 var tiles = {
@@ -67,13 +68,24 @@ var map = new mapboxgl.Map({
    style: 'mapbox://styles/mapbox/dark-v10',
     // style: 'mapbox://styles/aarondvrpc/ckcw41n8v12761jpejubwq6da',
     attributionControl: false,
-    center: [-75.117988, 39.945437],
-    zoom: 15
+    center: [-75.163603, 39.952406],
+    zoom: 10
 });
 
 map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function() {
+
+
+  map.loadImage(
+    // 'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
+    '../images/transit-stop-icon.png',
+    function (error, image) {
+      if (error) throw error;
+      map.addImage('bus-icon', image);
+    }
+  );
+
 
   var layers = map.getStyle().layers;
   
@@ -161,12 +173,13 @@ map.on('load', function() {
       ]
     );
 
+
   // ADD SIDEWALK NODES
   map.addLayer({
     'id': 'sw_nodes',
     'type': 'circle',
     'source': analysis_data,
-    'source-layer': 'sw_nodes',
+    'source-layer': 'nodes',
     'minzoom': 9,
     'paint': {
       'circle-radius': 4,
@@ -190,31 +203,26 @@ map.on('load', function() {
     'interpolate',
     ['linear'],
     ['zoom'],
-    12, 0.8,
-    18, 8
+    12, 1.5,
+    18, 12
     ]
   );
 
-  // // COLOR THE CENTERLINES BY THE SW_COVERAGE VALUE
-  // let expression = ["match", ["get", "sw_node_id"]]
-  // network_data.forEach(function(row) {
-  //   let data = row["school"],
-  //   color
-  //     if (data < 5 ) color = 'rgba(8,104,172,0.7)'
-  //     else if (data >= 5 && data < 10) color = 'rgba(67,162,202,0.7)'
-  //     else if (data >= 10 && data < 20) color = 'rgba(123,204,196,0.7)'
-  //     else if (data >= 20 && data < 30) color = 'rgba(168,221,181,0.7)'
-  //     else if (data >= 30 && data < 60) color = 'rgba(204,235,197,0.7)'
-  //     else if (data >= 60 && data < 180) color = 'rgba(240,249,232,0.7)'
-  //     else { color = 'rgba(215,25,28,0.7)'; 
-  //   }
-  //   expression.push(parseInt(row['node_id']), color);
-  //   // console.log(data);
-  //   // console.log(row["node_id"]);
-  // });
-  // // Last value is the default, used where there is no data
-  // expression.push("rgba(255,255,255,0)");
-  // map.setPaintProperty('sw_nodes', 'circle-color', expression);
+    // ADD TRANSIT STOPS
+    map.addLayer({
+      'id': 'transit_stops',
+      'type': 'symbol',
+      'source': analysis_data,
+      'source-layer': 'transit_stops',
+      'minzoom': 14,
+      'layout': {
+        'icon-image': 'bus-icon',
+        'icon-size': 0.02,
+        'icon-rotate': 180,
+      }
+    })
+
+
 
   function generatePopup(popup, e){
     var props = e.features[0].properties;
