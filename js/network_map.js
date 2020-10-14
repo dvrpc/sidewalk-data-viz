@@ -111,7 +111,7 @@ map.on('load', function() {
       'line-color': 'rgba(0,0,0,0.7)'
     },
     'filter': ["all", ['==', 'dvrpc', 'Yes'],
-                      ['==', 'state', 'NJ']
+                      // ['==', 'state', 'NJ']
     ]
   })
 
@@ -214,10 +214,10 @@ map.on('load', function() {
       'type': 'symbol',
       'source': analysis_data,
       'source-layer': 'transit_stops',
-      'minzoom': 14,
+      'minzoom': 13,
       'layout': {
         'icon-image': 'bus-icon',
-        'icon-size': 0.02,
+        'icon-size': 0.018,
         'icon-rotate': 180,
       }
     })
