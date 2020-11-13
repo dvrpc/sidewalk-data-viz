@@ -36,11 +36,23 @@
 						This map shows the results of a 
 						<a href="https://github.com/dvrpc/network-routing" target="_blank">network routing analysis </a>
 						for all rail stations in the DVRPC region, 
-						comparing the areas for each station reachable on the sidewalk network alone and the full centerline network.
+						comparing the areas for each station reachable on the sidewalk network alone and the full OpenStreetMap (centerline) network.
 					</p>
 
 					<p>
-						Click on a rail station point to see the two walksheds for the station.
+						The station colors reflect the ratio between these two walksheds:
+						<ul>
+							<li>Green: walksheds are the same size</li>
+							<li>Yellow: OpenStreetMap walkshed is roughly twice the size of the sidewalk walkshed</li>
+							<li>Red: The sidewalk walkshed is tiny or does not exist at all</li>
+						</ul>
+					</p>
+					<p>
+						Clicking on a rail station point will show the two walksheds for the selected station:
+						<ul>
+							<li>The sidewalk-based walkshed is shown in green</li>
+							<li>The OpenStreetMap-based walkshed is shown in gray</li>
+						</ul>  
 					</p>
 				
 				<h3 class="modal-headers">Contact Information</h3>
