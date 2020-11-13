@@ -54,8 +54,7 @@ var sidewalks = {
 
 var analysis_data = {
   "type": "vector",
-  "url": "http://0.0.0.0:8080/data/ridescoreanalysis.json"
-  // "url": "https://tiles.dvrpc.org/data/ped-analysis.json"
+  "url": "https://tiles.dvrpc.org/data/ridescoreanalysis.json"
 }
 
 var tiles = {
