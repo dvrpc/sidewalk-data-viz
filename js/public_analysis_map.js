@@ -31,6 +31,34 @@ map.on('load', function () {
         url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json"
     });
 
+    // --- REGIONAL COUNTIES ---
+    map.addLayer({
+        'id': 'county-outline',
+        'type': 'line',
+        'source': 'regional_boundaries',
+        'source-layer': 'county',
+        'paint': {
+          'line-width': 4.5,
+          'line-color': 'rgba(0,255,255,0.7)'
+        },
+        'filter': ["all", ['==', 'dvrpc', 'Yes'],
+        ],
+        'layout': {'visibility': 'none'},
+    });
+
+    // --- MUNICIPALITIES ---
+    map.addLayer({
+        'id': 'municipalities',
+        'type': 'line',
+        'source': 'regional_boundaries',
+        'source-layer': 'municipalities',
+        'paint': {
+        'line-width': 5.5,
+        'line-color': 'rgba(0,0,0,0.3)'
+        },
+        'layout': {'visibility': 'none'},
+    });
+
     // --- OSM CENTERLINES ---
     //      --- add layer ---
     map.addLayer({
@@ -51,10 +79,7 @@ map.on('load', function () {
                     ]
                 }
         },
-        'layout': {
-            // make layer visible by default
-            'visibility': 'visible'
-        },
+        'layout': {'visibility': 'visible'},
     });
     //      --- adjust width by zoom level ---
     map.setPaintProperty('centerlines', 'line-width', [
@@ -152,14 +177,27 @@ function toggleAnalysis(btn_id) {
             btn_centerline.textContent = "Centerlines";
             btn_centerline.id = "centerlines";
             btn_centerline.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
-            layer_buttons.appendChild(btn_centerline);
+            layer_buttons.prepend(btn_centerline);
     
         }
+
+        // Turn on the centerline layer
+        map.setLayoutProperty('centerlines', 'visibility', 'visible');
+
 
     } else if (btn_id == "transit-analysis") {
         // set up the TRANSIT analysis view
         other_id = "gap-analysis" 
-    }
+
+        // Remove the centerline button if it exists
+        if (cl_btn_exists){
+            layer_buttons.removeChild(cl_btn_exists);
+        }
+        // Turn off the centerline layer
+        map.setLayoutProperty('centerlines', 'visibility', 'none');
+        
+
+    };
 
     document.getElementById(btn_id).classList.replace('btn-light', 'btn-primary')
     document.getElementById(other_id).classList.replace('btn-primary', 'btn-light')
