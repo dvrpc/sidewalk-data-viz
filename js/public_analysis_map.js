@@ -26,12 +26,14 @@ var tiles = {
 
 
 map.on('load', function () {
-    // Sidewalk Inventory source
+    // --- Sidewalk Inventory tile source ---
     map.addSource('sidewalk_inventory', {
         type: 'vector',
         url: "https://tiles.dvrpc.org/data/pedestrian-network.json"
     });
-    // Sidewalk LINES
+
+    // --- SIDEWALK LINES ---
+    // --- add layer ---
     map.addLayer({
         'id': 'sidewalks',
         'type': 'line',
@@ -51,6 +53,17 @@ map.on('load', function () {
             1
           ]      
     });
+    // --- adjust width by zoom level ---
+    map.setPaintProperty('sidewalks', 'line-width', [
+            'interpolate',
+            ['exponential', 0.5],
+            ['zoom'],
+            10, 0.1,
+            15, 1.2 
+        ]
+    );
+
+
     // --- CROSSWALKS ---
     // --- add layer  ---
     map.addLayer({
