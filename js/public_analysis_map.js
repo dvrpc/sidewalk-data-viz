@@ -19,7 +19,7 @@ map.on('load', function () {
     });
 
     // --- OSM Centerlines with 'sw_ratio' ---
-    map.addSource('osm_centerlines', {
+    map.addSource('ped_analysis', {
         type: 'vector',
         // url: "http://0.0.0.0:8080/data/tiles.json",
         url: "https://tiles.dvrpc.org/data/ped-analysis.json"
@@ -30,6 +30,15 @@ map.on('load', function () {
         type: "vector",
         url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json"
     });
+
+    // --- LOAD ICON FOR TRANSIT STOPS ---
+    map.loadImage(
+        '../images/transit-stop-icon.png',
+        function (error, image) {
+          if (error) throw error;
+          map.addImage('bus-icon', image);
+        }
+    );
 
     // --- REGIONAL COUNTIES ---
     map.addLayer({
@@ -64,7 +73,7 @@ map.on('load', function () {
     map.addLayer({
         'id': 'centerlines',
         'type': 'line',
-        'source': 'osm_centerlines',
+        'source': 'ped_analysis',
         'source-layer': 'nj_centerlines',
         'minzoom': 9,
         'paint': {
@@ -104,7 +113,7 @@ map.on('load', function () {
         },
         'paint': {
             'line-width': 1.2,
-            'line-color': 'rgba(255,255,255,0.7)',
+            'line-color': 'rgba(255,255,255,0.5)',
         },
         'source-layer': 'ped_lines',
         'filter': [
@@ -119,7 +128,7 @@ map.on('load', function () {
             ['exponential', 0.5],
             ['zoom'],
             10, 0.1,
-            15, 1.2 
+            15, 1 
         ]
     );
 
@@ -136,7 +145,7 @@ map.on('load', function () {
         'minzoom': 13,
         'paint': {
             'line-width': 4,
-            'line-color': 'rgba(255,255,255,0.7)',
+            'line-color': 'rgba(255,255,255,0.5)',
             // "line-dasharray": [1, 0.5]
         },
         'source-layer': 'ped_lines',
@@ -155,6 +164,56 @@ map.on('load', function () {
             18, 12 
         ]
     );
+
+    // TRANSIT WALK TIME by node
+    map.addLayer({
+        'id': 'sw_nodes',
+        'type': 'circle',
+        'source': 'ped_analysis',
+        'source-layer': 'nodes',
+        'minzoom': 9,
+        'paint': {
+            'circle-radius': 4,
+            'circle-color': {
+                "property": "walk_time",
+                "stops": [
+                [0, "rgba(8,104,172,0.7)"],
+                [5, "rgba(67,162,202,0.7)"],
+                [10, "rgba(123,204,196,0.7)"],
+                [20, "rgba(168,221,181,0.7)"],
+                [30, "rgba(204,235,197,0.7)"],
+                [60, "rgba(240,249,232,0.7)"],
+                [180, "rgba(215,25,28,0.7)"]
+                ]
+            }
+        },
+        'layout': {'visibility': 'none'},
+    })
+
+    // ADJUST SW NODE RADIUS BY ZOOM LEVEL
+    map.setPaintProperty('sw_nodes', 'circle-radius', [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 1.5,
+            18, 12
+        ]
+    );
+
+    // ADD TRANSIT STOPS
+    map.addLayer({
+      'id': 'transit_stops',
+      'type': 'symbol',
+      'source': 'ped_analysis',
+      'source-layer': 'transit_stops',
+      'minzoom': 13,
+      'layout': {
+        'icon-image': 'bus-icon',
+        'icon-size': 0.018,
+        'icon-rotate': 180,
+        'visibility': 'none',
+      },
+    })
 });
 
 
@@ -164,10 +223,12 @@ function toggleAnalysis(btn_id) {
 
     const layer_buttons = document.getElementById("layer-buttons");
     var cl_btn_exists = document.getElementById("centerlines");
+    var sw_btn_exists = document.getElementById("sw_nodes");
+    var transit_stop_btn_exists = document.getElementById("transit_stops");
 
     if (btn_id == "gap-analysis"){
         // set up the GAP analysis view
-        other_id = "transit-analysis";
+        var other_id = "transit-analysis";
 
 
         // Add the centerline button if it doesn't exist yet
@@ -178,16 +239,48 @@ function toggleAnalysis(btn_id) {
             btn_centerline.id = "centerlines";
             btn_centerline.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
             layer_buttons.prepend(btn_centerline);
-    
         }
+
+        if (sw_btn_exists){
+            layer_buttons.removeChild(sw_btn_exists);
+        }
+
+        if (transit_stop_btn_exists){
+            layer_buttons.removeChild(transit_stop_btn_exists);
+        }
+
+        // Turn off the sw_nodes and transit_stops layer
+        map.setLayoutProperty('sw_nodes', 'visibility', 'none');
+        map.setLayoutProperty('transit_stops', 'visibility', 'none');
+
 
         // Turn on the centerline layer
         map.setLayoutProperty('centerlines', 'visibility', 'visible');
 
+        // Update the legend image
+        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend_segment map.png")
 
     } else if (btn_id == "transit-analysis") {
         // set up the TRANSIT analysis view
-        other_id = "gap-analysis" 
+        var other_id = "gap-analysis";
+
+        if (! transit_stop_btn_exists){
+            var btn = document.createElement("button");
+            btn.setAttribute("onclick", "toggleLayer(this.id)");
+            btn.textContent = "Transit Stops";
+            btn.id = "transit_stops";
+            btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
+            layer_buttons.prepend(btn);
+        }
+
+        if (! sw_btn_exists){
+            var btn = document.createElement("button");
+            btn.setAttribute("onclick", "toggleLayer(this.id)");
+            btn.textContent = "Walk Time";
+            btn.id = "sw_nodes";
+            btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
+            layer_buttons.prepend(btn);
+        }
 
         // Remove the centerline button if it exists
         if (cl_btn_exists){
@@ -195,12 +288,18 @@ function toggleAnalysis(btn_id) {
         }
         // Turn off the centerline layer
         map.setLayoutProperty('centerlines', 'visibility', 'none');
-        
+
+        // Turn on the sw_nodes and transit_stops layer
+        map.setLayoutProperty('sw_nodes', 'visibility', 'visible');
+        map.setLayoutProperty('transit_stops', 'visibility', 'visible');
+
+        // Update the legend image
+        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend_network map.png")
 
     };
 
-    document.getElementById(btn_id).classList.replace('btn-light', 'btn-primary')
-    document.getElementById(other_id).classList.replace('btn-primary', 'btn-light')
+    document.getElementById(btn_id).classList.add('active')
+    document.getElementById(other_id).classList.remove('active')
 }
 
 
@@ -212,10 +311,10 @@ function toggleLayer(layer_id) {
     if (visibility === 'visible') {
         // turn layer off and set Class to light outline
         map.setLayoutProperty(layer_id, 'visibility', 'none');
-        document.getElementById(layer_id).classList.replace('btn-secondary', 'btn-outline-light')
+        document.getElementById(layer_id).classList.replace('btn-secondary', 'btn-outline-secondary')
     } else {
         // turn layer on and set class to filled 'secondary' color
         map.setLayoutProperty(layer_id, 'visibility', 'visible');
-        document.getElementById(layer_id).classList.replace('btn-outline-light', 'btn-secondary')
+        document.getElementById(layer_id).classList.replace('btn-outline-secondary', 'btn-secondary')
     }
 }
