@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Show and hide layers</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+
+
+        <link href="../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            body { margin: 0; padding: 0; }
+            /* #map { position: absolute; top: 0; bottom: 0; width: 100%; } */
+            nav{
+                height: 105px;
+                /* padding: 20px !important; */
+                background-color: #a5a5a5;
+                border-bottom: none;
+            }
+            .header-footer{
+                justify-content: left;
+            }
+            .pedportal-logo {
+                width: 240px;
+                margin-top: 10px;
+            }
+            .dvrpc-logo {
+                width: 120px;
+                height: auto;
+                margin-top: 8px;
+            }
+            nav .span {
+                height: 60px;
+                margin: 0 15px;
+                float: left;
+                width: 1px;
+                background: #FFF;
+            }
+            .navbar-brand {
+
+                padding-top: .3125rem;
+                padding-bottom: .3125rem;
+                font-size: 1.25rem;
+                line-height: inherit;
+                white-space: nowrap;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <style>
+            #menu {
+                background: #fff;
+                position: absolute;
+                z-index: 1;
+                top: 10px;
+                right: 10px;
+                border-radius: 3px;
+                width: 120px;
+                border: 1px solid rgba(0, 0, 0, 0.4);
+                font-family: 'Open Sans', sans-serif;
+            }
+                
+            #menu a {
+                font-size: 13px;
+                color: #404040;
+                display: block;
+                margin: 0;
+                padding: 0;
+                padding: 10px;
+                text-decoration: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+                text-align: center;
+            }
+                
+            #menu a:last-child {
+                border: none;
+            }
+                
+            #menu a:hover {
+                background-color: #f8f8f8;
+                color: #404040;
+            }
+                
+            #menu a.active {
+                background-color: #3887be;
+                color: #ffffff;
+            }
+                
+            #menu a.active:hover {
+                background: #3074a4;
+            }
+        </style>
+
+        <nav class="header-footer">		
+            <a href="//walk.dvrpc.org" target="_blank">
+                <img class="pedportal-logo" src="../images/pedportal-logo2.png"  alt="Ped Portal logo"/>
+            </a>
+            <span class="span"></span>
+            <a href="//www.dvrpc.org" target="_blank">
+                <img class="dvrpc-logo" src="../images/dvrpc-logo-full.png"  alt="DVRPC logo"/>
+            </a>
+            <span class="span"></span>
+
+            Select an Analysis: &nbsp;
+            <button id="gap-analysis" type="button" onclick="toggleAnalysis(this.id)" class="btn btn-primary">Sidewalk Gaps</button>
+            &nbsp;
+            <button id="transit-analysis" type="button" onclick="toggleAnalysis(this.id)" class="btn btn-light">Access to Transit</button>
+
+            <span class="span"></span>
+
+            Toggle layers: &nbsp;
+            <button type="button" class="btn btn-sm btn-secondary">Sidewalks</button>
+            &nbsp;
+            <button type="button" class="btn btn-sm btn-outline-light">Crosswalks</button>
+            
+
+            <!-- <div id="menu"></div> -->
+
+        </nav>
+
+        <div id="map"></div>
+
+        <script src="../js/public_analysis_map.js"></script>
+        <script>
+            // document.getElementById("gap-analysis").onclick = function() {toggleAnalysis()}
+
+            function toggleAnalysis(btn_id) {
+                if (btn_id == "gap-analysis"){ other_id = "transit-analysis" }
+                else { other_id = "gap-analysis" }
+
+                document.getElementById(btn_id).classList.replace('btn-light', 'btn-primary')
+                document.getElementById(other_id).classList.replace('btn-primary', 'btn-light')
+            }
+
+        </script>
+
+    </body>
+
+</html>
