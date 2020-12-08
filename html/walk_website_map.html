@@ -113,9 +113,9 @@
             <span class="span"></span>
 
             Toggle layers: &nbsp;
-            <button type="button" class="btn btn-sm btn-secondary">Sidewalks</button>
+            <button id="sidewalks" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary">Sidewalks</button>
             &nbsp;
-            <button type="button" class="btn btn-sm btn-outline-light">Crosswalks</button>
+            <button id="crosswalks" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary">Crosswalks</button>
             
 
             <!-- <div id="menu"></div> -->
@@ -136,6 +136,17 @@
                 document.getElementById(other_id).classList.replace('btn-primary', 'btn-light')
             }
 
+            function toggleLayer(layer_id) {
+                var visibility = map.getLayoutProperty(layer_id, 'visibility');
+                // toggle layer visibility by changing the layout object's visibility property
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(layer_id, 'visibility', 'none');
+                    document.getElementById(layer_id).classList.replace('btn-secondary', 'btn-outline-light')
+                } else {
+                    map.setLayoutProperty(layer_id, 'visibility', 'visible');
+                    document.getElementById(layer_id).classList.replace('btn-outline-light', 'btn-secondary')
+                }
+            }
         </script>
 
     </body>
