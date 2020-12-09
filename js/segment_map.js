@@ -175,24 +175,24 @@ map.on('load', function() {
     17, 2.5
     ]
   );
-  // // HOVER + POPUP
-  // function generatePopup(popup, e){
-  //   var props = e.features[0].properties;
-  //   msg = "<h3>"+ props.sw.toFixed(3) +"</h3><p>SW len ➗ CL len ➗ 2</p>"
-  //   popup.setLngLat(e.lngLat)
-  //   .setHTML(msg)
-  //   .addTo(map)
-  // }
+  // HOVER + POPUP
+  function generatePopup(popup, e){
+    var props = e.features[0].properties;
+    msg = "<h3>"+ props.sw.toFixed(3) +"</h3><p>SW len ➗ CL len ➗ 2</p>"
+    popup.setLngLat(e.lngLat)
+    .setHTML(msg)
+    .addTo(map)
+  }
 
-  // var popup = new mapboxgl.Popup({
-  //   closebutton: false,
-  //   closeOnClick: true
-  // })
-  // map.on('mousemove', 'centerlines', function(e){
-  //   generatePopup(popup, e)
-  // })
-  // map.on('mouseleave', 'centerlines', function(e){
-  //   popup.remove()
-  // })
+  var popup = new mapboxgl.Popup({
+    closebutton: false,
+    closeOnClick: true
+  })
+  map.on('mousemove', 'centerlines', function(e){
+    generatePopup(popup, e)
+  })
+  map.on('mouseleave', 'centerlines', function(e){
+    popup.remove()
+  })
 
 })
