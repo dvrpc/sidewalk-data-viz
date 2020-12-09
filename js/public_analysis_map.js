@@ -10,6 +10,15 @@ var map = new mapboxgl.Map({
 
 map.on('load', function () {
 
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+    
+    // disable map rotation using right click + drag
+    map.dragRotate.disable();
+    
+    // disable map rotation using touch rotation gesture
+    // map.touchZoomRotate.disableRotation();
+    
     // --- LOAD VECTOR TILE SOURCES ---
 
     // --- DVRPC Sidewalk Inventory ---
@@ -78,15 +87,21 @@ map.on('load', function () {
         'minzoom': 9,
         'paint': {
             'line-width': 4,
-            'line-color': {
-                "property": "sw",
-                "stops": [
-                    [0, "rgba(215,25,28,0.7)"],
-                    [0.00001, "rgba(253,174,97,0.7)"],
-                    [0.4, "rgba(255,255,191,0.7)"],
-                    [0.8, "rgba(26,150,65,0.3)"]
-                    ]
-                }
+            "line-color": [
+                "case",
+                ["<", ["get", "sw"], 0.45], "rgba(215,25,28,0.7)",
+                ["<=", ["get", "sw"], 0.82], "rgba(253,174,97,0.7)",
+                "rgba(26,150,65,0.3)"
+            ]
+            // 'line-color': {
+            //     "property": "sw",
+            //     "stops": [
+            //         [0, "rgba(215,25,28,0.7)"],
+            //         [0.00001, "rgba(253,174,97,0.7)"],
+            //         [0.4, "rgba(255,255,191,0.7)"],
+            //         [0.8, "rgba(26,150,65,0.3)"]
+            //         ]
+            //     }
         },
         'layout': {'visibility': 'visible'},
     });
@@ -214,6 +229,54 @@ map.on('load', function () {
         'visibility': 'none',
       },
     })
+
+    // Make a popoup for the sidewalk nodes
+    function generateNodePopup(popup, e){
+        var props = e.features[0].properties;
+        if (props.walk_time < 180) {
+            msg = "<h3><code>"+ props.walk_time.toFixed(1) +" minutes</code></h3><p>to the nearest transit stop by foot</p>"
+        } else {
+            msg = "<h1><code>🚷</code></h1><p>No transit stops are accessible solely via the sidewalk network</p>"
+        }
+        popup.setLngLat(e.lngLat)
+        .setHTML(msg)
+        .addTo(map)
+    }
+    
+    var popup = new mapboxgl.Popup({
+        closebutton: false,
+        closeOnClick: true
+    })
+    map.on('mousemove', 'sw_nodes', function(e){
+        generateNodePopup(popup, e)
+    })
+    map.on('mouseleave', 'sw_nodes', function(e){
+        popup.remove()
+    })
+
+    // Make a popup for the segment layer
+    function generateSegmentPopup(popup, e){
+        var props = e.features[0].properties;
+        var sw_val = props.sw * 100;
+        if (sw_val > 100) { sw_val = 100; };
+        if (sw_val == 100) {
+            var sw_txt = "100%";
+        } else if (sw_val == 0) {
+            var sw_txt = "No";
+        } else {
+            var sw_txt = String(sw_val.toFixed(1)) + "%"
+        };
+        msg = "<h3>"+ sw_txt +"</h3><p>sidewalk coverage</p>"
+        popup.setLngLat(e.lngLat)
+        .setHTML(msg)
+        .addTo(map)
+    }
+    map.on('mousemove', 'centerlines', function(e){
+        generateSegmentPopup(popup, e)
+    })
+    map.on('mouseleave', 'centerlines', function(e){
+        popup.remove()
+    })
 });
 
 
@@ -258,7 +321,7 @@ function toggleAnalysis(btn_id) {
         map.setLayoutProperty('centerlines', 'visibility', 'visible');
 
         // Update the legend image
-        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend_segment map.png")
+        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_segment map.png")
 
     } else if (btn_id == "transit-analysis") {
         // set up the TRANSIT analysis view
@@ -294,7 +357,7 @@ function toggleAnalysis(btn_id) {
         map.setLayoutProperty('transit_stops', 'visibility', 'visible');
 
         // Update the legend image
-        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend_network map.png")
+        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_network map.png")
 
     };
 
