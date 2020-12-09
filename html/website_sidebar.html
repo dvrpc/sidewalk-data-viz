@@ -52,6 +52,7 @@
             }
             .lyr-btn {
                 margin: 2px 0px 2px 2px;
+                font-size: 90%;
             }
             .data-toggles{
                 text-align: center;
@@ -104,7 +105,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="rail-walkshed" class="nav-link" href="#" onclick="toggleAnalysis(this.id)">
+                                <a id="rail-walksheds" class="nav-link" href="#" onclick="toggleAnalysis(this.id)">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-egg-fried" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"/>
                                         <circle cx="8" cy="8" r="3"/>
@@ -117,17 +118,34 @@
                         <hr>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>About:</span>
+                        </h6>
+                        <div class="pl-3 pr-3" style="color:black; font-size: 80%">
+                            <p id="gap-analysis-description">
+                                Every street centerline across the region was analyzed to find gaps in the sidewalk network.
+                                <br> <br>
+                                For each centerline, the amount of parallel sidewalk was identified and used
+                                to classify as follows:
+                            </p>
+                            <div style="text-align: center;">
+                                <img id="legend-image" src="../images/Webmap Legend v2_segment map.png" alt="">
+                            </div>
+    
+                        </div>
+
+                        <hr>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Toggle Analysis Layers:</span>
                         </h6>
                         <div id="layer-buttons" class="data-toggles">
-                            <button id="centerlines" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary lyr-btn">Centerlines</button>
+                            <button id="centerlines" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary lyr-btn">Street Centerlines</button>
                         </div>
 
                         <hr>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>Toggle Base Layers:</span>
                         </h6>
-                        <div id="other-layers" class="data-toggles">
+                        <div id="other-layers" class="data-toggles pb-4">
                             <button id="sidewalks" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary lyr-btn">Sidewalks</button>
                             <button id="crosswalks" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-secondary lyr-btn">Crosswalks</button>
                             <br>
@@ -135,10 +153,6 @@
                             <button id="municipalities" onclick="toggleLayer(this.id)" type="button" class="btn btn-sm btn-outline-secondary lyr-btn">Municipalities</button>
                         </div>
 
-                        <hr>
-                        <div style="text-align: center;">
-                            <img id="legend-image" src="../images/Webmap Legend v2_segment map.png" alt="">
-                        </div>
                     </div>
                 </nav>
 
