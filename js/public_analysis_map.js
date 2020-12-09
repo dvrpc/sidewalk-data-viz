@@ -8,6 +8,9 @@ var map = new mapboxgl.Map({
     zoom: 10
 });
 
+var sw_filter = ["all", ['==', 'schema', 'rs_sw']];
+var osm_filter = ["all", ['==', 'schema', 'rs_osm']];
+
 map.on('load', function () {
 
     // Add zoom and rotation controls to the map.
@@ -32,6 +35,12 @@ map.on('load', function () {
         type: 'vector',
         // url: "http://0.0.0.0:8080/data/tiles.json",
         url: "https://tiles.dvrpc.org/data/ped-analysis.json"
+    });
+
+    // --- RideScore analysis tiles ---
+    map.addSource('ridescore_analysis', {
+        type: "vector",
+        url: "https://tiles.dvrpc.org/data/ridescoreanalysis.json"
     });
 
     // --- DVRPC region boundaries ---
@@ -74,6 +83,35 @@ map.on('load', function () {
         'line-width': 5.5,
         'line-color': 'rgba(0,0,0,0.3)'
         },
+        'layout': {'visibility': 'none'},
+    });
+
+
+    // ADD OSM ISOCHRONES
+    map.addLayer({
+        'id': 'iso_osm',
+        'type': 'fill',
+        'source': 'ridescore_analysis',
+        'source-layer': 'isos',
+        'paint': {
+          'fill-color': 'rgba(255, 255, 255, 0.5)',
+          'fill-opacity': 0,
+        },
+        'filter': osm_filter,
+        'layout': {'visibility': 'none'},
+      });
+  
+    // ADD SW ISOCHRONES
+    map.addLayer({
+        'id': 'iso_sw',
+        'type': 'fill',
+        'source': 'ridescore_analysis',
+        'source-layer': 'isos',
+        'paint': {
+            'fill-color': 'rgba(0, 255, 0, 0.5)',
+            'fill-opacity': 0,
+        },
+        'filter': sw_filter,
         'layout': {'visibility': 'none'},
     });
 
@@ -142,8 +180,8 @@ map.on('load', function () {
             'interpolate',
             ['exponential', 0.5],
             ['zoom'],
-            10, 0.1,
-            15, 1 
+            10, 0.001,
+            17, 0.5 
         ]
     );
 
@@ -230,6 +268,81 @@ map.on('load', function () {
       },
     })
 
+
+    // ADD RAIL STATIONS
+    map.addLayer({
+        'id': 'stations',
+        'type': 'circle',
+        'source': 'ridescore_analysis',
+        'source-layer': 'stations',
+        'minzoom': 9,
+        'paint': {
+            'circle-radius': 12,
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': 1.5,
+            'circle-color': {
+                "property": "sidewalkscore",
+                "default": "black",
+                "stops": [
+                [0, "rgba(255, 0, 0, 1)"],
+                [0.7, "rgba(255, 255, 0, 1)"],
+                [1, "rgba(0, 153, 0, 1)"],
+                [2, "rgba(0, 153, 0, 1)"]
+                ],
+            }
+        },
+        'layout': {'visibility': 'none'},
+    })
+
+    // ADD SELECTED RAIL STATIONS
+    map.addLayer({
+        'id': 'station_selected',
+        'type': 'circle',
+        'source': 'ridescore_analysis',
+        'source-layer': 'stations',
+        'minzoom': 9,
+        'paint': {
+            'circle-radius': 20,
+            'circle-stroke-color': 'black',
+            'circle-stroke-width': 4,
+            'circle-color': {
+            "property": "sidewalkscore",
+            "default": "black",
+            "stops": [
+                [0, "rgba(255, 0, 0, 1)"],
+                [0.7, "rgba(255, 255, 0, 1)"],
+                [1, "rgba(0, 153, 0, 1)"],
+                [2, "rgba(0, 153, 0, 1)"]
+            ],
+            },
+            'circle-opacity': 0,
+            'circle-stroke-opacity': 0,
+        },
+        'layout': {'visibility': 'none'},
+    })
+
+    // ADJUST RAIL STATION RADIUS BY ZOOM LEVEL
+    map.setPaintProperty('stations', 'circle-radius', [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 5,
+            18, 20
+        ]
+    );
+
+    // ADJUST RAIL STATION RADIUS BY ZOOM LEVEL
+    map.setPaintProperty('station_selected', 'circle-radius', [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 9,
+            18, 30
+        ]
+    );      
+
+
+
     // Make a popoup for the sidewalk nodes
     function generateNodePopup(popup, e){
         var props = e.features[0].properties;
@@ -277,92 +390,171 @@ map.on('load', function () {
     map.on('mouseleave', 'centerlines', function(e){
         popup.remove()
     })
+
+    // Popup for Ridescore analysis
+    function generateRailWalkshedPopup(popup, e){
+        var props = e.features[0].properties;
+        if (props.sidewalkscore == null)
+          msg = "<h3>"+ props.operator + " : " + props.station + "</h3><p>No sidewalk score was calculated since the point did not snap to either the OSM or sidewalk networks</p>"
+        else if (props.sidewalkscore == 0)
+          msg = "<h3>"+ props.operator + " : " + props.station + "</h3><p>This point did not snap to the sidewalk network</p>"
+    
+        else
+          msg = "<h3>" + props.operator + " : " + props.station + "</h3><p>Sidewalk score: " + props.sidewalkscore.toFixed(3) + "</p>"
+        popup.setLngLat(e.lngLat)
+        .setHTML(msg)
+        .addTo(map)
+      }
+
+      map.on('mousemove', 'stations', function(e){
+        generateRailWalkshedPopup(popup, e);
+      })
+    
+      map.on('mouseleave', 'stations', function(e){
+        popup.remove();
+      })
+    
+      map.on('click', 'stations', function(e){
+        var props = e.features[0].properties;
+    
+        var id_filter = ['in', 'dvrpc_id', props.dvrpc_id.toString()];
+    
+        map.setFilter('iso_sw', ['all', id_filter, sw_filter]);
+        map.setPaintProperty('iso_sw', 'fill-opacity', 0.7); 
+    
+        map.setFilter('iso_osm', ['all', id_filter, osm_filter]);
+        map.setPaintProperty('iso_osm', 'fill-opacity', 0.7); 
+    
+        map.setFilter('station_selected', ['in', 'dvrpc_id', props.dvrpc_id]);
+        map.setPaintProperty('station_selected', 'circle-opacity', 1); 
+        map.setPaintProperty('station_selected', 'circle-stroke-opacity', 1); 
+
+        
+        // Zoom!
+        // map.setCenter(map.getCenter());
+        // map.setZoom(15);
+        map.flyTo({
+            center: e.lngLat,
+            zoom: 13,
+            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        });
+
+      });
+
 });
 
 
 // Switch between analyses
 // -----------------------
-function toggleAnalysis(btn_id) {
 
-    const layer_buttons = document.getElementById("layer-buttons");
-    var cl_btn_exists = document.getElementById("centerlines");
-    var sw_btn_exists = document.getElementById("sw_nodes");
-    var transit_stop_btn_exists = document.getElementById("transit_stops");
+var rail_walkshed_layers = ["station_selected", "stations", "iso_osm", "iso_sw"];
+var rail_names = ["Selected Rail Station", "Rail Stations", "1-mile Walkshed (Centerline)", "1-mile Walkshed (Sidewalk)"];
+
+var nearest_transit_stop_layers = ["transit_stops", "sw_nodes"];
+var transit_names = ["Transit Stops", "Walk Time"];
+
+var segment_layers = ["centerlines"];
+var segment_names = ["Street Centerlines"];
+
+
+function turnOffLayersAndRemoveButtons(list_of_ids){
+    var layer_buttons = document.getElementById("layer-buttons");
+
+    for (i = 0; i < list_of_ids.length; i++) {
+        layer_id = list_of_ids[i];
+
+        // Remove button if it exists
+        var btn = document.getElementById(layer_id);
+        if (btn){
+            layer_buttons.removeChild(btn);
+        };
+
+        // Set the vector layer visibility to none
+        map.setLayoutProperty(layer_id, 'visibility', 'none');
+    };    
+};
+
+function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names){
+
+    var layer_buttons = document.getElementById("layer-buttons");
+
+    for (i = 0; i < list_of_ids.length; i++) {
+        layer_id = list_of_ids[i];
+        nice_name = list_of_nice_names[i];
+
+        // Add button if it doesn't exist
+        var btn_exists = document.getElementById(layer_id);
+        if (! btn_exists){
+            var btn = document.createElement("button");
+            btn.textContent = nice_name;
+            btn.id = layer_id;
+            btn.setAttribute("onclick", "toggleLayer(this.id)");
+            btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
+            layer_buttons.prepend(btn);
+        };
+
+        // Set the vector layer visibility to none
+        map.setLayoutProperty(layer_id, 'visibility', 'none');
+
+        // Turn the mapbox layer on
+        map.setLayoutProperty(layer_id, 'visibility', 'visible');
+    };   
+}
+
+function toggleAnalysis(btn_id) {
 
     if (btn_id == "gap-analysis"){
         // set up the GAP analysis view
-        var other_id = "transit-analysis";
+        var other_ids = ["transit-analysis", "rail-walksheds"];
 
 
-        // Add the centerline button if it doesn't exist yet
-        if (! cl_btn_exists){
-            var btn_centerline = document.createElement("button");
-            btn_centerline.setAttribute("onclick", "toggleLayer(this.id)");
-            btn_centerline.textContent = "Centerlines";
-            btn_centerline.id = "centerlines";
-            btn_centerline.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
-            layer_buttons.prepend(btn_centerline);
-        }
+        // Remove buttons and layers from other analyses
+        turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+        turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
 
-        if (sw_btn_exists){
-            layer_buttons.removeChild(sw_btn_exists);
-        }
-
-        if (transit_stop_btn_exists){
-            layer_buttons.removeChild(transit_stop_btn_exists);
-        }
-
-        // Turn off the sw_nodes and transit_stops layer
-        map.setLayoutProperty('sw_nodes', 'visibility', 'none');
-        map.setLayoutProperty('transit_stops', 'visibility', 'none');
-
-
-        // Turn on the centerline layer
-        map.setLayoutProperty('centerlines', 'visibility', 'visible');
+        // Add button and turn this layer on
+        turnOnLayersAndAddButtons(segment_layers, segment_names);
 
         // Update the legend image
         document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_segment map.png")
 
     } else if (btn_id == "transit-analysis") {
+
         // set up the TRANSIT analysis view
-        var other_id = "gap-analysis";
 
-        if (! transit_stop_btn_exists){
-            var btn = document.createElement("button");
-            btn.setAttribute("onclick", "toggleLayer(this.id)");
-            btn.textContent = "Transit Stops";
-            btn.id = "transit_stops";
-            btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
-            layer_buttons.prepend(btn);
-        }
+        var other_ids = ["gap-analysis", "rail-walksheds"];
 
-        if (! sw_btn_exists){
-            var btn = document.createElement("button");
-            btn.setAttribute("onclick", "toggleLayer(this.id)");
-            btn.textContent = "Walk Time";
-            btn.id = "sw_nodes";
-            btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
-            layer_buttons.prepend(btn);
-        }
+        // Remove buttons and layers from other analyses
+        turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+        turnOffLayersAndRemoveButtons(segment_layers);
 
-        // Remove the centerline button if it exists
-        if (cl_btn_exists){
-            layer_buttons.removeChild(cl_btn_exists);
-        }
-        // Turn off the centerline layer
-        map.setLayoutProperty('centerlines', 'visibility', 'none');
+        // Add button and turn this layer on
+        turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
 
-        // Turn on the sw_nodes and transit_stops layer
-        map.setLayoutProperty('sw_nodes', 'visibility', 'visible');
-        map.setLayoutProperty('transit_stops', 'visibility', 'visible');
 
         // Update the legend image
         document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_network map.png")
 
+    } else if (btn_id == "rail-walksheds") {
+        var other_ids = ["transit-analysis", "gap-analysis"];
+
+        // Remove buttons and layers from other analyses
+        turnOffLayersAndRemoveButtons(segment_layers);
+        turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+
+        // Add button and turn this layer on
+        turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
+
+
     };
 
-    document.getElementById(btn_id).classList.add('active')
-    document.getElementById(other_id).classList.remove('active')
+    document.getElementById(btn_id).classList.add('active');
+
+    for (i = 0; i < other_ids.length; i++) {
+        other_id = other_ids[i];
+        document.getElementById(other_id).classList.remove('active');
+    };
+    
 }
 
 
