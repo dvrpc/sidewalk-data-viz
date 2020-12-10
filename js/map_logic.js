@@ -448,7 +448,7 @@ map.on('load', function () {
 // -----------------------
 
 var rail_walkshed_layers = ["station_selected", "stations", "iso_osm", "iso_sw"];
-var rail_names = ["Selected Rail Station", "Rail Stations", "1-mile Walkshed (Centerline)", "1-mile Walkshed (Sidewalk)"];
+var rail_names = ["Selected Rail Station", "Rail Stations", "Street Centerline Walkshed (1-mile)", "Sidewalk Walkshed (1-mile)"];
 
 var nearest_transit_stop_layers = ["transit_stops", "sw_nodes"];
 var transit_names = ["Transit Stops", "Walk Time"];
