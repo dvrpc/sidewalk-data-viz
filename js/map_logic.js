@@ -498,7 +498,8 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names){
 
         // Turn the mapbox layer on
         map.setLayoutProperty(layer_id, 'visibility', 'visible');
-    };   
+    };
+    
 }
 
 function toggleAnalysis(btn_id) {
@@ -516,7 +517,7 @@ function toggleAnalysis(btn_id) {
         turnOnLayersAndAddButtons(segment_layers, segment_names);
 
         // Update the legend image
-        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_segment map.png")
+        document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_segment map.png")
 
     } else if (btn_id == "transit-analysis") {
 
@@ -533,7 +534,7 @@ function toggleAnalysis(btn_id) {
 
 
         // Update the legend image
-        document.getElementById("legend-image").setAttribute("src", "../images/Webmap Legend v2_network map.png")
+        document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_network map.png")
 
     } else if (btn_id == "rail-walksheds") {
         var other_ids = ["transit-analysis", "gap-analysis"];
@@ -545,6 +546,8 @@ function toggleAnalysis(btn_id) {
         // Add button and turn this layer on
         turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
 
+        // Update the legend image
+        document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_rail map.png")
 
     };
 
@@ -553,8 +556,20 @@ function toggleAnalysis(btn_id) {
     for (i = 0; i < other_ids.length; i++) {
         other_id = other_ids[i];
         document.getElementById(other_id).classList.remove('active');
+
+
+        var txt_id = other_id + "-description";
+        var description = document.getElementById(txt_id);
+        if (description){
+            description.classList.add("hidden-text");
+        };
     };
+
+    // Turn the description text on
+    var description = document.getElementById(btn_id + "-description");
+    description.classList.remove("hidden-text");
     
+
 }
 
 

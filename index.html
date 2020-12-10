@@ -16,61 +16,18 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
         <!-- Custom styles for this template -->
-        <link href="../css/dashboard.css" rel="stylesheet">
+        <link href="css/sidebar.css" rel="stylesheet">
 
-        <style>
-            .pedportal-logo {
-                width: 200px;
-                margin: 10px;
-            }
-            .dvrpc-logo {
-                width: 90px;
-                height: auto;
-                margin: 10px;
-            }
-            .span {
-                height: 40px;
-                margin: 0 15px;
-                float: left;
-                width: 1px;
-                background: #FFF;
-            }
-            .navbar {
-                justify-content: normal;
-            }
-            nav {
-                color: white;
-            }
-            #map{
-                position: relative;
-                width: 100%;
-                height: calc(91vh - 6px);
-            }
-            .sidebar-txt{
-                color: black;
-                margin: 5%
-            }
-            .lyr-btn {
-                margin: 2px 0px 2px 2px;
-                font-size: 90%;
-            }
-            .data-toggles{
-                text-align: center;
-            }
-            #legend-image{
-                width: 95%;
-            }
-        </style>
     </head>
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a href="//walk.dvrpc.org" target="_blank">
-                <img class="pedportal-logo" src="../images/pedportal-logo2.png"  alt="Ped Portal logo"/>
+                <img class="pedportal-logo" src="images/pedportal-logo2.png"  alt="Ped Portal logo"/>
             </a>
             <span class="span"></span>
             <a href="//www.dvrpc.org" target="_blank">
-                <img class="dvrpc-logo" src="../images/dvrpc-logo-full.png"  alt="DVRPC logo"/>
+                <img class="dvrpc-logo" src="images/dvrpc-logo-full.png"  alt="DVRPC logo"/>
             </a>
         </nav>
 
@@ -78,7 +35,7 @@
             <div class="row">
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
-                        <h3 class="sidebar-txt">Sidewalk Gap Analysis Explorer</h3>
+                        <h2 class="sidebar-txt">Sidewalk Gap Analysis Explorer</h2>
                         <hr>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -121,14 +78,48 @@
                             <span>About:</span>
                         </h6>
                         <div class="pl-3 pr-3" style="color:black; font-size: 80%">
-                            <p id="gap-analysis-description">
-                                Every street centerline across the region was analyzed to find gaps in the sidewalk network.
-                                <br> <br>
-                                For each centerline, the amount of parallel sidewalk was identified and used
-                                to classify as follows:
-                            </p>
+                            <div id="gap-analysis-description">
+                                <p>
+                                    Every street centerline across the 9-county DVRPC region was analyzed to find gaps in the sidewalk network.
+                                    For each centerline: 
+                                    </p>
+                                <ul>
+                                    <li>
+                                        the length of parallel sidewalks was identified
+                                    </li>
+                                    <li>
+                                        the sidewalk length was divided by the centerline's length
+                                    </li>
+                                    <li>
+                                        the resulting ratio was classified into one of three groups:
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="transit-analysis-description" class="hidden-text">
+                                <p>
+                                    The walk time was calculated for the start
+                                    and end points of every sidewalk segment across the 
+                                    9-county DVRPC region to the five nearest public transit stops.
+                                </p>
+                                <p>
+                                    The time in minutes to the nearest stop is shown with each point's color. In some 
+                                    cases it is impossible to walk to any transit stops solely via the sidewalk network.
+                                    These locations are shown with a red point.
+                                    </p>
+                            </div>
+                            <div id="rail-walksheds-description" class="hidden-text">
+                                <p>
+                                    For every rail station across the 9-county DVRPC region a set of
+                                    one-mile "walksheds" was calculated, one using the sidewalk network and the 
+                                    other using the street centerline network. These two areas were compared 
+                                    as a ratio to highlight stations where sidewalk accessibility is limited or non-existent.
+                                </p>
+                                <p>
+                                    Clicking on a rail station will zoom in and show the two associated walksheds.
+                                </p>
+                            </div>
                             <div style="text-align: center;">
-                                <img id="legend-image" src="../images/Webmap Legend v2_segment map.png" alt="">
+                                <img id="legend-image" src="images/Webmap Legend v2_segment map.png" alt="">
                             </div>
     
                         </div>
@@ -166,7 +157,7 @@
         </div>
 
         <!-- Mapbox JavaScript -->
-        <script src="../js/public_analysis_map.js"></script>
+        <script src="js/map_logic.js"></script>
 
 
         <!-- Bootstrap core JavaScript
@@ -175,11 +166,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
 
     </body>
 </html>
