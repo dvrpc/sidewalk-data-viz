@@ -34,13 +34,13 @@ map.on('load', function () {
     map.addSource('ped_analysis', {
         type: 'vector',
         // url: "http://0.0.0.0:8080/data/tiles.json",
-        url: "https://tiles.dvrpc.org/data/ped-analysis.json"
+        url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis.json"
     });
 
     // --- RideScore analysis tiles ---
     map.addSource('ridescore_analysis', {
         type: "vector",
-        url: "https://tiles.dvrpc.org/data/ridescoreanalysis.json"
+        url: "https://tiles.dvrpc.org/data/ridescore-analysis.json"
     });
 
     // --- DVRPC region boundaries ---
@@ -92,7 +92,7 @@ map.on('load', function () {
         'id': 'iso_osm',
         'type': 'fill',
         'source': 'ridescore_analysis',
-        'source-layer': 'isos',
+        'source-layer': 'ridescore_isos',
         'paint': {
           'fill-color': 'rgba(255, 255, 255, 0.5)',
           'fill-opacity': 0,
@@ -106,7 +106,7 @@ map.on('load', function () {
         'id': 'iso_sw',
         'type': 'fill',
         'source': 'ridescore_analysis',
-        'source-layer': 'isos',
+        'source-layer': 'ridescore_isos',
         'paint': {
             'fill-color': 'rgba(0, 255, 0, 0.5)',
             'fill-opacity': 0,
@@ -121,14 +121,14 @@ map.on('load', function () {
         'id': 'centerlines',
         'type': 'line',
         'source': 'ped_analysis',
-        'source-layer': 'nj_centerlines',
+        'source-layer': 'osm_sw_coverage',
         'minzoom': 9,
         'paint': {
             'line-width': 4,
             "line-color": [
                 "case",
-                ["<", ["get", "sw"], 0.45], "rgba(215,25,28,0.7)",
-                ["<=", ["get", "sw"], 0.82], "rgba(253,174,97,0.7)",
+                ["<", ["get", "sw_ratio"], 0.45], "rgba(215,25,28,0.7)",
+                ["<=", ["get", "sw_ratio"], 0.82], "rgba(253,174,97,0.7)",
                 "rgba(26,150,65,0.3)"
             ]
             // 'line-color': {
@@ -223,7 +223,7 @@ map.on('load', function () {
         'id': 'sw_nodes',
         'type': 'circle',
         'source': 'ped_analysis',
-        'source-layer': 'nodes',
+        'source-layer': 'sw_nodes',
         'minzoom': 9,
         'paint': {
             'circle-radius': 4,
@@ -274,7 +274,7 @@ map.on('load', function () {
         'id': 'stations',
         'type': 'circle',
         'source': 'ridescore_analysis',
-        'source-layer': 'stations',
+        'source-layer': 'sidewalkscore',
         'minzoom': 9,
         'paint': {
             'circle-radius': 12,
@@ -299,7 +299,7 @@ map.on('load', function () {
         'id': 'station_selected',
         'type': 'circle',
         'source': 'ridescore_analysis',
-        'source-layer': 'stations',
+        'source-layer': 'sidewalkscore',
         'minzoom': 9,
         'paint': {
             'circle-radius': 20,
@@ -370,7 +370,7 @@ map.on('load', function () {
     // Make a popup for the segment layer
     function generateSegmentPopup(popup, e){
         var props = e.features[0].properties;
-        var sw_val = props.sw * 100;
+        var sw_val = props.sw_ratio * 100;
         if (sw_val > 100) { sw_val = 100; };
         if (sw_val == 100) {
             var sw_txt = "100%";
