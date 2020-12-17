@@ -33,8 +33,8 @@ map.on('load', function () {
     // --- OSM Centerlines with 'sw_ratio' ---
     map.addSource('ped_analysis', {
         type: 'vector',
-        // url: "http://0.0.0.0:8080/data/tiles.json",
         url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis.json"
+        // url: "http://0.0.0.0:8080/data/sidewalk_gaps_analysis.json"
     });
 
     // --- RideScore analysis tiles ---
@@ -341,7 +341,27 @@ map.on('load', function () {
         ]
     );      
 
-
+    // --- ISLANDS ---
+    //      --- add layer ---
+    map.addLayer({
+        'id': 'islands',
+        'type': 'line',
+        'source': 'ped_analysis',
+        'layout': {'visibility': 'none'},
+        'source-layer': 'islands',
+        'paint': {
+            'line-color': ["get", "rgba"],
+        }
+    });
+    //      --- adjust width by zoom level ---
+    map.setPaintProperty('islands', 'line-width', [
+            'interpolate',
+            ['exponential', 0.5],
+            ['zoom'],
+            10, 0.75,
+            17, 2
+        ]
+    );
 
     // Make a popoup for the sidewalk nodes
     function generateNodePopup(popup, e){
@@ -456,6 +476,9 @@ var transit_names = ["Transit Stops", "Walk Time"];
 var segment_layers = ["centerlines"];
 var segment_names = ["Street Centerlines"];
 
+var island_layers = ["islands"];
+var island_names = ["Islands of Connectivity"];
+
 
 function turnOffLayersAndRemoveButtons(list_of_ids){
     var layer_buttons = document.getElementById("layer-buttons");
@@ -506,12 +529,12 @@ function toggleAnalysis(btn_id) {
 
     if (btn_id == "gap-analysis"){
         // set up the GAP analysis view
-        var other_ids = ["transit-analysis", "rail-walksheds"];
-
+        var other_ids = ["transit-analysis", "rail-walksheds", "island-analysis"];
 
         // Remove buttons and layers from other analyses
         turnOffLayersAndRemoveButtons(rail_walkshed_layers);
         turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+        turnOffLayersAndRemoveButtons(island_layers);
 
         // Add button and turn this layer on
         turnOnLayersAndAddButtons(segment_layers, segment_names);
@@ -523,11 +546,12 @@ function toggleAnalysis(btn_id) {
 
         // set up the TRANSIT analysis view
 
-        var other_ids = ["gap-analysis", "rail-walksheds"];
+        var other_ids = ["gap-analysis", "rail-walksheds", "island-analysis"];
 
         // Remove buttons and layers from other analyses
         turnOffLayersAndRemoveButtons(rail_walkshed_layers);
         turnOffLayersAndRemoveButtons(segment_layers);
+        turnOffLayersAndRemoveButtons(island_layers);
 
         // Add button and turn this layer on
         turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
@@ -537,17 +561,32 @@ function toggleAnalysis(btn_id) {
         document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_network map.png")
 
     } else if (btn_id == "rail-walksheds") {
-        var other_ids = ["transit-analysis", "gap-analysis"];
+        var other_ids = ["transit-analysis", "gap-analysis", "island-analysis"];
 
         // Remove buttons and layers from other analyses
         turnOffLayersAndRemoveButtons(segment_layers);
         turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+        turnOffLayersAndRemoveButtons(island_layers);
 
         // Add button and turn this layer on
         turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
 
         // Update the legend image
         document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_rail map.png")
+
+    } else if (btn_id == "island-analysis"){
+        var other_ids = ["transit-analysis", "gap-analysis", "rail-walksheds"];
+
+        // Remove buttons and layers from other analyses
+        turnOffLayersAndRemoveButtons(segment_layers);
+        turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+        turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+
+        // Add button and turn this layer on
+        turnOnLayersAndAddButtons(island_layers, island_names);
+
+        // Update the legend image
+        document.getElementById("legend-image").setAttribute("src", "images/Webmap Legend v2_island map.png")
 
     };
 
