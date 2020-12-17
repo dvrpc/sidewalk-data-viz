@@ -61,7 +61,7 @@ In this example we're building a set named `ridescoreanalysis.mbtiles` using `st
 Once you've built a tileset you can serve them locally with Docker:
 
 ```
-docker run --rm -it -v $(pwd):/data -p 8080:80 maptiler/tileserver-gl
+docker run --rm -it -v "$(pwd):/data" -p 8080:80 maptiler/tileserver-gl
 ```
 
 With this process running in the background you can refer to them in JavaScript with:
