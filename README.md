@@ -6,17 +6,10 @@ leveraging data hosted on DVRPC's [vector tile server](https://tiles.dvrpc.org).
 
 ## Local development
 
-Run a local development server with ``Python``:
-
-```
-python -m http.server
-```
-
-Visit [http://0.0.0.0:8000/html/network_gaps.html](http://0.0.0.0:8000/html/network_gaps.html)
-or [http://0.0.0.0:8000/html/segment_gaps.html](http://0.0.0.0:8000/html/segment_gaps.html)
+Run a local development server with `python -m http.server`
 
 
-The example can be seen at [http://0.0.0.0:8000/example/](http://0.0.0.0:8000/example/)
+Visit [http://0.0.0.0:8000](http://0.0.0.0:8000)
 
 ## Tileset Creation
 
