@@ -3,6 +3,8 @@
 Interactive webmaps that visualize the outputs of the sidewalk gap analysis,
 leveraging data hosted on DVRPC's [vector tile server](https://tiles.dvrpc.org).
 
+A live demo of the map can be seen here: [https://dvrpc.github.io/sidewalk-data-viz/](https://dvrpc.github.io/sidewalk-data-viz/)
+
 ## Development
 
 Use `lite-server` to run a local develpoment server:
