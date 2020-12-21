@@ -1,0 +1,29 @@
+{
+  "name": "sidewalk-data-viz",
+  "version": "2.1.0",
+  "description": "Interactive webmap to explore the results of the Sidewalk Gap Analysis",
+  "main": "js/map_logic.js",
+  "scripts": {
+    "test": "echo test not implemented",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvrpc/sidewalk-data-viz.git"
+  },
+  "keywords": [
+    "GIS",
+    "sidewalk",
+    "data",
+    "analysis"
+  ],
+  "author": "Aaron Fraint, AICP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dvrpc/sidewalk-data-viz/issues"
+  },
+  "homepage": "https://github.com/dvrpc/sidewalk-data-viz#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
