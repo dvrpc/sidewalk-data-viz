@@ -12,6 +12,178 @@ var map = new mapboxgl.Map({
 var sw_filter = ["all", ["==", "schema", "rs_sw"]];
 var osm_filter = ["all", ["==", "schema", "rs_osm"]];
 
+// Switch between analyses
+// -----------------------
+
+var rail_walkshed_layers = [
+  "station_selected",
+  "stations",
+  "iso_osm",
+  "iso_sw",
+];
+var rail_names = [
+  "Selected Rail Station",
+  "Rail Stations",
+  "Street Centerline Walkshed (1-mile)",
+  "Sidewalk Walkshed (1-mile)",
+];
+
+var nearest_transit_stop_layers = ["transit_stops", "sw_nodes"];
+var transit_names = ["Transit Stops", "Walk Time"];
+
+var segment_layers = ["centerlines"];
+var segment_names = ["Street Centerlines"];
+
+var island_layers = ["islands"];
+var island_names = ["Islands of Connectivity"];
+
+function turnOffLayersAndRemoveButtons(list_of_ids) {
+  var layer_buttons = document.getElementById("layer-buttons");
+
+  for (i = 0; i < list_of_ids.length; i++) {
+    layer_id = list_of_ids[i];
+
+    // Remove button if it exists
+    var btn = document.getElementById(layer_id);
+    if (btn) {
+      layer_buttons.removeChild(btn);
+    }
+
+    // Set the vector layer visibility to none
+    map.setLayoutProperty(layer_id, "visibility", "none");
+  }
+}
+
+function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names) {
+  var layer_buttons = document.getElementById("layer-buttons");
+
+  for (i = 0; i < list_of_ids.length; i++) {
+    layer_id = list_of_ids[i];
+    nice_name = list_of_nice_names[i];
+
+    // Add button if it doesn't exist
+    var btn_exists = document.getElementById(layer_id);
+    if (!btn_exists) {
+      var btn = document.createElement("button");
+      btn.textContent = nice_name;
+      btn.id = layer_id;
+      btn.setAttribute("onclick", "toggleLayer(this.id)");
+      btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
+      layer_buttons.prepend(btn);
+    }
+
+    // Set the vector layer visibility to none
+    map.setLayoutProperty(layer_id, "visibility", "none");
+
+    // Turn the mapbox layer on
+    map.setLayoutProperty(layer_id, "visibility", "visible");
+  }
+}
+
+function toggleAnalysis(btn_id) {
+  if (btn_id == "gap-analysis") {
+    // set up the GAP analysis view
+    var other_ids = ["transit-analysis", "rail-walksheds", "island-analysis"];
+
+    // Remove buttons and layers from other analyses
+    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+    turnOffLayersAndRemoveButtons(island_layers);
+
+    // Add button and turn this layer on
+    turnOnLayersAndAddButtons(segment_layers, segment_names);
+
+    // Update the legend image
+    document
+      .getElementById("legend-image")
+      .setAttribute("src", "img/Webmap-Legend-v2-segment-map.png");
+  } else if (btn_id == "transit-analysis") {
+    // set up the TRANSIT analysis view
+
+    var other_ids = ["gap-analysis", "rail-walksheds", "island-analysis"];
+
+    // Remove buttons and layers from other analyses
+    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+    turnOffLayersAndRemoveButtons(segment_layers);
+    turnOffLayersAndRemoveButtons(island_layers);
+
+    // Add button and turn this layer on
+    turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
+
+    // Update the legend image
+    document
+      .getElementById("legend-image")
+      .setAttribute("src", "img/Webmap-Legend-v2-network-map.png");
+  } else if (btn_id == "rail-walksheds") {
+    var other_ids = ["transit-analysis", "gap-analysis", "island-analysis"];
+
+    // Remove buttons and layers from other analyses
+    turnOffLayersAndRemoveButtons(segment_layers);
+    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+    turnOffLayersAndRemoveButtons(island_layers);
+
+    // Add button and turn this layer on
+    turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
+
+    // Update the legend image
+    document
+      .getElementById("legend-image")
+      .setAttribute("src", "img/Webmap-Legend-v2-rail-map.png");
+  } else if (btn_id == "island-analysis") {
+    var other_ids = ["transit-analysis", "gap-analysis", "rail-walksheds"];
+
+    // Remove buttons and layers from other analyses
+    turnOffLayersAndRemoveButtons(segment_layers);
+    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
+    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
+
+    // Add button and turn this layer on
+    turnOnLayersAndAddButtons(island_layers, island_names);
+
+    // Update the legend image
+    document
+      .getElementById("legend-image")
+      .setAttribute("src", "img/Webmap-Legend-v2-island-map.png");
+  }
+
+  document.getElementById(btn_id).classList.add("active");
+
+  for (i = 0; i < other_ids.length; i++) {
+    other_id = other_ids[i];
+    document.getElementById(other_id).classList.remove("active");
+
+    var txt_id = other_id + "-description";
+    var description = document.getElementById(txt_id);
+    if (description) {
+      description.classList.add("hidden-text");
+    }
+  }
+
+  // Turn the description text on
+  var description = document.getElementById(btn_id + "-description");
+  description.classList.remove("hidden-text");
+}
+
+// Turn a single layer on or off
+// -----------------------------
+function toggleLayer(layer_id) {
+  var visibility = map.getLayoutProperty(layer_id, "visibility");
+
+  if (visibility === "visible") {
+    // turn layer off and set Class to light outline
+    map.setLayoutProperty(layer_id, "visibility", "none");
+    document
+      .getElementById(layer_id)
+      .classList.replace("btn-secondary", "btn-outline-secondary");
+  } else {
+    // turn layer on and set class to filled 'secondary' color
+    map.setLayoutProperty(layer_id, "visibility", "visible");
+    document
+      .getElementById(layer_id)
+      .classList.replace("btn-outline-secondary", "btn-secondary");
+  }
+}
+
 map.on("load", function () {
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl());
@@ -470,176 +642,23 @@ map.on("load", function () {
       essential: true, // this animation is considered essential with respect to prefers-reduced-motion
     });
   });
+  var all_analyses = [
+    "gap-analysis",
+    "transit-analysis",
+    "rail-walksheds",
+    "island-analysis",
+  ];
+
+  document.getElementById("gap-analysis").onclick = function () {
+    toggleAnalysis("gap-analysis");
+  };
+  document.getElementById("transit-analysis").onclick = function () {
+    toggleAnalysis("transit-analysis");
+  };
+  document.getElementById("rail-walksheds").onclick = function () {
+    toggleAnalysis("rail-walksheds");
+  };
+  document.getElementById("island-analysis").onclick = function () {
+    toggleAnalysis("island-analysis");
+  };
 });
-
-// Switch between analyses
-// -----------------------
-
-var rail_walkshed_layers = [
-  "station_selected",
-  "stations",
-  "iso_osm",
-  "iso_sw",
-];
-var rail_names = [
-  "Selected Rail Station",
-  "Rail Stations",
-  "Street Centerline Walkshed (1-mile)",
-  "Sidewalk Walkshed (1-mile)",
-];
-
-var nearest_transit_stop_layers = ["transit_stops", "sw_nodes"];
-var transit_names = ["Transit Stops", "Walk Time"];
-
-var segment_layers = ["centerlines"];
-var segment_names = ["Street Centerlines"];
-
-var island_layers = ["islands"];
-var island_names = ["Islands of Connectivity"];
-
-function turnOffLayersAndRemoveButtons(list_of_ids) {
-  var layer_buttons = document.getElementById("layer-buttons");
-
-  for (i = 0; i < list_of_ids.length; i++) {
-    layer_id = list_of_ids[i];
-
-    // Remove button if it exists
-    var btn = document.getElementById(layer_id);
-    if (btn) {
-      layer_buttons.removeChild(btn);
-    }
-
-    // Set the vector layer visibility to none
-    map.setLayoutProperty(layer_id, "visibility", "none");
-  }
-}
-
-function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names) {
-  var layer_buttons = document.getElementById("layer-buttons");
-
-  for (i = 0; i < list_of_ids.length; i++) {
-    layer_id = list_of_ids[i];
-    nice_name = list_of_nice_names[i];
-
-    // Add button if it doesn't exist
-    var btn_exists = document.getElementById(layer_id);
-    if (!btn_exists) {
-      var btn = document.createElement("button");
-      btn.textContent = nice_name;
-      btn.id = layer_id;
-      btn.setAttribute("onclick", "toggleLayer(this.id)");
-      btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
-      layer_buttons.prepend(btn);
-    }
-
-    // Set the vector layer visibility to none
-    map.setLayoutProperty(layer_id, "visibility", "none");
-
-    // Turn the mapbox layer on
-    map.setLayoutProperty(layer_id, "visibility", "visible");
-  }
-}
-
-function toggleAnalysis(btn_id) {
-  if (btn_id == "gap-analysis") {
-    // set up the GAP analysis view
-    var other_ids = ["transit-analysis", "rail-walksheds", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
-    turnOffLayersAndRemoveButtons(island_layers);
-
-    // Add button and turn this layer on
-    turnOnLayersAndAddButtons(segment_layers, segment_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-segment-map.png");
-  } else if (btn_id == "transit-analysis") {
-    // set up the TRANSIT analysis view
-
-    var other_ids = ["gap-analysis", "rail-walksheds", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
-    turnOffLayersAndRemoveButtons(segment_layers);
-    turnOffLayersAndRemoveButtons(island_layers);
-
-    // Add button and turn this layer on
-    turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-network-map.png");
-  } else if (btn_id == "rail-walksheds") {
-    var other_ids = ["transit-analysis", "gap-analysis", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
-    turnOffLayersAndRemoveButtons(segment_layers);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
-    turnOffLayersAndRemoveButtons(island_layers);
-
-    // Add button and turn this layer on
-    turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-rail-map.png");
-  } else if (btn_id == "island-analysis") {
-    var other_ids = ["transit-analysis", "gap-analysis", "rail-walksheds"];
-
-    // Remove buttons and layers from other analyses
-    turnOffLayersAndRemoveButtons(segment_layers);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers);
-
-    // Add button and turn this layer on
-    turnOnLayersAndAddButtons(island_layers, island_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-island-map.png");
-  }
-
-  document.getElementById(btn_id).classList.add("active");
-
-  for (i = 0; i < other_ids.length; i++) {
-    other_id = other_ids[i];
-    document.getElementById(other_id).classList.remove("active");
-
-    var txt_id = other_id + "-description";
-    var description = document.getElementById(txt_id);
-    if (description) {
-      description.classList.add("hidden-text");
-    }
-  }
-
-  // Turn the description text on
-  var description = document.getElementById(btn_id + "-description");
-  description.classList.remove("hidden-text");
-}
-
-// Turn a single layer on or off
-// -----------------------------
-function toggleLayer(layer_id) {
-  var visibility = map.getLayoutProperty(layer_id, "visibility");
-
-  if (visibility === "visible") {
-    // turn layer off and set Class to light outline
-    map.setLayoutProperty(layer_id, "visibility", "none");
-    document
-      .getElementById(layer_id)
-      .classList.replace("btn-secondary", "btn-outline-secondary");
-  } else {
-    // turn layer on and set class to filled 'secondary' color
-    map.setLayoutProperty(layer_id, "visibility", "visible");
-    document
-      .getElementById(layer_id)
-      .classList.replace("btn-outline-secondary", "btn-secondary");
-  }
-}
