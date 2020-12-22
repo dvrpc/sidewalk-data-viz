@@ -649,16 +649,24 @@ map.on("load", function () {
     "island-analysis",
   ];
 
-  document.getElementById("gap-analysis").onclick = function () {
-    toggleAnalysis("gap-analysis");
-  };
-  document.getElementById("transit-analysis").onclick = function () {
-    toggleAnalysis("transit-analysis");
-  };
-  document.getElementById("rail-walksheds").onclick = function () {
-    toggleAnalysis("rail-walksheds");
-  };
-  document.getElementById("island-analysis").onclick = function () {
-    toggleAnalysis("island-analysis");
-  };
+  for (var i = 0; all_analyses.length; i++) {
+    var this_analyis = all_analyses[i];
+    console.log(this_analyis);
+    document.getElementById(this_analyis).onclick = function () {
+      toggleAnalysis(this_analyis);
+    };
+  }
+
+  // document.getElementById("gap-analysis").onclick = function () {
+  //   toggleAnalysis("gap-analysis");
+  // };
+  // document.getElementById("transit-analysis").onclick = function () {
+  //   toggleAnalysis("transit-analysis");
+  // };
+  // document.getElementById("rail-walksheds").onclick = function () {
+  //   toggleAnalysis("rail-walksheds");
+  // };
+  // document.getElementById("island-analysis").onclick = function () {
+  //   toggleAnalysis("island-analysis");
+  // };
 });
