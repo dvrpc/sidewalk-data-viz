@@ -649,7 +649,7 @@ map.on("load", function () {
     "island-analysis",
   ];
 
-  for (var i = 0; all_analyses.length; i++) {
+  for (var i = 0; i < all_analyses.length; i++) {
     var this_analyis = all_analyses[i];
     console.log(this_analyis);
     document.getElementById(this_analyis).onclick = function () {
