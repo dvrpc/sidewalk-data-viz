@@ -4,11 +4,11 @@ body {
   font-size: .875rem;
 }
 
-.feather {
+/* .feather {
   width: 16px;
   height: 16px;
   vertical-align: text-bottom;
-}
+} */
 
 /* Sidebar */
 
@@ -41,6 +41,7 @@ body {
 .sidebar .nav-link {
   font-weight: 500;
   color: #333;
+  cursor: pointer;
 }
 
 .sidebar .nav-link .feather {
