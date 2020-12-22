@@ -642,6 +642,8 @@ map.on("load", function () {
       essential: true, // this animation is considered essential with respect to prefers-reduced-motion
     });
   });
+
+  // Wire the onclick event to the analysis toggles
   var all_analyses = [
     "gap-analysis",
     "transit-analysis",
@@ -649,24 +651,10 @@ map.on("load", function () {
     "island-analysis",
   ];
 
-  // for (var i = 0; i < all_analyses.length; i++) {
-  //   // console.log(all_analyses[i]);
-  //   var entry = document.getElementById(all_analyses[i]);
-  //   entry.onclick = function () {
-  //     toggleAnalysis(all_analyses[i]);
-  //   };
-  // }
-
-  document.getElementById("gap-analysis").onclick = function () {
-    toggleAnalysis("gap-analysis");
-  };
-  document.getElementById("transit-analysis").onclick = function () {
-    toggleAnalysis("transit-analysis");
-  };
-  document.getElementById("rail-walksheds").onclick = function () {
-    toggleAnalysis("rail-walksheds");
-  };
-  document.getElementById("island-analysis").onclick = function () {
-    toggleAnalysis("island-analysis");
-  };
+  for (let i = 0; i < all_analyses.length; i++) {
+    let this_analysis = all_analyses[i];
+    document.getElementById(this_analysis).onclick = function () {
+      toggleAnalysis(this_analysis);
+    };
+  }
 });
