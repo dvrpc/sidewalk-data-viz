@@ -658,3 +658,14 @@ map.on("load", function () {
     };
   }
 });
+
+// Add a geocoder to the map. Limit the bbox to the DVRPC region.
+var geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl,
+  marker: true,
+  placeholder: "Type here to zoom to...",
+  bbox: [-76.210785, 39.478606, -73.885803, 40.601963],
+});
+
+map.addControl(geocoder);
