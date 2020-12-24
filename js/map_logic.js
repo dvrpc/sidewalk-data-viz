@@ -191,6 +191,16 @@ map.on("load", function () {
   // disable map rotation using right click + drag
   map.dragRotate.disable();
 
+  var layers = map.getStyle().layers;
+  // Find the index of the first symbol layer in the map style
+  var firstSymbolId;
+  for (var i = 0; i < layers.length; i++) {
+    if (layers[i].type === "symbol") {
+      firstSymbolId = layers[i].id;
+      break;
+    }
+  }
+
   // disable map rotation using touch rotation gesture
   // map.touchZoomRotate.disableRotation();
 
@@ -228,90 +238,105 @@ map.on("load", function () {
   });
 
   // --- REGIONAL COUNTIES ---
-  map.addLayer({
-    id: "county-outline",
-    type: "line",
-    source: "regional_boundaries",
-    "source-layer": "county",
-    paint: {
-      "line-width": 4.5,
-      "line-color": "rgba(0,255,255,0.7)",
+  map.addLayer(
+    {
+      id: "county-outline",
+      type: "line",
+      source: "regional_boundaries",
+      "source-layer": "county",
+      paint: {
+        "line-width": 4.5,
+        "line-color": "rgba(0,255,255,0.7)",
+      },
+      filter: ["all", ["==", "dvrpc", "Yes"]],
+      layout: { visibility: "none" },
     },
-    filter: ["all", ["==", "dvrpc", "Yes"]],
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // --- MUNICIPALITIES ---
-  map.addLayer({
-    id: "municipalities",
-    type: "line",
-    source: "regional_boundaries",
-    "source-layer": "municipalities",
-    paint: {
-      "line-width": 5.5,
-      "line-color": "rgba(0,0,0,0.3)",
+  map.addLayer(
+    {
+      id: "municipalities",
+      type: "line",
+      source: "regional_boundaries",
+      "source-layer": "municipalities",
+      paint: {
+        "line-width": 5.5,
+        "line-color": "rgba(0,0,0,0.3)",
+      },
+      layout: { visibility: "none" },
     },
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // ADD OSM ISOCHRONES
-  map.addLayer({
-    id: "iso_osm",
-    type: "fill",
-    source: "ridescore_analysis",
-    "source-layer": "ridescore_isos",
-    paint: {
-      "fill-color": "rgba(255, 255, 255, 0.5)",
-      "fill-opacity": 0,
+  map.addLayer(
+    {
+      id: "iso_osm",
+      type: "fill",
+      source: "ridescore_analysis",
+      "source-layer": "ridescore_isos",
+      paint: {
+        "fill-color": "rgba(255, 255, 255, 0.5)",
+        "fill-opacity": 0,
+      },
+      filter: osm_filter,
+      layout: { visibility: "none" },
     },
-    filter: osm_filter,
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // ADD SW ISOCHRONES
-  map.addLayer({
-    id: "iso_sw",
-    type: "fill",
-    source: "ridescore_analysis",
-    "source-layer": "ridescore_isos",
-    paint: {
-      "fill-color": "rgba(0, 255, 0, 0.5)",
-      "fill-opacity": 0,
+  map.addLayer(
+    {
+      id: "iso_sw",
+      type: "fill",
+      source: "ridescore_analysis",
+      "source-layer": "ridescore_isos",
+      paint: {
+        "fill-color": "rgba(0, 255, 0, 0.5)",
+        "fill-opacity": 0,
+      },
+      filter: sw_filter,
+      layout: { visibility: "none" },
     },
-    filter: sw_filter,
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // --- OSM CENTERLINES ---
   //      --- add layer ---
-  map.addLayer({
-    id: "centerlines",
-    type: "line",
-    source: "ped_analysis",
-    "source-layer": "osm_sw_coverage",
-    minzoom: 9,
-    paint: {
-      "line-width": 4,
-      "line-color": [
-        "case",
-        ["<", ["get", "sw_ratio"], 0.45],
-        "rgba(215,25,28,0.7)",
-        ["<=", ["get", "sw_ratio"], 0.82],
-        "rgba(253,174,97,0.7)",
-        "rgba(26,150,65,0.3)",
-      ],
-      // 'line-color': {
-      //     "property": "sw",
-      //     "stops": [
-      //         [0, "rgba(215,25,28,0.7)"],
-      //         [0.00001, "rgba(253,174,97,0.7)"],
-      //         [0.4, "rgba(255,255,191,0.7)"],
-      //         [0.8, "rgba(26,150,65,0.3)"]
-      //         ]
-      //     }
+  map.addLayer(
+    {
+      id: "centerlines",
+      type: "line",
+      source: "ped_analysis",
+      "source-layer": "osm_sw_coverage",
+      minzoom: 9,
+      paint: {
+        "line-width": 4,
+        "line-color": [
+          "case",
+          ["<", ["get", "sw_ratio"], 0.45],
+          "rgba(215,25,28,0.7)",
+          ["<=", ["get", "sw_ratio"], 0.82],
+          "rgba(253,174,97,0.7)",
+          "rgba(26,150,65,0.3)",
+        ],
+        // 'line-color': {
+        //     "property": "sw",
+        //     "stops": [
+        //         [0, "rgba(215,25,28,0.7)"],
+        //         [0.00001, "rgba(253,174,97,0.7)"],
+        //         [0.4, "rgba(255,255,191,0.7)"],
+        //         [0.8, "rgba(26,150,65,0.3)"]
+        //         ]
+        //     }
+      },
+      layout: { visibility: "visible" },
     },
-    layout: { visibility: "visible" },
-  });
+    firstSymbolId
+  );
   //      --- adjust width by zoom level ---
   map.setPaintProperty("centerlines", "line-width", [
     "interpolate",
@@ -327,21 +352,24 @@ map.on("load", function () {
 
   // --- SIDEWALK LINES ---
   //      --- add layer ---
-  map.addLayer({
-    id: "sidewalks",
-    type: "line",
-    source: "sidewalk_inventory",
-    layout: {
-      // make layer visible by default
-      visibility: "visible",
+  map.addLayer(
+    {
+      id: "sidewalks",
+      type: "line",
+      source: "sidewalk_inventory",
+      layout: {
+        // make layer visible by default
+        visibility: "visible",
+      },
+      paint: {
+        "line-width": 1.2,
+        "line-color": "rgba(255,255,255,0.5)",
+      },
+      "source-layer": "ped_lines",
+      filter: ["==", "line_type", 1],
     },
-    paint: {
-      "line-width": 1.2,
-      "line-color": "rgba(255,255,255,0.5)",
-    },
-    "source-layer": "ped_lines",
-    filter: ["==", "line_type", 1],
-  });
+    firstSymbolId
+  );
   //      --- adjust width by zoom level ---
   map.setPaintProperty("sidewalks", "line-width", [
     "interpolate",
@@ -355,23 +383,26 @@ map.on("load", function () {
 
   // --- CROSSWALKS ---
   //      --- add layer  ---
-  map.addLayer({
-    id: "crosswalks",
-    type: "line",
-    source: "sidewalk_inventory",
-    layout: {
-      // make layer visible by default
-      visibility: "visible",
+  map.addLayer(
+    {
+      id: "crosswalks",
+      type: "line",
+      source: "sidewalk_inventory",
+      layout: {
+        // make layer visible by default
+        visibility: "visible",
+      },
+      minzoom: 13,
+      paint: {
+        "line-width": 4,
+        "line-color": "rgba(255,255,255,0.5)",
+        // "line-dasharray": [1, 0.5]
+      },
+      "source-layer": "ped_lines",
+      filter: ["==", "line_type", 2],
     },
-    minzoom: 13,
-    paint: {
-      "line-width": 4,
-      "line-color": "rgba(255,255,255,0.5)",
-      // "line-dasharray": [1, 0.5]
-    },
-    "source-layer": "ped_lines",
-    filter: ["==", "line_type", 2],
-  });
+    firstSymbolId
+  );
   //      --- adjust width by zoom level ---
   map.setPaintProperty("crosswalks", "line-width", [
     "interpolate",
@@ -384,29 +415,32 @@ map.on("load", function () {
   ]);
 
   // TRANSIT WALK TIME by node
-  map.addLayer({
-    id: "sw_nodes",
-    type: "circle",
-    source: "ped_analysis",
-    "source-layer": "sw_nodes",
-    minzoom: 9,
-    paint: {
-      "circle-radius": 4,
-      "circle-color": {
-        property: "walk_time",
-        stops: [
-          [0, "rgba(8,104,172,0.7)"],
-          [5, "rgba(67,162,202,0.7)"],
-          [10, "rgba(123,204,196,0.7)"],
-          [20, "rgba(168,221,181,0.7)"],
-          [30, "rgba(204,235,197,0.7)"],
-          [60, "rgba(240,249,232,0.7)"],
-          [180, "rgba(215,25,28,0.7)"],
-        ],
+  map.addLayer(
+    {
+      id: "sw_nodes",
+      type: "circle",
+      source: "ped_analysis",
+      "source-layer": "sw_nodes",
+      minzoom: 9,
+      paint: {
+        "circle-radius": 4,
+        "circle-color": {
+          property: "walk_time",
+          stops: [
+            [0, "rgba(8,104,172,0.7)"],
+            [5, "rgba(67,162,202,0.7)"],
+            [10, "rgba(123,204,196,0.7)"],
+            [20, "rgba(168,221,181,0.7)"],
+            [30, "rgba(204,235,197,0.7)"],
+            [60, "rgba(240,249,232,0.7)"],
+            [180, "rgba(215,25,28,0.7)"],
+          ],
+        },
       },
+      layout: { visibility: "none" },
     },
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // ADJUST SW NODE RADIUS BY ZOOM LEVEL
   map.setPaintProperty("sw_nodes", "circle-radius", [
@@ -420,71 +454,80 @@ map.on("load", function () {
   ]);
 
   // ADD TRANSIT STOPS
-  map.addLayer({
-    id: "transit_stops",
-    type: "symbol",
-    source: "ped_analysis",
-    "source-layer": "transit_stops",
-    minzoom: 13,
-    layout: {
-      "icon-image": "bus-icon",
-      "icon-size": 0.018,
-      "icon-rotate": 180,
-      visibility: "none",
+  map.addLayer(
+    {
+      id: "transit_stops",
+      type: "symbol",
+      source: "ped_analysis",
+      "source-layer": "transit_stops",
+      minzoom: 13,
+      layout: {
+        "icon-image": "bus-icon",
+        "icon-size": 0.018,
+        "icon-rotate": 180,
+        visibility: "none",
+      },
     },
-  });
+    firstSymbolId
+  );
 
   // ADD RAIL STATIONS
-  map.addLayer({
-    id: "stations",
-    type: "circle",
-    source: "ridescore_analysis",
-    "source-layer": "sidewalkscore",
-    minzoom: 9,
-    paint: {
-      "circle-radius": 12,
-      "circle-stroke-color": "white",
-      "circle-stroke-width": 1.5,
-      "circle-color": {
-        property: "sidewalkscore",
-        default: "black",
-        stops: [
-          [0, "rgba(255, 0, 0, 1)"],
-          [0.7, "rgba(255, 255, 0, 1)"],
-          [1, "rgba(0, 153, 0, 1)"],
-          [2, "rgba(0, 153, 0, 1)"],
-        ],
+  map.addLayer(
+    {
+      id: "stations",
+      type: "circle",
+      source: "ridescore_analysis",
+      "source-layer": "sidewalkscore",
+      minzoom: 9,
+      paint: {
+        "circle-radius": 12,
+        "circle-stroke-color": "white",
+        "circle-stroke-width": 1.5,
+        "circle-color": {
+          property: "sidewalkscore",
+          default: "black",
+          stops: [
+            [0, "rgba(255, 0, 0, 1)"],
+            [0.7, "rgba(255, 255, 0, 1)"],
+            [1, "rgba(0, 153, 0, 1)"],
+            [2, "rgba(0, 153, 0, 1)"],
+          ],
+        },
       },
+      layout: { visibility: "none" },
     },
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // ADD SELECTED RAIL STATIONS
-  map.addLayer({
-    id: "station_selected",
-    type: "circle",
-    source: "ridescore_analysis",
-    "source-layer": "sidewalkscore",
-    minzoom: 9,
-    paint: {
-      "circle-radius": 20,
-      "circle-stroke-color": "black",
-      "circle-stroke-width": 4,
-      "circle-color": {
-        property: "sidewalkscore",
-        default: "black",
-        stops: [
-          [0, "rgba(255, 0, 0, 1)"],
-          [0.7, "rgba(255, 255, 0, 1)"],
-          [1, "rgba(0, 153, 0, 1)"],
-          [2, "rgba(0, 153, 0, 1)"],
-        ],
+  map.addLayer(
+    {
+      id: "station_selected",
+      type: "circle",
+      source: "ridescore_analysis",
+      "source-layer": "sidewalkscore",
+      minzoom: 9,
+      paint: {
+        "circle-radius": 20,
+        "circle-stroke-color": "black",
+        "circle-stroke-width": 4,
+        "circle-color": {
+          property: "sidewalkscore",
+          default: "black",
+          stops: [
+            [0, "rgba(255, 0, 0, 1)"],
+            [0.7, "rgba(255, 255, 0, 1)"],
+            [1, "rgba(0, 153, 0, 1)"],
+            [2, "rgba(0, 153, 0, 1)"],
+          ],
+        },
+        "circle-opacity": 0,
+        "circle-stroke-opacity": 0,
       },
-      "circle-opacity": 0,
-      "circle-stroke-opacity": 0,
+      layout: { visibility: "none" },
     },
-    layout: { visibility: "none" },
-  });
+    firstSymbolId
+  );
 
   // ADJUST RAIL STATION RADIUS BY ZOOM LEVEL
   map.setPaintProperty("stations", "circle-radius", [
@@ -510,16 +553,19 @@ map.on("load", function () {
 
   // --- ISLANDS ---
   //      --- add layer ---
-  map.addLayer({
-    id: "islands",
-    type: "line",
-    source: "ped_analysis",
-    layout: { visibility: "none" },
-    "source-layer": "islands",
-    paint: {
-      "line-color": ["get", "rgba"],
+  map.addLayer(
+    {
+      id: "islands",
+      type: "line",
+      source: "ped_analysis",
+      layout: { visibility: "none" },
+      "source-layer": "islands",
+      paint: {
+        "line-color": ["get", "rgba"],
+      },
     },
-  });
+    firstSymbolId
+  );
   //      --- adjust width by zoom level ---
   map.setPaintProperty("islands", "line-width", [
     "interpolate",
