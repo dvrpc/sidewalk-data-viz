@@ -1,7 +1,7 @@
 /* DIRECTLY FROM THE BOOTSTRAP EXAMPLE */
 
 body {
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 /* .feather {
@@ -19,14 +19,14 @@ body {
   left: 0;
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-sticky {
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -59,7 +59,7 @@ body {
 }
 
 .sidebar-heading {
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
 }
 
@@ -72,76 +72,153 @@ body {
 /* Navbar */
 
 .navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   font-size: 1rem;
-  background-color: rgba(0, 0, 0, .25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
 }
 
 .navbar .form-control {
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   border-width: 0;
   border-radius: 0;
 }
 
 .form-control-dark {
   color: #fff;
-  background-color: rgba(255, 255, 255, .1);
-  border-color: rgba(255, 255, 255, .1);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .form-control-dark:focus {
   border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 /* ADDED BY AARON */
 .pedportal-logo {
-    width: 200px;
-    margin: 10px;
+  width: 200px;
+  margin: 10px;
 }
 .dvrpc-logo {
-    width: 90px;
-    height: auto;
-    margin: 10px;
+  width: 90px;
+  height: auto;
+  margin: 10px;
 }
 .span {
-    height: 40px;
-    margin: 0 15px;
-    float: left;
-    width: 1px;
-    background: #FFF;
+  height: 40px;
+  margin: 0 15px;
+  float: left;
+  width: 1px;
+  background: #fff;
 }
 .navbar {
-    justify-content: normal;
+  justify-content: normal;
 }
 nav {
-    color: white;
+  color: white;
 }
-#map{
-    position: relative;
-    width: 100%;
-    height: calc(91vh - 6px);
+#map {
+  position: relative;
+  width: 100%;
+  height: calc(91vh - 6px);
 }
-.sidebar-txt{
-    color: black;
-    margin: 5%
+.sidebar-txt {
+  color: black;
+  margin: 5%;
 }
 .lyr-btn {
-    margin: 2px 0px 2px 2px;
-    font-size: 80%;
+  margin: 2px 0px 2px 2px;
+  font-size: 80%;
 }
-.data-toggles{
-    text-align: center;
+.data-toggles {
+  text-align: center;
 }
-#legend-image{
+/* #legend-image{
     width: 95%;
-}
+} */
 
-.hidden-text{
+.hidden-text {
   display: none;
 }
-.visible-text{
+.visible-text {
   display: inline;
+}
+
+.legend {
+  background-color: #fff;
+  border-radius: 3px;
+  top: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  padding: 10px;
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  width: 300px;
+}
+
+.legend h4 {
+  margin: 0 0 10px;
+}
+
+.legend div span {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-right: 5px;
+  width: 10px;
+}
+
+#modal-toggle:hover,
+#close-modal:hover {
+  cursor: pointer;
+}
+#modal-toggle {
+  /* position: absolute;
+  z-index: 2; */
+  /* margin: 0;
+  top: 10px;
+  left: 10px;
+  padding: 12px 10px;
+  width: 100px;
+  background: #f7f7f7;
+  font-size: 1.2em; */
+  /* color: #0074ad; */
+  /* text-align: center;
+  border-radius: 4px; */
+}
+#modal {
+  position: fixed;
+  display: none;
+  left: 0%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.3);
+}
+#modal-content {
+  position: relative;
+  margin: 0 auto;
+  background: #f7f7f7;
+  width: 50%;
+  margin-top: 15%;
+  padding: 3%;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 1);
+}
+address {
+  text-align: center;
+}
+#close-modal {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  font-size: 1.5em;
+}
+.modal-headers {
+  text-align: center;
 }
