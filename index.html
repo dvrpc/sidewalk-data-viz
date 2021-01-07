@@ -267,14 +267,74 @@
               <div id="modal-content">
                 <span id="close-modal">&times;</span>
 
-                <h3 class="modal-headers">Sidewalk Gap Analysis Explorer</h3>
-                <p>...</p>
+                <h3 class="modal-headers mb-4">
+                  Sidewalk Gap Analysis Explorer
+                </h3>
+                <p>
+                  This map shows the results of four distinct analyses that
+                  leverage the regional sidewalk inventory:
+                </p>
+                <ul>
+                  <li>
+                    Identification of the sidewalk coverage of each street
+                    segment
+                  </li>
+                  <li>
+                    Network-wide calculation of the walking time to the nearest
+                    transit stop along the sidewalk network
+                  </li>
+                  <li>
+                    Comparison of one-mile sidewalk- and centerline-based
+                    "walksheds" for all rail stations across the region
+                  </li>
+                  <li>
+                    Classification of sidewalk segments into groups of connected
+                    "islands"
+                  </li>
+                </ul>
+                <p>
+                  This analysis was conducted with a tech stack that included
+                  <a href="https://www.python.org/" target="_blank">Python</a>
+                  and
+                  <a href="https://postgis.net/" target="_blank"
+                    >PostgreSQL/PostGIS</a
+                  >. The walk time to transit and rail station walkshed analyses
+                  utilized
+                  <a href="https://github.com/UDST/pandana" target="_blank"
+                    >pandana</a
+                  >, a Python library from
+                  <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
+                  <a href="https://urbansim.com/udst" target="_blank"
+                    >Urban Data Science Toolkit</a
+                  >.
+                </p>
 
-                <h3 class="modal-headers">Contact</h3>
+                <p>
+                  The code behind
+                  <a
+                    href="https://github.com/dvrpc/network-routing"
+                    target="_blank"
+                    >the data analysis</a
+                  >
+                  and
+                  <a
+                    href="https://github.com/dvrpc/sidewalk-data-viz"
+                    target="_blank"
+                    >this map interface</a
+                  >
+                  can be found on
+                  <a href="https://github.com/dvrpc" target="_blank">
+                    DVRPC's GitHub page.
+                  </a>
+                </p>
+
+                <h3 class="modal-headers m-4">Contact</h3>
                 <address>
-                  Aaron Fraint, AICP, Senior Transportation Planner
+                  Aaron Fraint, AICP
                   <br />
-                  Office of Mobility Analysis and Design
+                  Senior Transportation Planner
+                  <br />
+                  DVRPC Office of Mobility Analysis and Design
                   <br />
                   <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
                 </address>
