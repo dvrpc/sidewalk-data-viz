@@ -80,70 +80,53 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names) {
   }
 }
 
+var all_analysis_names = [
+  "gap-analysis",
+  "transit-analysis",
+  "rail-walksheds",
+  "island-analysis",
+];
+
+function updateLegendImage(image_path) {
+  // Update the legend in the sidebar
+  document.getElementById("legend-image").setAttribute("src", image_path);
+}
+
 function toggleAnalysis(btn_id) {
+  // Get a list of the NON-SELECTED analyses
+  var other_ids = all_analysis_names.filter(function (item) {
+    return item !== btn_id;
+  });
+
   if (btn_id == "gap-analysis") {
-    // set up the GAP analysis view
-    var other_ids = ["transit-analysis", "rail-walksheds", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
     turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
     turnOffLayersAndRemoveButtons(island_layers);
 
-    // Add button and turn this layer on
     turnOnLayersAndAddButtons(segment_layers, segment_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-segment-map.png");
+    updateLegendImage("img/Webmap-Legend-v2-segment-map.png");
   } else if (btn_id == "transit-analysis") {
-    // set up the TRANSIT analysis view
-
-    var other_ids = ["gap-analysis", "rail-walksheds", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(island_layers);
 
-    // Add button and turn this layer on
     turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-network-map.png");
+    updateLegendImage("img/Webmap-Legend-v2-network-map.png");
   } else if (btn_id == "rail-walksheds") {
-    var other_ids = ["transit-analysis", "gap-analysis", "island-analysis"];
-
-    // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
     turnOffLayersAndRemoveButtons(island_layers);
 
-    // Add button and turn this layer on
     turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-rail-map.png");
+    updateLegendImage("img/Webmap-Legend-v2-rail-map.png");
   } else if (btn_id == "island-analysis") {
-    var other_ids = ["transit-analysis", "gap-analysis", "rail-walksheds"];
-
     // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
 
-    // Add button and turn this layer on
     turnOnLayersAndAddButtons(island_layers, island_names);
-
-    // Update the legend image
-    document
-      .getElementById("legend-image")
-      .setAttribute("src", "img/Webmap-Legend-v2-island-map.png");
+    updateLegendImage("img/Webmap-Legend-v2-island-map.png");
   }
 
   document.getElementById(btn_id).classList.add("active");
@@ -715,3 +698,38 @@ var geocoder = new MapboxGeocoder({
 });
 
 map.addControl(geocoder);
+
+var modalToggle = document.querySelector("#modal-toggle");
+var close = document.querySelector("#close-modal");
+// hide and add aria-hidden attribute
+var ariaHideModal = function () {
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+};
+// reveal and remove aria-hidden attribute
+var ariaShowModal = function () {
+  modal.style.display = "block";
+  modal.setAttribute("aria-hidden", "false");
+};
+// open the modal by clicking the div
+modalToggle.onclick = function () {
+  modal.style.display = "none" ? ariaShowModal() : ariaHideModal();
+};
+// closing the modal options: by clicking the 'x' or anywhere outside of it or pressing the escape key
+close.onclick = function () {
+  ariaHideModal();
+};
+window.onclick = function (event) {
+  if (event.target == modal) {
+    ariaHideModal();
+  }
+};
+document.onkeydown = function (event) {
+  // make sure the modal is open first
+  if (modal.style.display === "block") {
+    // keyCode for th escape key
+    if (event.keyCode === 27) {
+      ariaHideModal();
+    }
+  }
+};
