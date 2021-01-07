@@ -359,9 +359,9 @@ map.on("load", function () {
     ["exponential", 0.5],
     ["zoom"],
     10,
-    0.001,
+    0.1,
     17,
-    0.5,
+    0.8,
   ]);
 
   // --- CROSSWALKS ---
