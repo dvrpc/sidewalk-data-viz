@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,25 +8,16 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico" />
+    <link rel="icon" href="/img/favicon.ico" />
 
-    <title>DVRPC Sidewalk Gap Analysis Explorer</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-    <!-- MapboxGL -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-
-    <!-- Bootstrap core CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-      crossorigin="anonymous"
-    />
-
+        <!-- MapboxGL -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
     <!-- Mapbox geocoder -->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js"></script>
     <link
@@ -35,346 +27,166 @@
     />
 
     <!-- Custom styles for this template -->
-    <link href="css/sidebar.css" rel="stylesheet" />
+    <link href="css/flexmap.css" rel="stylesheet" />
   </head>
-
   <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a href="//walk.dvrpc.org" target="_blank">
-        <img
-          class="pedportal-logo"
-          src="img/pedportal-logo2.png"
-          alt="Ped Portal logo"
-        />
-      </a>
-      <span class="span"></span>
+    <nav>
       <a href="//www.dvrpc.org" target="_blank">
         <img
-          class="dvrpc-logo"
+          class="dvrpc-logo logo"
           src="img/dvrpc-logo-full.png"
           alt="DVRPC logo"
         />
       </a>
+      <span class="vl"></span>
+      <a href="//walk.dvrpc.org" target="_blank">
+        <img
+          class="pedportal-logo logo"
+          src="img/pedportal-logo2.png"
+          alt="Ped Portal logo"
+        />
+      </a>
+    
+
+      <a href="https://walk.dvrpc.org/help/explore" target="_blank" data-toggle="tooltip" aria-label="Get helpful information about this tool" data-original-title="" title="">
+        <i class="fas fa-info-circle fa-2x" aria-hidden="" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Get helpful information about this tool"></i>
+    </a>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <h2 class="sidebar-txt">Sidewalk Gap Analysis Explorer</h2>
-            <p class="mr-3" style="text-align: right">
-              <a
-                id="modal-toggle"
-                class="btn-sm btn-secondary"
-                href="#"
-                role="button"
-                >About this map</a
+    <div class="flex-container">
+      <div id="sidebar">
+        <h1>Sidewalk Gap Analysis Exporer Boxes</h1>
+        <ul class="analysis-selector">
+            <li id="gap-analysis" class="nav-link active">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-signpost-2"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
               >
-            </p>
+                <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"
+                />
+                <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z" />
+              </svg>
+              Street Segment Gaps
+            </li>
+            <li id="transit-analysis" class="nav-link">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-geo"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+                />
+              </svg>
+              Walk Time to Transit
+            </li>
+            <li id="rail-walksheds" class="nav-link">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-egg-fried"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
+                />
+                <circle cx="8" cy="8" r="3" />
+              </svg>
+              Rail Station Walksheds
+            </li>
+            <li id="island-analysis" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                class="bi bi-grid-3x3-gap"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4 2H2v2h2V2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2H7v2h2V2zm5 0h-2v2h2V2zM4 7H2v2h2V7zm5 0H7v2h2V7zm5 0h-2v2h2V7zM4 12H2v2h2v-2zm5 0H7v2h2v-2zm5 0h-2v2h2v-2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z"
+                />
+              </svg>
+              Islands of Connectivity
+            </li>
+          </ul>          
+          
 
-            <hr />
-
-            <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+          <hr>
+          <div id="layer-buttons" class="data-toggles">
+            <button
+              id="centerlines"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="btn btn-sm btn-secondary lyr-btn"
             >
-              <span>Select an Analysis:</span>
-            </h6>
-
-            <ul class="nav flex-column">
-              <li id="gap-analysis" class="nav-link active">
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  class="bi bi-signpost-2"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z" />
-                  <path
-                    fill-rule="evenodd"
-                    d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"
-                  />
-                  <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z" />
-                </svg>
-                Street Segment Gaps
-              </li>
-              <li id="transit-analysis" class="nav-link">
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  class="bi bi-geo"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
-                  />
-                </svg>
-                Walk Time to Transit
-              </li>
-              <li id="rail-walksheds" class="nav-link">
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  class="bi bi-egg-fried"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
-                  />
-                  <circle cx="8" cy="8" r="3" />
-                </svg>
-                Rail Station Walksheds
-              </li>
-              <li id="island-analysis" class="nav-link">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  class="bi bi-grid-3x3-gap"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4 2H2v2h2V2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2H7v2h2V2zm5 0h-2v2h2V2zM4 7H2v2h2V7zm5 0H7v2h2V7zm5 0h-2v2h2V7zM4 12H2v2h2v-2zm5 0H7v2h2v-2zm5 0h-2v2h2v-2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z"
-                  />
-                </svg>
-                Islands of Connectivity
-              </li>
-            </ul>
-
-            <hr />
-
-            <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-            >
-              <span>About this analysis:</span>
-            </h6>
-            <div class="pl-3 pr-3" style="color: black; font-size: 80%">
-              <div id="gap-analysis-description">
-                <p>
-                  Every street centerline across the 9-county DVRPC region was
-                  analyzed to find gaps in the sidewalk network. For each
-                  centerline, the length of parallel sidewalks was identified
-                  and divided by the centerline's length. The resulting ratio
-                  was classified into one of the three groups shown in the
-                  legend.
-                </p>
-              </div>
-              <div id="transit-analysis-description" class="hidden-text">
-                <p>
-                  The walking time to the three nearest public transit stops was
-                  calculated for the start and end points of every sidewalk
-                  segment across the 9-county DVRPC region.
-                </p>
-                <p>
-                  The number of minutes to the nearest stop is shown with each
-                  point's color. Red points highlight sidewalk segments where
-                  it's impossible to walk to any transit stops solely via the
-                  sidewalk network.
-                </p>
-              </div>
-              <div id="rail-walksheds-description" class="hidden-text">
-                <p>
-                  For every rail station across the 9-county DVRPC region a set
-                  of one-mile "walksheds" was calculated, one using the sidewalk
-                  network and the other using the street centerline network.
-                  These two areas were compared as a ratio to highlight stations
-                  where sidewalk accessibility is limited or non-existent.
-                </p>
-                <p>
-                  Clicking on a rail station will zoom in and show the two
-                  associated walksheds.
-                </p>
-              </div>
-              <div id="island-analysis-description" class="hidden-text">
-                <p>
-                  Every sidewalk segment was grouped with all adjacent sidewalk
-                  segments. The result of this analysis is a set of "islands",
-                  with each one one representing a single portion of the network
-                  where a person could walk from one end to another entirely on
-                  sidewalks (and crosswalks).
-                </p>
-                <p>
-                  Each island is represented with a distinct color. Hovering
-                  your mouse over an island will identify the size of the island
-                  in linear miles.
-                </p>
-              </div>
-            </div>
-
-            <hr />
-            <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 text-muted"
-            >
-              <span>Toggle Layers:</span>
-            </h6>
-            <div id="layer-buttons" class="data-toggles">
-              <button
-                id="centerlines"
-                onclick="toggleLayer(this.id)"
-                type="button"
-                class="btn btn-sm btn-secondary lyr-btn"
-              >
-                Street Centerlines
-              </button>
-            </div>
-            <div id="other-layers" class="data-toggles">
-              <button
-                id="sidewalks"
-                onclick="toggleLayer(this.id)"
-                type="button"
-                class="btn btn-sm btn-secondary lyr-btn"
-              >
-                Sidewalks
-              </button>
-              <button
-                id="crosswalks"
-                onclick="toggleLayer(this.id)"
-                type="button"
-                class="btn btn-sm btn-secondary lyr-btn"
-              >
-                Crosswalks
-              </button>
-              <br />
-              <button
-                id="county-outline"
-                onclick="toggleLayer(this.id)"
-                type="button"
-                class="btn btn-sm btn-outline-secondary lyr-btn"
-              >
-                Counties
-              </button>
-              <button
-                id="municipalities"
-                onclick="toggleLayer(this.id)"
-                type="button"
-                class="btn btn-sm btn-outline-secondary lyr-btn"
-              >
-                Municipalities
-              </button>
-            </div>
-            <hr />
-
-            <div id="modal" role="dialog">
-              <div id="modal-content">
-                <span id="close-modal">&times;</span>
-
-                <h3 class="modal-headers mb-4">
-                  Sidewalk Gap Analysis Explorer
-                </h3>
-                <p>
-                  This map shows the results of four distinct analyses that
-                  leverage the regional sidewalk inventory:
-                </p>
-                <ul>
-                  <li>
-                    Identification of the sidewalk coverage of each street
-                    segment
-                  </li>
-                  <li>
-                    Network-wide calculation of the walking time to the nearest
-                    transit stop along the sidewalk network
-                  </li>
-                  <li>
-                    Comparison of one-mile sidewalk- and centerline-based
-                    "walksheds" for all rail stations across the region
-                  </li>
-                  <li>
-                    Classification of sidewalk segments into groups of connected
-                    "islands"
-                  </li>
-                </ul>
-                <p>
-                  This analysis was conducted with a tech stack that included
-                  <a href="https://www.python.org/" target="_blank">Python</a>
-                  and
-                  <a href="https://postgis.net/" target="_blank"
-                    >PostgreSQL/PostGIS</a
-                  >. The walk time to transit and rail station walkshed analyses
-                  utilized
-                  <a href="https://github.com/UDST/pandana" target="_blank"
-                    >pandana</a
-                  >, a Python library from
-                  <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
-                  <a href="https://urbansim.com/udst" target="_blank"
-                    >Urban Data Science Toolkit</a
-                  >.
-                </p>
-
-                <p>
-                  The code behind
-                  <a
-                    href="https://github.com/dvrpc/network-routing"
-                    target="_blank"
-                    >the data analysis</a
-                  >
-                  and
-                  <a
-                    href="https://github.com/dvrpc/sidewalk-data-viz"
-                    target="_blank"
-                    >this map interface</a
-                  >
-                  can be found on
-                  <a href="https://github.com/dvrpc" target="_blank">
-                    DVRPC's GitHub page.
-                  </a>
-                </p>
-
-                <h3 class="modal-headers m-4">Contact</h3>
-                <address>
-                  Aaron Fraint, AICP
-                  <br />
-                  Senior Transportation Planner
-                  <br />
-                  DVRPC Office of Mobility Analysis and Design
-                  <br />
-                  <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
-                </address>
-              </div>
-            </div>
+              Street Centerlines
+            </button>
           </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4"
-          >
-            <div id="map">
-              <img
-                id="legend-image"
-                class="legend"
-                src="img/Webmap-Legend-v2-segment-map.png"
-                alt=""
-              />
-            </div>
+          <div id="other-layers" class="data-toggles">
+            <button
+              id="sidewalks"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="btn btn-sm btn-secondary lyr-btn"
+            >
+              Sidewalks
+            </button>
+            <button
+              id="crosswalks"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="btn btn-sm btn-secondary lyr-btn"
+            >
+              Crosswalks
+            </button>
+            <br />
+            <button
+              id="county-outline"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="btn btn-sm btn-outline-secondary lyr-btn"
+            >
+              Counties
+            </button>
+            <button
+              id="municipalities"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="btn btn-sm btn-outline-secondary lyr-btn"
+            >
+              Municipalities
+            </button>
           </div>
-        </main>
+      </div>
+      <div id="map">
+        <img
+        id="legend-image"
+        class="legend"
+        src="img/Webmap-Legend-v2-segment-map.png"
+        alt=""
+      />
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
-        ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-      crossorigin="anonymous"
-    ></script>
-
     <!-- Mapbox JavaScript -->
     <script src="js/map_logic.js"></script>
-  </body>
+
+
+</body>
 </html>
