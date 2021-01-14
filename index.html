@@ -197,7 +197,7 @@
           </p>
         </div>
         <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
-        <div id="layer-buttons" class="data-toggles">
+        <span id="layer-buttons" class="data-toggles">
           <button
             id="centerlines"
             onclick="toggleLayer(this.id)"
@@ -206,8 +206,8 @@
           >
             Street Centerlines
           </button>
-        </div>
-        <div id="other-layers" class="data-toggles">
+        </span>
+        <span id="other-layers" class="data-toggles">
           <button
             id="sidewalks"
             onclick="toggleLayer(this.id)"
@@ -224,7 +224,6 @@
           >
             Crosswalks
           </button>
-          <br />
           <button
             id="county-outline"
             onclick="toggleLayer(this.id)"
@@ -241,7 +240,7 @@
           >
             Municipalities
           </button>
-        </div>
+        </span>
       </div>
       <div id="map">
         <img
