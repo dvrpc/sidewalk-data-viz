@@ -145,6 +145,58 @@
         </ul>
 
         <hr />
+
+        <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
+
+        <div id="gap-analysis-description">
+          <p>
+            Every street centerline across the 9-county DVRPC region was
+            analyzed to find gaps in the sidewalk network. For each centerline,
+            the length of parallel sidewalks was identified and divided by the
+            centerline's length. The resulting ratio was classified into one of
+            the three groups shown in the legend.
+          </p>
+        </div>
+        <div id="transit-analysis-description" class="hidden-text">
+          <p>
+            The walking time to the three nearest public transit stops was
+            calculated for the start and end points of every sidewalk segment
+            across the 9-county DVRPC region.
+          </p>
+          <p>
+            The number of minutes to the nearest stop is shown with each point's
+            color. Red points highlight sidewalk segments where it's impossible
+            to walk to any transit stops solely via the sidewalk network.
+          </p>
+        </div>
+        <div id="rail-walksheds-description" class="hidden-text">
+          <p>
+            For every rail station across the 9-county DVRPC region a set of
+            one-mile "walksheds" was calculated, one using the sidewalk network
+            and the other using the street centerline network. These two areas
+            were compared as a ratio to highlight stations where sidewalk
+            accessibility is limited or non-existent.
+          </p>
+          <p>
+            Clicking on a rail station will zoom in and show the two associated
+            walksheds.
+          </p>
+        </div>
+        <div id="island-analysis-description" class="hidden-text">
+          <p>
+            Every sidewalk segment was grouped with all adjacent sidewalk
+            segments. The result of this analysis is a set of "islands", with
+            each one one representing a single portion of the network where a
+            person could walk from one end to another entirely on sidewalks (and
+            crosswalks).
+          </p>
+          <p>
+            Each island is represented with a distinct color. Hovering your
+            mouse over an island will identify the size of the island in linear
+            miles.
+          </p>
+        </div>
+        <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
         <div id="layer-buttons" class="data-toggles">
           <button
             id="centerlines"
