@@ -1,31 +1,28 @@
+/* 
+Basic setup:
+------------
+
+- nav bar on top of the screen, and one flex row beneath
+- sidebar on left, 30% of the screen
+- map on right, 70% of the screen 
+
+*/
+
 body {
   margin: 0;
 }
-
 .flex-container {
   display: flex;
   flex-wrap: nowrap;
-  background-color: DodgerBlue;
   min-height: calc(100vh - 65px);
 }
-
-.flex-container > div {
-  background-color: #f1f1f1;
-  width: 100px;
-  margin: 0 0 0 2px;
-  text-align: center;
-  /* line-height: 75px;
-  font-size: 30px; */
-}
-
 #sidebar {
   width: 30%;
+  padding: 0px 15px 15px 15px;
 }
-
 #map {
   width: 70%;
 }
-
 nav {
   background-color: #363636;
   display: flex;
@@ -33,7 +30,7 @@ nav {
   align-items: center;
 }
 
-/* LOGOS */
+/* NAVBAR LOGOS AND ICONS */
 .logo {
   border-right: 1px solid white;
   padding-right: 15px;
@@ -53,6 +50,8 @@ a > i {
   color: white;
 }
 
+/* SIDEBAR BUTTONS AND TEXT */
+
 .analysis-selector {
   text-align: left;
   list-style-type: none;
@@ -68,14 +67,55 @@ a > i {
   cursor: pointer;
 }
 
+.hidden-text {
+  display: none;
+}
+.visible-text {
+  display: inline;
+}
+
+/* MAP CONTENT */
 .legend {
   background-color: #fff;
   border-radius: 3px;
   top: 10px;
+  left: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   padding: 10px;
   position: absolute;
-  left: 10px;
   z-index: 1;
   width: 300px;
+}
+
+/*
+RESPONSIVE CHANGES:
+-------------------
+
+- sidebar goes on top, map below
+- both take up full screen width
+
+*/
+
+@media screen and (max-width: 600px) {
+  #sidebar {
+    width: 90%;
+  }
+
+  #map {
+    width: 100%;
+    flex: 1;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+  .legend {
+    width: 40%;
+    bottom: 10px;
+    right: 10px;
+    top: auto;
+    left: auto;
+  }
+  /* .mapboxgl-ctrl-geocoder {
+    width: 10%;
+  } */
 }
