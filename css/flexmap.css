@@ -10,6 +10,16 @@ Basic setup:
 
 body {
   margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.2em;
+}
+h3 {
+  font-size: 1em;
 }
 .flex-container {
   display: flex;
@@ -56,6 +66,7 @@ a > i {
   text-align: left;
   list-style-type: none;
   padding-left: 2%;
+  font-size: 1em;
 }
 
 .nav-link.active {
@@ -93,6 +104,8 @@ RESPONSIVE CHANGES:
 
 - sidebar goes on top, map below
 - both take up full screen width
+- map becomes half the screen size
+- help text appears telling user to scroll down
 
 */
 
@@ -104,6 +117,7 @@ RESPONSIVE CHANGES:
   #map {
     width: 100%;
     flex: 1;
+    min-height: calc(100vh - 50vh);
   }
   .flex-container {
     flex-direction: column;
@@ -114,6 +128,9 @@ RESPONSIVE CHANGES:
     right: 10px;
     top: auto;
     left: auto;
+  }
+  .help-text {
+    display: block;
   }
   /* .mapboxgl-ctrl-geocoder {
     width: 10%;
