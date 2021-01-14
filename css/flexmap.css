@@ -1,5 +1,5 @@
-body{
-    margin: 0;
+body {
+  margin: 0;
 }
 
 .flex-container {
@@ -31,13 +31,12 @@ nav {
   display: flex;
   height: 65px;
   align-items: center;
-
 }
 
 /* LOGOS */
-.logo{
-    border-right: 1px solid white;
-    padding-right: 15px;
+.logo {
+  border-right: 1px solid white;
+  padding-right: 15px;
 }
 
 .pedportal-logo {
@@ -49,46 +48,34 @@ nav {
   height: auto;
   margin: 10px;
 }
-.about-button{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    height: 50%;
-    vertical-align: middle;
-}
-
 
 a > i {
-    color: white;
+  color: white;
 }
 
-.analysis-selector{
-    text-align: left;  list-style-type: none;
-    padding-left: 2%;
+.analysis-selector {
+  text-align: left;
+  list-style-type: none;
+  padding-left: 2%;
 }
 
 .nav-link.active {
-    color: #007bff;
-  }
+  color: #007bff;
+}
 .nav-link {
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-  }
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
 
-  .legend {
-    background-color: #fff;
-    border-radius: 3px;
-    top: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    width: 300px;
-  }
+.legend {
+  background-color: #fff;
+  border-radius: 3px;
+  top: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  width: 300px;
+}
