@@ -25,13 +25,19 @@ h3 {
   display: flex;
   flex-wrap: nowrap;
   min-height: calc(100vh - 65px);
+  max-height: calc(100vh - 65px);
+  /* overflow: auto; */
 }
 #sidebar {
   width: 30%;
   padding: 0px 15px 15px 15px;
+  overflow: scroll;
+  min-height: 100px;
 }
 #map {
   width: 70%;
+  max-height: calc(100vh - 65px);
+  /* overflow: hidden; */
 }
 nav {
   background-color: #363636;
@@ -63,10 +69,10 @@ a > i {
 /* SIDEBAR BUTTONS AND TEXT */
 
 .analysis-selector {
-  text-align: left;
+  /* text-align: center-justify; */
   list-style-type: none;
-  padding-left: 2%;
-  font-size: 1em;
+  padding-left: 10%;
+  font-size: 0.9em;
 }
 
 .nav-link.active {
@@ -76,6 +82,7 @@ a > i {
   font-weight: 500;
   color: #333;
   cursor: pointer;
+  padding: 2px 0px 2px 0px;
 }
 
 .hidden-text {
@@ -117,10 +124,11 @@ RESPONSIVE CHANGES:
   #map {
     width: 100%;
     flex: 1;
-    min-height: calc(100vh - 50vh);
+    min-height: calc(100vh - 10vh);
   }
   .flex-container {
     flex-direction: column;
+    max-height: none;
   }
   .legend {
     width: 40%;
@@ -132,7 +140,7 @@ RESPONSIVE CHANGES:
   .help-text {
     display: block;
   }
-  /* .mapboxgl-ctrl-geocoder {
-    width: 10%;
-  } */
+  .mapboxgl-ctrl-geocoder {
+    max-width: 5px;
+  }
 }
