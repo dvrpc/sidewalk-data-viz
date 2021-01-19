@@ -51,29 +51,83 @@
           alt="Ped Portal logo"
         />
       </a>
+      <p id="modal-toggle">About this map</p>
 
-      <a
-        href="https://walk.dvrpc.org/help/explore"
-        target="_blank"
-        data-toggle="tooltip"
-        aria-label="Get helpful information about this tool"
-        data-original-title=""
-        title=""
-      >
-        <i
-          class="fas fa-info-circle fa-2x"
-          aria-hidden=""
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title=""
-          data-original-title="Get helpful information about this tool"
-        ></i>
-      </a>
+      <div id="modal" role="dialog">
+        <div id="modal-content">
+          <span id="close-modal">&times;</span>
+
+          <h1 class="modal-headers mb-4">Sidewalk Gap Analysis Explorer</h1>
+          <p>
+            This interactive map shows the results of four distinct analyses
+            that leverage the regional sidewalk inventory:
+          </p>
+          <ul>
+            <li>
+              Identification of the sidewalk coverage of each street segment
+            </li>
+            <li>
+              Network-wide calculation of the walking time to the nearest
+              transit stop along the sidewalk network
+            </li>
+            <li>
+              Comparison of one-mile sidewalk- and centerline-based "walksheds"
+              for all rail stations across the region
+            </li>
+            <li>
+              Classification of sidewalk segments into groups of connected
+              "islands"
+            </li>
+          </ul>
+          <p>
+            This analysis was conducted with a tech stack that included
+            <a href="https://www.python.org/" target="_blank">Python</a>
+            and
+            <a href="https://postgis.net/" target="_blank">PostgreSQL/PostGIS</a
+            >. The walk time to transit and rail station walkshed analyses
+            utilized
+            <a href="https://github.com/UDST/pandana" target="_blank">pandana</a
+            >, a Python library from
+            <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
+            <a href="https://urbansim.com/udst" target="_blank"
+              >Urban Data Science Toolkit</a
+            >.
+          </p>
+
+          <p>
+            If you're interested in reading about the analysis methodologies
+            employed here, please visit
+            <a href="https://github.com/dvrpc" target="_blank">
+              DVRPC's GitHub page.
+            </a>
+            for
+            <a href="https://github.com/dvrpc/network-routing" target="_blank"
+              >the data analysis</a
+            >
+            and
+            <a href="https://github.com/dvrpc/sidewalk-data-viz" target="_blank"
+              >this map interface</a
+            >
+          </p>
+
+          <h2 class="modal-headers m-4">Contact</h2>
+          <address>
+            Aaron Fraint, AICP
+            <br />
+            Senior Transportation Planner
+            <br />
+            DVRPC Office of Mobility Analysis and Design
+            <br />
+            <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
+          </address>
+        </div>
+      </div>
     </nav>
 
     <div class="flex-container">
-      <div id="sidebar">
+      <section id="sidebar">
         <h1>Sidewalk Gap Explorer</h1>
+
         <h2>Select an Analysis:</h2>
         <ul class="analysis-selector">
           <li id="gap-analysis" class="nav-link active">
@@ -205,7 +259,7 @@
             id="centerlines"
             onclick="toggleLayer(this.id)"
             type="button"
-            class="btn btn-sm btn-secondary lyr-btn"
+            class="lyr-btn button-on"
           >
             Street Centerlines
           </button>
@@ -215,7 +269,7 @@
             id="sidewalks"
             onclick="toggleLayer(this.id)"
             type="button"
-            class="btn btn-sm btn-secondary lyr-btn"
+            class="lyr-btn button-on"
           >
             Sidewalks
           </button>
@@ -223,7 +277,7 @@
             id="crosswalks"
             onclick="toggleLayer(this.id)"
             type="button"
-            class="btn btn-sm btn-secondary lyr-btn"
+            class="lyr-btn button-on"
           >
             Crosswalks
           </button>
@@ -231,7 +285,7 @@
             id="county-outline"
             onclick="toggleLayer(this.id)"
             type="button"
-            class="btn btn-sm btn-outline-secondary lyr-btn"
+            class="lyr-btn button-off"
           >
             Counties
           </button>
@@ -239,7 +293,7 @@
             id="municipalities"
             onclick="toggleLayer(this.id)"
             type="button"
-            class="btn btn-sm btn-outline-secondary lyr-btn"
+            class="lyr-btn button-off"
           >
             Municipalities
           </button>
@@ -249,7 +303,7 @@
           <a href="#map">Click here</a>
           or continue scrolling down to see the full map
         </p>
-      </div>
+      </section>
       <div id="map">
         <img
           id="legend-image"
