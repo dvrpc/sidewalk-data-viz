@@ -68,7 +68,7 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names) {
       btn.textContent = nice_name;
       btn.id = layer_id;
       btn.setAttribute("onclick", "toggleLayer(this.id)");
-      btn.classList.add("btn", "btn-sm", "btn-secondary", "lyr-btn");
+      btn.classList.add("lyr-btn", "button-on");
       layer_buttons.prepend(btn);
     }
 
@@ -157,13 +157,13 @@ function toggleLayer(layer_id) {
     map.setLayoutProperty(layer_id, "visibility", "none");
     document
       .getElementById(layer_id)
-      .classList.replace("btn-secondary", "btn-outline-secondary");
+      .classList.replace("button-on", "button-off");
   } else {
     // turn layer on and set class to filled 'secondary' color
     map.setLayoutProperty(layer_id, "visibility", "visible");
     document
       .getElementById(layer_id)
-      .classList.replace("btn-outline-secondary", "btn-secondary");
+      .classList.replace("button-off", "button-on");
   }
 }
 
