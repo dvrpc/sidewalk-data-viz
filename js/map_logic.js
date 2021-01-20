@@ -5,8 +5,8 @@ var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/dark-v10",
   attributionControl: false,
-  center: [-75.163603, 39.952406],
-  zoom: 10,
+  center: [-75.15913247977207, 40.02727228000965],
+  zoom: 8.65,
 });
 
 var sw_filter = ["all", ["==", "schema", "rs_sw"]];
@@ -87,10 +87,10 @@ var all_analysis_names = [
   "island-analysis",
 ];
 
-function updateLegendImage(image_path) {
-  // Update the legend in the sidebar
-  document.getElementById("legend-image").setAttribute("src", image_path);
-}
+// function updateLegendImage(image_path) {
+//   // Update the legend in the sidebar
+//   document.getElementById("legend-image").setAttribute("src", image_path);
+// }
 
 function toggleAnalysis(btn_id) {
   // Get a list of the NON-SELECTED analyses
@@ -104,21 +104,36 @@ function toggleAnalysis(btn_id) {
     turnOffLayersAndRemoveButtons(island_layers);
 
     turnOnLayersAndAddButtons(segment_layers, segment_names);
-    updateLegendImage("img/Webmap-Legend-v2-segment-map.png");
+
+    // Update the legend in the sidebar
+    let image_path = "img/Webmap-Legend-v2-segment-map.png";
+    let alt_text = "Legend showing sidewalk coverage";
+    document.getElementById("legend-image").setAttribute("src", image_path);
+    document.getElementById("legend-image").setAttribute("alt", alt_text);
   } else if (btn_id == "transit-analysis") {
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(island_layers);
 
     turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names);
-    updateLegendImage("img/Webmap-Legend-v2-network-map.png");
+
+    // Update the legend in the sidebar
+    let image_path = "img/Webmap-Legend-v2-network-map.png";
+    let alt_text = "Legend showing walk time to nearest transit stop";
+    document.getElementById("legend-image").setAttribute("src", image_path);
+    document.getElementById("legend-image").setAttribute("alt", alt_text);
   } else if (btn_id == "rail-walksheds") {
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
     turnOffLayersAndRemoveButtons(island_layers);
 
     turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names);
-    updateLegendImage("img/Webmap-Legend-v2-rail-map.png");
+
+    let image_path = "img/Webmap-Legend-v2-rail-map.png";
+    let alt_text =
+      "Legend showing sidewalk and centerline walksheds around rail stations";
+    document.getElementById("legend-image").setAttribute("src", image_path);
+    document.getElementById("legend-image").setAttribute("alt", alt_text);
   } else if (btn_id == "island-analysis") {
     // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(segment_layers);
@@ -126,7 +141,10 @@ function toggleAnalysis(btn_id) {
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
 
     turnOnLayersAndAddButtons(island_layers, island_names);
-    updateLegendImage("img/Webmap-Legend-v2-island-map.png");
+    let image_path = "img/Webmap-Legend-v2-island-map.png";
+    let alt_text = "Legend for distinct islands";
+    document.getElementById("legend-image").setAttribute("src", image_path);
+    document.getElementById("legend-image").setAttribute("alt", alt_text);
   }
 
   document.getElementById(btn_id).classList.add("active");
@@ -287,52 +305,6 @@ map.on("load", function () {
     firstSymbolId
   );
 
-  // --- OSM CENTERLINES ---
-  //      --- add layer ---
-  map.addLayer(
-    {
-      id: "centerlines",
-      type: "line",
-      source: "ped_analysis",
-      "source-layer": "osm_sw_coverage",
-      minzoom: 9,
-      paint: {
-        "line-width": 4,
-        "line-color": [
-          "case",
-          ["<", ["get", "sw_ratio"], 0.45],
-          "rgba(215,25,28,0.7)",
-          ["<=", ["get", "sw_ratio"], 0.82],
-          "rgba(253,174,97,0.7)",
-          "rgba(26,150,65,0.3)",
-        ],
-        // 'line-color': {
-        //     "property": "sw",
-        //     "stops": [
-        //         [0, "rgba(215,25,28,0.7)"],
-        //         [0.00001, "rgba(253,174,97,0.7)"],
-        //         [0.4, "rgba(255,255,191,0.7)"],
-        //         [0.8, "rgba(26,150,65,0.3)"]
-        //         ]
-        //     }
-      },
-      layout: { visibility: "visible" },
-    },
-    firstSymbolId
-  );
-  //      --- adjust width by zoom level ---
-  map.setPaintProperty("centerlines", "line-width", [
-    "interpolate",
-    ["exponential", 0.5],
-    ["zoom"],
-    9,
-    0.2,
-    15,
-    4,
-    22,
-    22,
-  ]);
-
   // --- SIDEWALK LINES ---
   //      --- add layer ---
   map.addLayer(
@@ -396,6 +368,51 @@ map.on("load", function () {
     18,
     12,
   ]);
+  // --- OSM CENTERLINES ---
+  //      --- add layer ---
+  map.addLayer(
+    {
+      id: "centerlines",
+      type: "line",
+      source: "ped_analysis",
+      "source-layer": "osm_sw_coverage",
+      minzoom: 7,
+      paint: {
+        "line-width": 4,
+        "line-color": [
+          "case",
+          ["<", ["get", "sw_ratio"], 0.45],
+          "rgba(215,25,28,0.7)",
+          ["<=", ["get", "sw_ratio"], 0.82],
+          "rgba(253,174,97,0.7)",
+          "rgba(26,150,65,0.3)",
+        ],
+        // 'line-color': {
+        //     "property": "sw",
+        //     "stops": [
+        //         [0, "rgba(215,25,28,0.7)"],
+        //         [0.00001, "rgba(253,174,97,0.7)"],
+        //         [0.4, "rgba(255,255,191,0.7)"],
+        //         [0.8, "rgba(26,150,65,0.3)"]
+        //         ]
+        //     }
+      },
+      layout: { visibility: "visible" },
+    },
+    firstSymbolId
+  );
+  //      --- adjust width by zoom level ---
+  map.setPaintProperty("centerlines", "line-width", [
+    "interpolate",
+    ["exponential", 0.5],
+    ["zoom"],
+    8.5,
+    0.1,
+    15,
+    4,
+    22,
+    22,
+  ]);
 
   // TRANSIT WALK TIME by node
   map.addLayer(
@@ -404,7 +421,7 @@ map.on("load", function () {
       type: "circle",
       source: "ped_analysis",
       "source-layer": "sw_nodes",
-      minzoom: 9,
+      minzoom: 7,
       paint: {
         "circle-radius": 4,
         "circle-color": {
@@ -443,7 +460,7 @@ map.on("load", function () {
       type: "symbol",
       source: "ped_analysis",
       "source-layer": "transit_stops",
-      minzoom: 13,
+      minzoom: 9,
       layout: {
         "icon-image": "bus-icon",
         "icon-size": 0.018,
@@ -461,7 +478,7 @@ map.on("load", function () {
       type: "circle",
       source: "ridescore_analysis",
       "source-layer": "sidewalkscore",
-      minzoom: 9,
+      minzoom: 7,
       paint: {
         "circle-radius": 12,
         "circle-stroke-color": "white",
@@ -489,7 +506,7 @@ map.on("load", function () {
       type: "circle",
       source: "ridescore_analysis",
       "source-layer": "sidewalkscore",
-      minzoom: 9,
+      minzoom: 7,
       paint: {
         "circle-radius": 20,
         "circle-stroke-color": "black",
@@ -578,6 +595,7 @@ map.on("load", function () {
   var popup = new mapboxgl.Popup({
     closebutton: false,
     closeOnClick: true,
+    className: "map-popup",
   });
   map.on("mousemove", "sw_nodes", function (e) {
     generateNodePopup(popup, e);
