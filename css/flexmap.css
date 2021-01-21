@@ -31,9 +31,11 @@ h3 {
 }
 #sidebar {
   width: 30%;
-  padding: 0px 15px 15px 15px;
   overflow: scroll;
   min-height: 100px;
+}
+.sidebar-padding {
+  padding: 0px 15px 15px 15px;
 }
 #map {
   width: 70%;
@@ -109,6 +111,25 @@ a > i {
   background-color: rgb(187, 187, 187);
 }
 
+/* FOOTER */
+footer {
+  background-color: gray;
+  width: 100%;
+  min-height: 100px;
+  height: auto;
+  font-size: 0.8em;
+}
+#sidebar-text {
+  min-height: calc(100vh - 260px);
+}
+#footer-logo {
+  height: auto;
+  width: 90px;
+  padding: 10px 0;
+}
+address {
+  font-style: normal;
+}
 /* MAP CONTENT */
 .legend {
   background-color: #fff;
@@ -177,7 +198,7 @@ a > i {
   font-size: 1.5em;
 }
 .modal-headers,
-address {
+#modal-content address {
   text-align: center;
 }
 
@@ -194,12 +215,15 @@ RESPONSIVE CHANGES:
 
 @media screen and (max-width: 600px) {
   #sidebar {
-    width: 90%;
+    width: auto;
   }
   #map {
     width: 100%;
     flex: 1;
     min-height: calc(100vh - 10vh);
+  }
+  nav {
+    justify-content: center;
   }
   .flex-container {
     flex-direction: column;
@@ -218,8 +242,22 @@ RESPONSIVE CHANGES:
   .mapboxgl-ctrl-geocoder {
     max-width: 5px;
   }
+  .logo {
+    border-right: 1px solid white;
+    padding-right: 10px;
+  }
+
+  .pedportal-logo {
+    width: 150px;
+    margin: 10px;
+  }
+  .dvrpc-logo {
+    width: 67px;
+    height: auto;
+    margin: 10px;
+  }
   #modal-toggle {
-    font-size: 0.5em;
+    font-size: 0.7em;
   }
   #modal-content {
     margin: 10vh auto;
@@ -228,5 +266,11 @@ RESPONSIVE CHANGES:
     padding: 3%;
     border-radius: 4px;
     font-size: 0.8em;
+  }
+  footer {
+    display: none;
+  }
+  #sidebar-text {
+    min-height: 0;
   }
 }
