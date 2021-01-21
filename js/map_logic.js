@@ -217,7 +217,7 @@ map.on("load", function () {
   map.addSource("ped_analysis", {
     type: "vector",
     url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis.json",
-    // url: "http://0.0.0.0:8080/data/sidewalk_gaps_analysis.json"
+    // url: "http://0.0.0.0:8080/data/sidewalk_gaps_analysis.json",
   });
 
   // --- RideScore analysis tiles ---
@@ -662,6 +662,45 @@ map.on("load", function () {
   });
 
   map.on("mouseleave", "stations", function (e) {
+    popup.remove();
+  });
+
+  // popup for the island layer
+
+  function generateIslandPopup(popup, e) {
+    var props = e.features[0].properties;
+    if (props.muni_count == 1) {
+      muni_text =
+        " is entirely within <strong>" +
+        props.muni_names.replace(": 100.0,", "") +
+        "</strong>";
+    } else {
+      muni_text =
+        " intersects <strong>" +
+        props.muni_count +
+        " municipalities </strong>: <ul>";
+      props.muni_names
+        .split(",")
+        .slice(0, -1)
+        .forEach(function (item, index) {
+          muni_text += "<li>" + item + "%</li>";
+        });
+      muni_text += "</ul>";
+    }
+
+    var msg =
+      "This island is <strong>" +
+      props.size_miles.toFixed(1) +
+      "</strong> linear miles long, and " +
+      muni_text;
+
+    popup.setLngLat(e.lngLat).setHTML(msg).addTo(map);
+  }
+  map.on("mousemove", "islands", function (e) {
+    generateIslandPopup(popup, e);
+  });
+
+  map.on("mouseleave", "islands", function (e) {
     popup.remove();
   });
 
