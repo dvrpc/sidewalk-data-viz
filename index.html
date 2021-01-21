@@ -39,7 +39,7 @@
     <link href="css/flexmap.css" rel="stylesheet" />
   </head>
   <body>
-    <nav>
+    <nav aria-labelledby="site-title">
       <a href="//www.dvrpc.org" target="_blank">
         <img
           class="dvrpc-logo logo"
@@ -61,7 +61,9 @@
         <div id="modal-content">
           <span id="close-modal">&times;</span>
 
-          <h1 class="modal-headers">Sidewalk Gap Analysis Explorer</h1>
+          <h1 id="site-title" class="modal-headers">
+            Sidewalk Gap Analysis Explorer
+          </h1>
           <p>
             This interactive map shows the results of four distinct analyses
             that identify different kinds of gaps by leveraging the regional
@@ -131,192 +133,211 @@
 
     <div class="flex-container">
       <section id="sidebar">
-        <h1>Sidewalk Gap Explorer</h1>
+        <div id="sidebar-text" class="sidebar-padding">
+          <h1>Sidewalk Gap Explorer</h1>
 
-        <h2>Select an Analysis:</h2>
-        <ul class="analysis-selector">
-          <li id="gap-analysis" class="nav-link active">
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-signpost-2"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z" />
-              <path
-                fill-rule="evenodd"
-                d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"
-              />
-              <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z" />
-            </svg>
-            Street Segment Gaps
-          </li>
-          <li id="transit-analysis" class="nav-link">
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-geo"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
-              />
-            </svg>
-            Walk Time to Transit
-          </li>
-          <li id="rail-walksheds" class="nav-link">
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-egg-fried"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
-              />
-              <circle cx="8" cy="8" r="3" />
-            </svg>
-            Rail Station Walksheds
-          </li>
-          <li id="island-analysis" class="nav-link">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              fill="currentColor"
-              class="bi bi-grid-3x3-gap"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 2H2v2h2V2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2H7v2h2V2zm5 0h-2v2h2V2zM4 7H2v2h2V7zm5 0H7v2h2V7zm5 0h-2v2h2V7zM4 12H2v2h2v-2zm5 0H7v2h2v-2zm5 0h-2v2h2v-2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z"
-              />
-            </svg>
-            Islands of Connectivity
-          </li>
-        </ul>
+          <h2>Select an Analysis:</h2>
+          <ul class="analysis-selector">
+            <li id="gap-analysis" class="nav-link active">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-signpost-2"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"
+                />
+                <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z" />
+              </svg>
+              Street Segment Gaps
+            </li>
+            <li id="transit-analysis" class="nav-link">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-geo"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+                />
+              </svg>
+              Walk Time to Transit
+            </li>
+            <li id="rail-walksheds" class="nav-link">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-egg-fried"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
+                />
+                <circle cx="8" cy="8" r="3" />
+              </svg>
+              Rail Station Walksheds
+            </li>
+            <li id="island-analysis" class="nav-link">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                class="bi bi-grid-3x3-gap"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4 2H2v2h2V2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2H7v2h2V2zm5 0h-2v2h2V2zM4 7H2v2h2V7zm5 0H7v2h2V7zm5 0h-2v2h2V7zM4 12H2v2h2v-2zm5 0H7v2h2v-2zm5 0h-2v2h2v-2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z"
+                />
+              </svg>
+              Islands of Connectivity
+            </li>
+          </ul>
 
-        <hr />
+          <hr />
 
-        <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
-        <h2>Methodology:</h2>
-        <div id="gap-analysis-description">
-          <p>
-            Every street centerline across the 9-county DVRPC region was
-            analyzed to find gaps in the sidewalk network. For each centerline,
-            the length of parallel sidewalks was identified and divided by the
-            centerline's length. The resulting ratio was classified into one of
-            the three groups shown in the legend.
+          <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
+          <h2>Methodology:</h2>
+          <div id="gap-analysis-description">
+            <p>
+              Every street centerline across the 9-county DVRPC region was
+              analyzed to find gaps in the sidewalk network. For each
+              centerline, the length of parallel sidewalks was identified and
+              divided by the centerline's length. The resulting ratio was
+              classified into one of the three groups shown in the legend.
+            </p>
+          </div>
+          <div id="transit-analysis-description" class="hidden-text">
+            <p>
+              The walking time to the three nearest public transit stops was
+              calculated for the start and end points of every sidewalk segment
+              across the 9-county DVRPC region.
+            </p>
+            <p>
+              The number of minutes to the nearest stop is shown with each
+              point's color. Red points highlight sidewalk segments where it's
+              impossible to walk to any transit stops solely via the sidewalk
+              network.
+            </p>
+          </div>
+          <div id="rail-walksheds-description" class="hidden-text">
+            <p>
+              For every rail station across the 9-county DVRPC region a set of
+              one-mile "walksheds" was calculated, one using the sidewalk
+              network and the other using the street centerline network. These
+              two areas were compared as a ratio to highlight stations where
+              sidewalk accessibility is limited or non-existent.
+            </p>
+            <p>
+              Clicking on a rail station will zoom in and show the two
+              associated walksheds.
+            </p>
+          </div>
+          <div id="island-analysis-description" class="hidden-text">
+            <p>
+              Every sidewalk segment was grouped with all adjacent sidewalk
+              segments. The result of this analysis is a set of "islands", with
+              each one one representing a single portion of the network where a
+              person could walk from one end to another entirely on sidewalks
+              (and crosswalks).
+            </p>
+            <p>
+              Each island is represented with a distinct color. Hovering your
+              mouse over an island will identify the size of the island in
+              linear miles.
+            </p>
+          </div>
+
+          <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
+          <h2>Toggle layers:</h2>
+          <span id="layer-buttons" class="data-toggles">
+            <button
+              id="centerlines"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="lyr-btn button-on"
+            >
+              Street Centerlines
+            </button>
+          </span>
+          <span id="other-layers" class="data-toggles">
+            <button
+              id="sidewalks"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="lyr-btn button-on"
+            >
+              Sidewalks
+            </button>
+            <button
+              id="crosswalks"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="lyr-btn button-on"
+            >
+              Crosswalks
+            </button>
+            <button
+              id="county-outline"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="lyr-btn button-off"
+            >
+              Counties
+            </button>
+            <button
+              id="municipalities"
+              onclick="toggleLayer(this.id)"
+              type="button"
+              class="lyr-btn button-off"
+            >
+              Municipalities
+            </button>
+          </span>
+
+          <p class="help-text hidden-text">
+            <a href="#map">Click here</a>
+            or continue scrolling down to see the full map
           </p>
         </div>
-        <div id="transit-analysis-description" class="hidden-text">
-          <p>
-            The walking time to the three nearest public transit stops was
-            calculated for the start and end points of every sidewalk segment
-            across the 9-county DVRPC region.
-          </p>
-          <p>
-            The number of minutes to the nearest stop is shown with each point's
-            color. Red points highlight sidewalk segments where it's impossible
-            to walk to any transit stops solely via the sidewalk network.
-          </p>
-        </div>
-        <div id="rail-walksheds-description" class="hidden-text">
-          <p>
-            For every rail station across the 9-county DVRPC region a set of
-            one-mile "walksheds" was calculated, one using the sidewalk network
-            and the other using the street centerline network. These two areas
-            were compared as a ratio to highlight stations where sidewalk
-            accessibility is limited or non-existent.
-          </p>
-          <p>
-            Clicking on a rail station will zoom in and show the two associated
-            walksheds.
-          </p>
-        </div>
-        <div id="island-analysis-description" class="hidden-text">
-          <p>
-            Every sidewalk segment was grouped with all adjacent sidewalk
-            segments. The result of this analysis is a set of "islands", with
-            each one one representing a single portion of the network where a
-            person could walk from one end to another entirely on sidewalks (and
-            crosswalks).
-          </p>
-          <p>
-            Each island is represented with a distinct color. Hovering your
-            mouse over an island will identify the size of the island in linear
-            miles.
-          </p>
-        </div>
-
-        <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
-        <h2>Toggle layers:</h2>
-        <span id="layer-buttons" class="data-toggles">
-          <button
-            id="centerlines"
-            onclick="toggleLayer(this.id)"
-            type="button"
-            class="lyr-btn button-on"
-          >
-            Street Centerlines
-          </button>
-        </span>
-        <span id="other-layers" class="data-toggles">
-          <button
-            id="sidewalks"
-            onclick="toggleLayer(this.id)"
-            type="button"
-            class="lyr-btn button-on"
-          >
-            Sidewalks
-          </button>
-          <button
-            id="crosswalks"
-            onclick="toggleLayer(this.id)"
-            type="button"
-            class="lyr-btn button-on"
-          >
-            Crosswalks
-          </button>
-          <button
-            id="county-outline"
-            onclick="toggleLayer(this.id)"
-            type="button"
-            class="lyr-btn button-off"
-          >
-            Counties
-          </button>
-          <button
-            id="municipalities"
-            onclick="toggleLayer(this.id)"
-            type="button"
-            class="lyr-btn button-off"
-          >
-            Municipalities
-          </button>
-        </span>
-
-        <p class="help-text hidden-text">
-          <a href="#map">Click here</a>
-          or continue scrolling down to see the full map
-        </p>
+        <footer>
+          <div class="sidebar-padding">
+            <a href="/"><img src="img/dvrpc_logo.png" id="footer-logo" /></a>
+            <address>
+              Aaron Fraint, AICP - Senior Transportation Planner <br />
+              DVRPC Office of Mobility Analysis & Design <br />
+              <a href="tel:+1-215-592-1800">215.592.1800</a> |
+              <a href="mailto:personname@dvrpc.org">personname@dvrpc.org</a>
+              <br />
+              <br />
+              190 N Independence Mall West, 8th Floor, Philadelphia, PA 19106<br />
+              <br />
+              &copy; Delaware Valley Regional Planning Commission, 2021
+            </address>
+          </div>
+        </footer>
       </section>
-      <div id="map">
+      <main id="map">
         <img
           id="legend-image"
           class="legend"
           src="img/Webmap-Legend-v2-segment-map.png"
           alt="Legend showing sidewalk coverage"
         />
-      </div>
+      </main>
     </div>
 
     <!-- Mapbox JavaScript -->
