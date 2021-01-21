@@ -129,7 +129,6 @@ a > i {
 /* edit the shadow to your preference */
 #modal-toggle,
 #modal-content,
-nav,
 .mapboxgl-ctrl-geocoder {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
