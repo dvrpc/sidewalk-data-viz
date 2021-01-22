@@ -44,7 +44,7 @@ h3 {
   /* overflow: hidden; */
 }
 nav {
-  background-color: #363636;
+  background-color: rgb(151, 151, 151);
   display: flex;
   height: 65px;
   align-items: center;
@@ -113,7 +113,8 @@ a > i {
 
 /* FOOTER */
 footer {
-  background-color: gray;
+  color: white;
+  background-color: rgb(151, 151, 151);
   width: 100%;
   min-height: 100px;
   height: auto;
