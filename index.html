@@ -66,8 +66,7 @@
           </h1>
           <p>
             This interactive map shows the results of four distinct analyses
-            that identify different kinds of gaps by leveraging the regional
-            sidewalk inventory.
+            that identify different kinds of gaps in the sidewalk network:
           </p>
           <ul>
             <li>
@@ -87,34 +86,41 @@
             </li>
           </ul>
           <p>
-            This analysis was conducted with a tech stack that included
-            <a href="https://www.python.org/" target="_blank">Python</a>
-            and
-            <a href="https://postgis.net/" target="_blank">PostgreSQL/PostGIS</a
-            >. The walk time to transit and rail station walkshed analyses
-            utilized
+            This analysis was conducted in
+            <a href="https://www.python.org/" target="_blank">Python</a>, using
+            data stored in a
+            <a href="https://postgis.net/" target="_blank"
+              >PostgreSQL/PostGIS</a
+            >
+            database. The walk time to transit and rail station walkshed
+            analyses utilized
             <a href="https://github.com/UDST/pandana" target="_blank">pandana</a
             >, a Python library from
             <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
             <a href="https://urbansim.com/udst" target="_blank"
               >Urban Data Science Toolkit</a
-            >.
+            >
+            that facilitates network-based routing analyses.
           </p>
 
           <p>
-            If you're interested in reading about the analysis methodologies
-            employed here, please visit
-            <a href="https://github.com/dvrpc" target="_blank">
-              DVRPC's GitHub page.
-            </a>
-            for
+            A detailed description of the analysis methodologies can be found
+            <a
+              href="https://docs.google.com/document/d/1KVXU-EhxuGYhcsjK-8dWIu3uzAFW5LlXN6l4AzzWzH4/edit?usp=sharing"
+              target="_blank"
+              >here</a
+            >, and the code for the
             <a href="https://github.com/dvrpc/network-routing" target="_blank"
-              >the data analysis</a
+              >data analysis</a
             >
             and
             <a href="https://github.com/dvrpc/sidewalk-data-viz" target="_blank"
-              >this map interface</a
+              >map interface</a
             >
+            can both be found on
+            <a href="https://github.com/dvrpc" target="_blank">
+              DVRPC's GitHub page</a
+            >.
           </p>
 
           <h2 class="modal-headers">Contact</h2>
@@ -210,7 +216,7 @@
           <hr />
 
           <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
-          <h2>Methodology:</h2>
+          <h2 id="methodology-title">Street Segment Gap Methodology:</h2>
           <div id="gap-analysis-description">
             <p>
               Every street centerline across the 9-county DVRPC region was
@@ -260,6 +266,15 @@
               linear miles.
             </p>
           </div>
+
+          <p>
+            Read more about the methodology
+            <a
+              href="https://docs.google.com/document/d/1KVXU-EhxuGYhcsjK-8dWIu3uzAFW5LlXN6l4AzzWzH4/edit?usp=sharing"
+              target="_blank"
+              >here</a
+            >.
+          </p>
 
           <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
           <h2>Toggle layers:</h2>
