@@ -110,6 +110,8 @@ function toggleAnalysis(btn_id) {
     let alt_text = "Legend showing sidewalk coverage";
     document.getElementById("legend-image").setAttribute("src", image_path);
     document.getElementById("legend-image").setAttribute("alt", alt_text);
+    document.getElementById("methodology-title").innerText =
+      "Street Segment Gap Methdology:";
   } else if (btn_id == "transit-analysis") {
     turnOffLayersAndRemoveButtons(rail_walkshed_layers);
     turnOffLayersAndRemoveButtons(segment_layers);
@@ -122,6 +124,8 @@ function toggleAnalysis(btn_id) {
     let alt_text = "Legend showing walk time to nearest transit stop";
     document.getElementById("legend-image").setAttribute("src", image_path);
     document.getElementById("legend-image").setAttribute("alt", alt_text);
+    document.getElementById("methodology-title").innerText =
+      "Walk Time to Transit Methdology:";
   } else if (btn_id == "rail-walksheds") {
     turnOffLayersAndRemoveButtons(segment_layers);
     turnOffLayersAndRemoveButtons(nearest_transit_stop_layers);
@@ -134,6 +138,8 @@ function toggleAnalysis(btn_id) {
       "Legend showing sidewalk and centerline walksheds around rail stations";
     document.getElementById("legend-image").setAttribute("src", image_path);
     document.getElementById("legend-image").setAttribute("alt", alt_text);
+    document.getElementById("methodology-title").innerText =
+      "Rail Station Walksheds Methdology:";
   } else if (btn_id == "island-analysis") {
     // Remove buttons and layers from other analyses
     turnOffLayersAndRemoveButtons(segment_layers);
@@ -145,6 +151,8 @@ function toggleAnalysis(btn_id) {
     let alt_text = "Legend for distinct islands";
     document.getElementById("legend-image").setAttribute("src", image_path);
     document.getElementById("legend-image").setAttribute("alt", alt_text);
+    document.getElementById("methodology-title").innerText =
+      "Islands of Connectivity Methdology:";
   }
 
   document.getElementById(btn_id).classList.add("active");
@@ -582,12 +590,12 @@ map.on("load", function () {
     var props = e.features[0].properties;
     if (props.walk_time < 180) {
       msg =
-        "<h3><code>" +
+        "<h1>" +
         props.walk_time.toFixed(1) +
-        " minutes</code></h3><p>to the nearest transit stop by foot</p>";
+        " minutes</h1><p>to the nearest transit stop by foot</p>";
     } else {
       msg =
-        "<h1><code>🚷</code></h1><p>No transit stops are accessible solely via the sidewalk network</p>";
+        "<h1>🚷</h1><p>No transit stops are accessible solely via the sidewalk network</p>";
     }
     popup.setLngLat(e.lngLat).setHTML(msg).addTo(map);
   }
@@ -618,7 +626,7 @@ map.on("load", function () {
     } else {
       var sw_txt = String(sw_val.toFixed(1)) + "%";
     }
-    msg = "<h3>" + sw_txt + "</h3><p>sidewalk coverage</p>";
+    msg = "<h1>" + sw_txt + "</h1><p>sidewalk coverage</p>";
     popup.setLngLat(e.lngLat).setHTML(msg).addTo(map);
   }
   map.on("mousemove", "centerlines", function (e) {
@@ -633,25 +641,25 @@ map.on("load", function () {
     var props = e.features[0].properties;
     if (props.sidewalkscore == null)
       msg =
-        "<h3>" +
+        "<h1>" +
         props.operator +
         " : " +
         props.station +
-        "</h3><p>No sidewalk score was calculated since the point did not snap to either the OSM or sidewalk networks</p>";
+        "</h1><p>No sidewalk score was calculated since the point did not snap to either the OSM or sidewalk networks</p>";
     else if (props.sidewalkscore == 0)
       msg =
-        "<h3>" +
+        "<h1>" +
         props.operator +
         " : " +
         props.station +
-        "</h3><p>This point did not snap to the sidewalk network</p>";
+        "</h1><p>This point did not snap to the sidewalk network</p>";
     else
       msg =
-        "<h3>" +
+        "<h1>" +
         props.operator +
         " : " +
         props.station +
-        "</h3><p>Sidewalk score: " +
+        "</h1><p>Sidewalk score: " +
         props.sidewalkscore.toFixed(3) +
         "</p>";
     popup.setLngLat(e.lngLat).setHTML(msg).addTo(map);
