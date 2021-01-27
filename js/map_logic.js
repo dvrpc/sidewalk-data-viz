@@ -688,6 +688,26 @@ map.on("load", function () {
     popup.remove();
   });
 
+  // Popup for transit stops
+  function generateTransitStopPopup(popup, e) {
+    var props = e.features[0].properties;
+    msg =
+      "<h1>Transit Stop</h1><ul><li>" +
+      props.src +
+      "</li><li>" +
+      props.stop_name +
+      "</li></ul>";
+    popup.setLngLat(e.lngLat).setHTML(msg).addTo(map);
+  }
+
+  map.on("mousemove", "transit_stops", function (e) {
+    generateTransitStopPopup(popup, e);
+  });
+
+  map.on("mouseleave", "transit_stops", function (e) {
+    popup.remove();
+  });
+
   // popup for the island layer
 
   function generateIslandPopup(popup, e) {
