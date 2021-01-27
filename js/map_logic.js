@@ -240,11 +240,11 @@ map.on("load", function () {
     url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json",
   });
 
-  // --- LOAD ICON FOR TRANSIT STOPS ---
-  map.loadImage("../img/transit-stop-icon.png", function (error, image) {
-    if (error) throw error;
-    map.addImage("bus-icon", image);
-  });
+  // // --- LOAD ICON FOR TRANSIT STOPS ---
+  // map.loadImage("../img/transit-stop-icon.png", function (error, image) {
+  //   if (error) throw error;
+  //   map.addImage("bus-icon", image);
+  // });
 
   // --- REGIONAL COUNTIES ---
   map.addLayer(
@@ -465,19 +465,34 @@ map.on("load", function () {
   map.addLayer(
     {
       id: "transit_stops",
-      type: "symbol",
+      type: "circle",
       source: "ped_analysis",
       "source-layer": "transit_stops",
-      minzoom: 9,
-      layout: {
-        "icon-image": "bus-icon",
-        "icon-size": 0.018,
-        "icon-rotate": 180,
-        visibility: "none",
+      minzoom: 12,
+      paint: {
+        "circle-radius": 6,
+        "circle-stroke-color": "white",
+        "circle-stroke-width": 1.5,
+        "circle-color": "rgba(0,0,0,0)",
       },
+      // layout: {
+      //   "icon-image": "bus-icon",
+      //   "icon-size": 0.018,
+      //   "icon-rotate": 180,
+      //   visibility: "none",
+      // },
     },
     firstSymbolId
   );
+  map.setPaintProperty("transit_stops", "circle-radius", [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    12,
+    1.5,
+    18,
+    12,
+  ]);
 
   // ADD RAIL STATIONS
   map.addLayer(
