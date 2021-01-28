@@ -475,6 +475,7 @@ map.on("load", function () {
         "circle-stroke-width": 1.5,
         "circle-color": "rgba(0,0,0,0)",
       },
+      layout: { visibility: "none" },
       // layout: {
       //   "icon-image": "bus-icon",
       //   "icon-size": 0.018,
