@@ -31,7 +31,7 @@ h3 {
 }
 #sidebar {
   width: 30%;
-  overflow: scroll;
+  overflow-y: auto;
   min-height: 100px;
 }
 .sidebar-padding {
