@@ -1,6 +1,6 @@
 import makeMap from "./map.js";
 import sources from "./mapSources.js";
-import layers from "./mapLayers.js";
+import { layers, paint_props } from "./mapLayers.js";
 import { ariaShowModal, ariaHideModal } from "./modal.js";
 
 // OPTIONAL imports. Uncomment to use
@@ -25,7 +25,12 @@ const map = makeMap();
 map.on("load", () => {
   for (const source in sources) map.addSource(source, sources[source]);
   for (const layer in layers) map.addLayer(layers[layer]);
-
+  for (const paint in paint_props)
+    map.setPaintProperty(
+      paint_props[paint].id,
+      paint_props[paint].attribute,
+      paint_props[paint].style
+    );
   // OPTIONAL functionality. Uncomment to use
   // forms
   toggleLayerForms.forEach((form) => toggleLayers(form, map));

@@ -119,7 +119,7 @@ const layers = {
         ],
       },
     },
-    // layout: { visibility: "none" },
+    layout: { visibility: "none" },
   },
   stations: {
     id: "stations",
@@ -181,4 +181,58 @@ const layers = {
   },
 };
 
-export default layers;
+const paint_props = {
+  sidewalks: {
+    id: "sidewalks",
+    attribute: "line-width",
+    style: ["interpolate", ["exponential", 0.5], ["zoom"], 10, 0.1, 17, 0.8],
+  },
+  crosswalks: {
+    id: "crosswalks",
+    attribute: "line-width",
+    style: ["interpolate", ["exponential", 0.5], ["zoom"], 15, 2, 18, 12],
+  },
+  centerlines: {
+    id: "centerlines",
+    attribute: "line-width",
+    style: [
+      "interpolate",
+      ["exponential", 0.5],
+      ["zoom"],
+      8.5,
+      0.1,
+      15,
+      4,
+      22,
+      22,
+    ],
+  },
+  sw_nodes: {
+    id: "sw_nodes",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 1.5, 18, 12],
+  },
+  transit_stops: {
+    id: "transit_stops",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 1.5, 18, 12],
+  },
+  stations: {
+    id: "stations",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 5, 18, 20],
+  },
+  station_selected: {
+    id: "station_selected",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 9, 18, 30],
+  },
+  islands: {
+    id: "islands",
+    attribute: "line-width",
+    style: ["interpolate", ["exponential", 0.5], ["zoom"], 10, 0.75, 17, 2],
+  },
+};
+
+// export default layers;
+export { layers, paint_props };
