@@ -3,6 +3,8 @@ import sources from "./mapSources.js";
 import { layers, paint_props } from "./mapLayers.js";
 import { ariaShowModal, ariaHideModal } from "./modal.js";
 
+import { toggleAnalysis, all_analysis_names } from "./mapUtils.js";
+
 // OPTIONAL imports. Uncomment to use
 import { toggleLayers } from "./forms.js";
 // import { makePopup, makePopupContent } from './popup.js'
@@ -50,6 +52,14 @@ map.on("load", () => {
   // map.on('mouseenter', 'county-outline', () => map.getCanvas().style.cursor = 'pointer')
   // map.on('mouseleave', 'county-outline', () => map.getCanvas().style.cursor = '')
 });
+
+// Wire the onclick event to the analysis toggles
+for (let i = 0; i < all_analysis_names.length; i++) {
+  let this_analysis = all_analysis_names[i];
+  document.getElementById(this_analysis).onclick = function () {
+    toggleAnalysis(this_analysis, map);
+  };
+}
 
 // modal
 modalToggle.onclick = () => ariaShowModal(modal);
