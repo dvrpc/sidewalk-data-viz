@@ -9,9 +9,10 @@ const layers = {
     "source-layer": "county",
     paint: {
       "line-width": 2.5,
-      "line-color": "#f7f7f7",
+      "line-color": "#6cd0ff",
     },
     filter: ["==", "dvrpc", "Yes"],
+    layout: { visibility: "none" },
   },
   muniOutline: {
     id: "municipality-outline",
@@ -20,8 +21,9 @@ const layers = {
     "source-layer": "municipalities",
     paint: {
       "line-width": 0.5,
-      "line-color": "#e7e7e7",
+      "line-color": "#6cd0ff",
     },
+    layout: { visibility: "none" },
   },
   iso_osm: {
     id: "iso_osm",
@@ -178,6 +180,20 @@ const layers = {
     paint: {
       "line-color": ["get", "rgba"],
     },
+  },
+  transit_stops: {
+    id: "transit_stops",
+    type: "circle",
+    source: "ped_analysis",
+    "source-layer": "transit_stops",
+    minzoom: 12,
+    paint: {
+      "circle-radius": 6,
+      "circle-stroke-color": "white",
+      "circle-stroke-width": 1.5,
+      "circle-color": "rgba(0,0,0,0)",
+    },
+    layout: { visibility: "none" },
   },
 };
 
