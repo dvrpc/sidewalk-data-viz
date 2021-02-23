@@ -205,7 +205,7 @@ footer {
   cursor: pointer;
   padding: 2px 0px 2px 0px;
 }
-ul {
+#sidebar-content ul {
   list-style-type: none;
 }
 #legend-image {
