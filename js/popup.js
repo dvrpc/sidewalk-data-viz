@@ -1,3 +1,5 @@
+import { sw_filter, osm_filter } from "./mapLayers.js";
+
 const hoverPopup = () => new mapboxgl.Popup({ closebutton: false });
 const clickPopup = () => new mapboxgl.Popup();
 
@@ -6,7 +8,7 @@ const bindPopup = (map, html_msg, popup, target) => {
 };
 
 // ----------------------------------------------------------------------------------
-// Dynamic text content that appears in popup windows
+// Dynamic text content that appears in HOVER popup windows
 // ----------------------------------------------------------------------------------
 
 const centerline_popup_msg = (e) => {
@@ -112,4 +114,42 @@ const hover_popup_meta = {
 
 const hover_keys = Object.keys(hover_popup_meta);
 
-export { hoverPopup, bindPopup, hover_popup_meta, hover_keys };
+// ----------------------------------------------------------------------------------
+// Popups for CLICK events
+// ----------------------------------------------------------------------------------
+
+const wire_station_click = (map) => {
+  map.on("click", "stations", function (e) {
+    var props = e.features[0].properties;
+
+    var id_filter = ["in", "dvrpc_id", props.dvrpc_id.toString()];
+
+    map.setFilter("iso_sw", ["all", id_filter, sw_filter]);
+    map.setPaintProperty("iso_sw", "fill-opacity", 0.7);
+
+    map.setFilter("iso_osm", ["all", id_filter, osm_filter]);
+    map.setPaintProperty("iso_osm", "fill-opacity", 0.7);
+
+    map.setFilter("station_selected", ["in", "dvrpc_id", props.dvrpc_id]);
+    map.setPaintProperty("station_selected", "circle-opacity", 1);
+    map.setPaintProperty("station_selected", "circle-stroke-opacity", 1);
+
+    // Zoom!
+    // map.setCenter(map.getCenter());
+    // map.setZoom(15);
+
+    map.flyTo({
+      center: e.lngLat,
+      zoom: 13,
+      essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  });
+};
+
+export {
+  hoverPopup,
+  bindPopup,
+  hover_popup_meta,
+  hover_keys,
+  wire_station_click,
+};

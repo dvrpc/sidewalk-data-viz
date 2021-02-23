@@ -12,6 +12,7 @@ import {
   bindPopup,
   hover_popup_meta,
   hover_keys,
+  wire_station_click,
 } from "./popup.js";
 
 const modal = document.getElementById("modal");
@@ -57,6 +58,9 @@ map.on("load", () => {
       hover_popup.remove();
     });
   }
+
+  // Wire click-based popups
+  wire_station_click(map);
 
   // popups
   // map.on('click', 'county-outline', e => {
