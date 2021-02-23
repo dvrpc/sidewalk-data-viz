@@ -7,7 +7,12 @@ import { toggleAnalysis, analysis_names } from "./mapUtils.js";
 
 // OPTIONAL imports. Uncomment to use
 import { toggleLayers } from "./forms.js";
-// import { makePopup, makePopupContent } from './popup.js'
+import {
+  hoverPopup,
+  bindPopup,
+  hover_popup_meta,
+  hover_keys,
+} from "./popup.js";
 
 const modal = document.getElementById("modal");
 const modalToggle = document.getElementById("modal-toggle");
@@ -21,21 +26,37 @@ const toggleLayerForms = Array.from(
 // map
 const map = makeMap();
 
-// OPTIONAL map elements. Uncomment to use
-//const popup = makePopup()
+const hover_popup = hoverPopup();
 
 map.on("load", () => {
+  // Load vector tile sources
   for (const source in sources) map.addSource(source, sources[source]);
+
+  // Load layer style definitions
   for (const layer in layers) map.addLayer(layers[layer]);
+
+  // Load scale-based paint properties
   for (const paint in paint_props)
     map.setPaintProperty(
       paint_props[paint].id,
       paint_props[paint].attribute,
       paint_props[paint].style
     );
-  // OPTIONAL functionality. Uncomment to use
-  // forms
+
+  // Wire all layer toggles to an on-click event
   toggleLayerForms.forEach((form) => toggleLayers(form, map));
+
+  // Wire all hover popups
+  for (var i = 0; i < hover_keys.length; i++) {
+    let this_key = hover_keys[i];
+    map.on("mousemove", this_key, function (e) {
+      var msg = hover_popup_meta[this_key](e);
+      bindPopup(map, msg, hover_popup, e);
+    });
+    map.on("mouseleave", this_key, function (e) {
+      hover_popup.remove();
+    });
+  }
 
   // popups
   // map.on('click', 'county-outline', e => {
