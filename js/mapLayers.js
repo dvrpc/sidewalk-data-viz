@@ -32,7 +32,7 @@ const layers = {
     "source-layer": "ridescore_isos",
     paint: {
       "fill-color": "rgba(255, 255, 255, 0.5)",
-      "fill-opacity": 0.5,
+      "fill-opacity": 0,
     },
     filter: osm_filter,
     layout: { visibility: "none" },
@@ -44,7 +44,7 @@ const layers = {
     "source-layer": "ridescore_isos",
     paint: {
       "fill-color": "rgba(0, 255, 0, 0.5)",
-      "fill-opacity": 0.5,
+      "fill-opacity": 0,
     },
     filter: sw_filter,
     layout: { visibility: "none" },
@@ -251,4 +251,4 @@ const paint_props = {
 };
 
 // export default layers;
-export { layers, paint_props };
+export { layers, paint_props, sw_filter, osm_filter };
