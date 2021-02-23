@@ -3,7 +3,7 @@ import sources from "./mapSources.js";
 import { layers, paint_props } from "./mapLayers.js";
 import { ariaShowModal, ariaHideModal } from "./modal.js";
 
-import { toggleAnalysis, all_analysis_names } from "./mapUtils.js";
+import { toggleAnalysis, analysis_names } from "./mapUtils.js";
 
 // OPTIONAL imports. Uncomment to use
 import { toggleLayers } from "./forms.js";
@@ -54,8 +54,8 @@ map.on("load", () => {
 });
 
 // Wire the onclick event to the analysis toggles
-for (let i = 0; i < all_analysis_names.length; i++) {
-  let this_analysis = all_analysis_names[i];
+for (let i = 0; i < analysis_names.length; i++) {
+  let this_analysis = analysis_names[i];
   document.getElementById(this_analysis).onclick = function () {
     toggleAnalysis(this_analysis, map);
   };

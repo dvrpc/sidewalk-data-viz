@@ -1,34 +1,58 @@
 // put functions for map events - hover, click, popups, etc in here
 // import into index.js and add to map within map.on('load')
 
-var all_analysis_names = [
-  "gap-analysis",
-  "transit-analysis",
-  "rail-walksheds",
-  "island-analysis",
-];
+// ----------------------------------------------------------------------------------
+// TOGGLE BETWEEN ANALYSES ON THE MAP
+// When clicking an option under "Select an analysis:"
+//    - turn off all layers for all analyses that are NOT selected
+//    - remove all analyis layer toggle buttons for non-selected analyses
+//    - turn on layers for the selected analysis
+//    - update methodology text, legend, and other text-based content for selected
+//
+// To add a new analysis:
+//    - put an entry into the "analysis_meta" object
+//    - add content to index.html, making sure to set classes up so that the
+//      new analysis is hidden by default
+// ----------------------------------------------------------------------------------
 
-var rail_walkshed_layers = [
-  "station_selected",
-  "stations",
-  "iso_osm",
-  "iso_sw",
-];
-var rail_names = [
-  "Selected Rail Station",
-  "Rail Stations",
-  "Street Centerline Walkshed (1-mile)",
-  "Sidewalk Walkshed (1-mile)",
-];
+const analysis_meta = {
+  "gap-analysis": {
+    layer_ids: ["centerlines"],
+    layer_names: ["Street Centerlines"],
+    image_path: "img/Webmap-Legend-v2-segment-map.png",
+    alt_text: "Legend showing sidewalk coverage",
+    methodology_title: "Street Segment Gap Methdology:",
+  },
+  "transit-analysis": {
+    layer_ids: ["transit_stops", "sw_nodes"],
+    layer_names: ["Transit Stops", "Walk Time"],
+    image_path: "img/Webmap-Legend-v2-network-map.png",
+    alt_text: "Legend showing walk time to nearest transit stop",
+    methodology_title: "Walk Time to Transit Methdology:",
+  },
+  "rail-walksheds": {
+    layer_ids: ["station_selected", "stations", "iso_osm", "iso_sw"],
+    layer_names: [
+      "Selected Rail Station",
+      "Rail Stations",
+      "Street Centerline Walkshed (1-mile)",
+      "Sidewalk Walkshed (1-mile)",
+    ],
+    image_path: "img/Webmap-Legend-v2-rail-map.png",
+    alt_text:
+      "Legend showing sidewalk and centerline walksheds around rail stations",
+    methodology_title: "Rail Station Walksheds Methdology:",
+  },
+  "island-analysis": {
+    layer_ids: ["islands"],
+    layer_names: ["Islands of Connectivity"],
+    image_path: "img/Webmap-Legend-v2-island-map.png",
+    alt_text: "Legend for distinct islands",
+    methodology_title: "Islands of Connectivity Methdology:",
+  },
+};
 
-var nearest_transit_stop_layers = ["transit_stops", "sw_nodes"];
-var transit_names = ["Transit Stops", "Walk Time"];
-
-var segment_layers = ["centerlines"];
-var segment_names = ["Street Centerlines"];
-
-var island_layers = ["islands"];
-var island_names = ["Islands of Connectivity"];
+const analysis_names = Object.keys(analysis_meta);
 
 function turnOffLayersAndRemoveButtons(list_of_ids, map) {
   // Remove the existing <ul> element
@@ -92,80 +116,16 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names, map) {
 
 function toggleAnalysis(btn_id, map) {
   // Get a list of the NON-SELECTED analyses
-  var other_ids = all_analysis_names.filter(function (item) {
+  var other_ids = analysis_names.filter(function (item) {
     return item !== btn_id;
   });
 
-  // STREET SEGMENT GAPS
-  if (btn_id == "gap-analysis") {
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers, map);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers, map);
-    turnOffLayersAndRemoveButtons(island_layers, map);
-
-    turnOnLayersAndAddButtons(segment_layers, segment_names, map);
-
-    // Update the legend in the sidebar
-    let image_path = "img/Webmap-Legend-v2-segment-map.png";
-    let alt_text = "Legend showing sidewalk coverage";
-    document.getElementById("legend-image").setAttribute("src", image_path);
-    document.getElementById("legend-image").setAttribute("alt", alt_text);
-    document.getElementById("methodology-title").innerText =
-      "Street Segment Gap Methdology:";
-  }
-  // WALK TIME TO TRANSIT
-  else if (btn_id == "transit-analysis") {
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers, map);
-    turnOffLayersAndRemoveButtons(segment_layers, map);
-    turnOffLayersAndRemoveButtons(island_layers, map);
-
-    turnOnLayersAndAddButtons(nearest_transit_stop_layers, transit_names, map);
-
-    // Update the legend in the sidebar
-    let image_path = "img/Webmap-Legend-v2-network-map.png";
-    let alt_text = "Legend showing walk time to nearest transit stop";
-    document.getElementById("legend-image").setAttribute("src", image_path);
-    document.getElementById("legend-image").setAttribute("alt", alt_text);
-    document.getElementById("methodology-title").innerText =
-      "Walk Time to Transit Methdology:";
-  }
-  // RAIL STATION WALKSHEDS
-  else if (btn_id == "rail-walksheds") {
-    turnOffLayersAndRemoveButtons(segment_layers, map);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers, map);
-    turnOffLayersAndRemoveButtons(island_layers, map);
-
-    turnOnLayersAndAddButtons(rail_walkshed_layers, rail_names, map);
-
-    let image_path = "img/Webmap-Legend-v2-rail-map.png";
-    let alt_text =
-      "Legend showing sidewalk and centerline walksheds around rail stations";
-    document.getElementById("legend-image").setAttribute("src", image_path);
-    document.getElementById("legend-image").setAttribute("alt", alt_text);
-    document.getElementById("methodology-title").innerText =
-      "Rail Station Walksheds Methdology:";
-  }
-  // ISLANDS OF CONNECTIVITY
-  else if (btn_id == "island-analysis") {
-    // Remove buttons and layers from other analyses
-    turnOffLayersAndRemoveButtons(segment_layers, map);
-    turnOffLayersAndRemoveButtons(nearest_transit_stop_layers, map);
-    turnOffLayersAndRemoveButtons(rail_walkshed_layers, map);
-
-    turnOnLayersAndAddButtons(island_layers, island_names, map);
-    let image_path = "img/Webmap-Legend-v2-island-map.png";
-    let alt_text = "Legend for distinct islands";
-    document.getElementById("legend-image").setAttribute("src", image_path);
-    document.getElementById("legend-image").setAttribute("alt", alt_text);
-    document.getElementById("methodology-title").innerText =
-      "Islands of Connectivity Methdology:";
-  }
-
-  // Set the selected analysis with class active to make it blue
-  document.getElementById(btn_id).classList.add("active");
-
-  // Iterate over other non-selected analyses
+  // Iterate over other non-selected analyses and scrub them away
   for (var i = 0; i < other_ids.length; i++) {
     var other_id = other_ids[i];
+
+    // Turn off layers and remove buttons
+    turnOffLayersAndRemoveButtons(analysis_meta[other_id]["layer_ids"], map);
 
     // Make sure this analysis is not blue
     document.getElementById(other_id).classList.remove("active");
@@ -178,9 +138,36 @@ function toggleAnalysis(btn_id, map) {
     }
   }
 
+  // Turn on the layers for the selected analysis
+  turnOnLayersAndAddButtons(
+    analysis_meta[btn_id]["layer_ids"],
+    analysis_meta[btn_id]["layer_names"],
+    map
+  );
+
+  // Update legend for the selected analysis
+  document
+    .getElementById("legend-image")
+    .setAttribute("src", analysis_meta[btn_id]["image_path"]);
+  document
+    .getElementById("legend-image")
+    .setAttribute("alt", analysis_meta[btn_id]["alt_text"]);
+  document.getElementById("methodology-title").innerText =
+    analysis_meta[btn_id]["methodology_title"];
+
+  // Set the selected analysis with class active to make it blue
+  document.getElementById(btn_id).classList.add("active");
+
   // Turn the description text on
   var description = document.getElementById(btn_id + "-description");
   description.classList.remove("hidden-text");
 }
+// ----------------------------------------------------------------------------------
+// END of the toggling analysis section
+// ----------------------------------------------------------------------------------
 
-export { toggleAnalysis, turnOffLayersAndRemoveButtons, all_analysis_names };
+// ----------------------------------------------------------------------------------
+// MOUSE HOVER EVENTS
+// ----------------------------------------------------------------------------------
+
+export { toggleAnalysis, turnOffLayersAndRemoveButtons, analysis_names };
