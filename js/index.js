@@ -5,7 +5,6 @@ import { ariaShowModal, ariaHideModal } from "./modal.js";
 
 import { toggleAnalysis, analysis_names } from "./mapUtils.js";
 
-// OPTIONAL imports. Uncomment to use
 import { toggleLayers } from "./forms.js";
 import {
   hoverPopup,
@@ -19,12 +18,10 @@ const modal = document.getElementById("modal");
 const modalToggle = document.getElementById("modal-toggle");
 const closeModal = document.getElementById("close-modal");
 
-// OPTIONAL elements. Uncomment to use
 const toggleLayerForms = Array.from(
   document.querySelectorAll(".sidebar-form-toggle")
 );
 
-// map
 const map = makeMap();
 
 const hover_popup = hoverPopup();
@@ -44,38 +41,35 @@ map.on("load", () => {
       paint_props[paint].style
     );
 
-  // Wire all layer toggles to an on-click event
+  // Wire all checkbox layer toggles to an on-click event
   toggleLayerForms.forEach((form) => toggleLayers(form, map));
 
   // Wire all hover popups
   for (var i = 0; i < hover_keys.length; i++) {
     let this_key = hover_keys[i];
+
+    // change mouse tip to pointer finger
+    map.on(
+      "mouseenter",
+      this_key,
+      () => (map.getCanvas().style.cursor = "pointer")
+    );
+
+    // show the popup as mouse moves over feature
     map.on("mousemove", this_key, function (e) {
       var msg = hover_popup_meta[this_key](e);
       bindPopup(map, msg, hover_popup, e);
     });
+
+    // remove popup and change mouse tip upon leaving feature
     map.on("mouseleave", this_key, function (e) {
       hover_popup.remove();
+      map.getCanvas().style.cursor = "";
     });
   }
 
   // Wire click-based popups
   wire_station_click(map);
-
-  // popups
-  // map.on('click', 'county-outline', e => {
-  //     const allProps = e.features[0].properties
-
-  //     const target = {
-  //         lngLat: e.lngLat,
-  //         props: [
-  //         ]
-  //     }
-
-  //     makePopupContent(map, target, popup)
-  // })
-  // map.on('mouseenter', 'county-outline', () => map.getCanvas().style.cursor = 'pointer')
-  // map.on('mouseleave', 'county-outline', () => map.getCanvas().style.cursor = '')
 });
 
 // Wire the onclick event to the analysis toggles
@@ -97,3 +91,6 @@ document.onkeydown = (event) => {
   if (event.code === "Escape" && modal.style.display === "flex")
     ariaHideModal(modal);
 };
+
+// // Show the modal on initial page load
+// ariaShowModal(modal);
