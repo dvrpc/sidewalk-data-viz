@@ -23,7 +23,7 @@ let indexConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  entry: ["./js/map_logic.js"],
+  entry: ["./js/index.js"],
   mode: "production",
   module: {
     rules: [
