@@ -2,23 +2,23 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoibW1vbHRhIiwiYSI6ImNqZDBkMDZhYjJ6YzczNHJ4cno5eTcydnMifQ.RJNJ7s7hBfrJITOBZBdcOA";
 
 const initMap = () => {
-  const longitudeOffset = window.innerWidth > 800 ? -75.8 : -75.2273;
-  const zoom = window.innerWidth <= 420 ? 7.3 : 8.3;
+  // const longitudeOffset = window.innerWidth > 800 ? -75.8 : -75.2273;
+  const zoom = window.innerWidth <= 420 ? 7.3 : 8.65;
 
   return new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/dark-v10",
-    center: [longitudeOffset, 40.071],
+    center: [-75.15913247977207, 40.02727228000965],
     zoom: zoom,
   });
 };
 
 const makeRegionalExtentControl = (map) => {
-  const longitudeOffset = window.innerWidth > 800 ? -75.8 : -75.2273;
-  const zoom = window.innerWidth <= 420 ? 7.3 : 8.3;
+  // const longitudeOffset = window.innerWidth > 800 ? -75.8 : -75.2273;
+  const zoom = window.innerWidth <= 420 ? 7.3 : 8.65;
 
   const dvrpcExtent = {
-    center: [longitudeOffset, 40.0518322],
+    center: [-75.15913247977207, 40.02727228000965],
     zoom: zoom,
   };
 
