@@ -41,7 +41,7 @@ body {
 /* END Map */
 
 #legend-image {
-  left: 2%;
+  left: 1%;
   max-width: 50%;
 }
 .mapboxgl-ctrl-geocoder {
