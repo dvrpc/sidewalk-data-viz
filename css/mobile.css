@@ -12,7 +12,15 @@ body {
 
 /* Navbar */
 #dvrpc-logo {
-  width: 55px;
+  display: block;
+  height: 40px;
+}
+#project-logo {
+  display: block;
+  height: 40px;
+  /* width: 250px; */
+  padding-right: 16px;
+  border-right: 1px solid white;
 }
 /* END Navbar */
 
