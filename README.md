@@ -15,6 +15,8 @@ npm run dev
 
 The webapp will run at [http://0.0.0.0:3000](http://0.0.0.0:3000)
 
+Alternatively, install the VSCode plugin `Live Server` and the webapp will run at [http://127.0.0.1:5501/](http://127.0.0.1:5501/)
+
 ## Build
 
 Use `webpack` to transform source files into the build directory:
