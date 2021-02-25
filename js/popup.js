@@ -134,10 +134,6 @@ const wire_station_click = (map) => {
     map.setPaintProperty("station_selected", "circle-opacity", 1);
     map.setPaintProperty("station_selected", "circle-stroke-opacity", 1);
 
-    // Zoom!
-    // map.setCenter(map.getCenter());
-    // map.setZoom(15);
-
     map.flyTo({
       center: e.lngLat,
       zoom: 13,
