@@ -2,30 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <title>Sidewalk Gap Analysis Explorer</title>
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
     />
+    <meta name="created" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
     <meta
-      name="description"
-      content="Interactive webmap that allows users to explore the results of the Sidewalk Gap Analyses"
+      name="author"
+      content="Delaware Valley Regional Planning Commission (DVRPC)"
     />
-    <meta name="author" content="Aaron Fraint, AICP" />
-    <link rel="icon" href="/img/favicon.ico" />
-    <title>DVRPC Sidewalk Gap Analysis Explorer</title>
+    <meta name="owner" content="webmaster@dvrpc.org" />
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="index, follow" />
+    <meta name="copyright" content="1995-2021 all rights reserved" />
+    <!--  DVRPC Website VERSION #7.0 Copyright (c) 1995-2020 Delaware Valley Regional Planning Commission. All rights reserved.   -->
 
+    <!-- social media -->
+    <meta property="og:title" content="" />
+    <meta propery="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-      crossorigin="anonymous"
+      href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700&amp;display=swap"
     />
-
-    <!-- MapboxGL -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link
-      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
     />
     <!-- Mapbox geocoder -->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js"></script>
@@ -34,9 +43,10 @@
       href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css"
       type="text/css"
     />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/mobile.css" media="(max-width: 800px)" />
 
-    <!-- Custom styles for this template -->
-    <link href="css/flexmap.css" rel="stylesheet" />
+    <script defer type="module" src="./js/index.js"></script>
 
     <script>
       window.ga =
@@ -50,133 +60,41 @@
     </script>
     <script async src="//www.google-analytics.com/ga.js"></script>
   </head>
+
   <body>
-    <nav aria-labelledby="site-title">
-      <a href="//www.dvrpc.org" target="_blank">
-        <img
-          class="dvrpc-logo logo"
-          src="img/dvrpc-logo-full.png"
-          alt="DVRPC logo"
-        />
-      </a>
-      <span class="vl"></span>
-      <a href="//walk.dvrpc.org" target="_blank">
-        <img
-          class="pedportal-logo logo"
-          src="img/pedportal-logo2.png"
-          alt="Ped Portal logo"
-        />
-      </a>
-      <p id="modal-toggle">About this map</p>
+    <nav class="flex-row flex-between">
+      <div class="flex-row">
+        <a href="https://walk.dvrpc.org/">
+          <img
+            src="./img/pedportal-logo-verbose.png"
+            alt="project logo"
+            class="nav-logos"
+            id="project-logo"
+          />
+        </a>
+        <a href="https://www.dvrpc.org/" class="nav-links"
+          ><img
+            src="./img/dvrpc-logo-full.png"
+            alt="DVRPC logo"
+            id="dvrpc-logo"
+            class="nav-logos"
+        /></a>
+      </div>
 
-      <div id="modal" role="dialog">
-        <div id="modal-content">
-          <span id="close-modal">&times;</span>
-
-          <h1 id="site-title" class="modal-headers">
-            Sidewalk Gap Analysis Explorer
-          </h1>
-          <p>
-            Welcome to DVRPC’s <strong>Sidewalk Gap Analysis Explorer</strong>.
-            A connected pedestrian network is the foundation of a healthy,
-            accessible, and prosperous community. This analysis helps
-            communities around the region prioritize the pedestrian improvements
-            that will make the greatest impact.
-          </p>
-          <p>
-            How well connected is the pedestrian network in the Greater
-            Philadelphia region? How do gaps in the pedestrian network affect
-            our ability to travel around the region? This map explorer uses four
-            analyses to examine different elements of pedestrian accessibility.
-          </p>
-
-          <ul>
-            <li>
-              The <strong>Street Segment Gaps</strong> tool identifies sidewalk
-              coverage for each street segment in the region.
-            </li>
-            <li>
-              The <strong>Walk Time to Transit</strong> tool calculates walking
-              time to the nearest transit stop along the sidewalk network.
-            </li>
-            <li>
-              The <strong>Rail Station Walkshed</strong> tool presents
-              accessible “walksheds” for rail stations in the region by
-              comparing the accessible sidewalk network to the roadway network
-              within a mile of station.
-            </li>
-            <li>
-              The <strong>Islands of Connectivity</strong> tool identifies
-              contiguous “islands” of connected sidewalk. Larger islands mean a
-              more connected network, while smaller islands represent isolated
-              bits of sidewalk network.
-            </li>
-          </ul>
-          <p>
-            These tools are built on DVRPC’s pedestrian facilities inventory, a
-            GIS dataset that inventories sidewalks, curb ramps, and crosswalks
-            across the nine-county Greater Philadelphia region. Explore the data
-            and help plan for a pedestrian-friendly future at
-            <a href="https://walk.dvrpc.org/" target="_blank">walk.dvrpc.org</a>
-          </p>
-          <h2 class="modal-headers">Tech Specs</h2>
-          <p>
-            This analysis was conducted in
-            <a href="https://www.python.org/" target="_blank">Python</a>, using
-            data stored in a
-            <a href="https://postgis.net/" target="_blank"
-              >PostgreSQL/PostGIS</a
-            >
-            database. The walk time to transit and rail station walkshed
-            analyses utilized
-            <a href="https://github.com/UDST/pandana" target="_blank">pandana</a
-            >, a Python library from
-            <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
-            <a href="https://urbansim.com/udst" target="_blank"
-              >Urban Data Science Toolkit</a
-            >
-            that facilitates network-based routing analyses.
-          </p>
-
-          <p>
-            A detailed description of the analysis methodologies can be found
-            <a
-              href="https://docs.google.com/document/d/1KVXU-EhxuGYhcsjK-8dWIu3uzAFW5LlXN6l4AzzWzH4/edit?usp=sharing"
-              target="_blank"
-              >here</a
-            >, and the code for the
-            <a href="https://github.com/dvrpc/network-routing" target="_blank"
-              >data analysis</a
-            >
-            and
-            <a href="https://github.com/dvrpc/sidewalk-data-viz" target="_blank"
-              >map interface</a
-            >
-            can both be found on
-            <a href="https://github.com/dvrpc" target="_blank">
-              DVRPC's GitHub page</a
-            >.
-          </p>
-
-          <h2 class="modal-headers">Contact</h2>
-          <address>
-            Aaron Fraint, AICP
-            <br />
-            Senior Transportation Planner
-            <br />
-            DVRPC Office of Mobility Analysis and Design
-            <br />
-            <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
-          </address>
-        </div>
+      <div>
+        <button id="modal-toggle" class="nav-btn nav-links">
+          about this map
+        </button>
+        <!-- <a href="https://walk.dvrpc.org/" class="nav-links"
+          >return to the Greater Philadelphia Pedestrian Portal</a
+        > -->
       </div>
     </nav>
 
-    <div class="flex-container">
-      <section id="sidebar">
-        <div id="sidebar-text" class="sidebar-padding">
-          <h1>Sidewalk Gap Explorer</h1>
-
+    <main id="main-content-wrapper" class="flex-row flex-between">
+      <article id="sidebar">
+        <div id="sidebar-content">
+          <h1 id="title">Sidewalk Gap Analysis Explorer</h1>
           <h2>Select an Analysis:</h2>
           <ul class="analysis-selector">
             <li id="gap-analysis" class="nav-link active">
@@ -311,86 +229,196 @@
             >.
           </p>
 
-          <!-- BUTTONS THAT TOGGLE MAP LAYERS ON AND OFF -->
-          <h2>Toggle layers:</h2>
-          <span id="layer-buttons" class="data-toggles">
-            <button
-              id="centerlines"
-              onclick="toggleLayer(this.id)"
-              type="button"
-              class="lyr-btn button-on"
-            >
-              Street Centerlines
-            </button>
-          </span>
-          <span id="other-layers" class="data-toggles">
-            <button
-              id="sidewalks"
-              onclick="toggleLayer(this.id)"
-              type="button"
-              class="lyr-btn button-on"
-            >
-              Sidewalks
-            </button>
-            <button
-              id="crosswalks"
-              onclick="toggleLayer(this.id)"
-              type="button"
-              class="lyr-btn button-on"
-            >
-              Crosswalks
-            </button>
-            <button
-              id="county-outline"
-              onclick="toggleLayer(this.id)"
-              type="button"
-              class="lyr-btn button-off"
-            >
-              Counties
-            </button>
-            <button
-              id="municipalities"
-              onclick="toggleLayer(this.id)"
-              type="button"
-              class="lyr-btn button-off"
-            >
-              Municipalities
-            </button>
-          </span>
+          <form class="sidebar-form sidebar-form-toggle">
+            <fieldset id="analysis-toggler" class="sidebar-fieldset">
+              <legend>toggle analysis layers:</legend>
 
-          <p class="help-text hidden-text">
-            <a href="#map">Click here</a>
-            or continue scrolling down to see the full map
-          </p>
+              <ul id="toggler">
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      id="centerlines"
+                      name="layer"
+                      value="centerlines"
+                      checked
+                    />
+                    Street Centerlines
+                  </label>
+                </li>
+              </ul>
+            </fieldset>
+            <fieldset class="sidebar-fieldset">
+              <legend>toggle base layers:</legend>
+              <ul>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      id="sidewalks"
+                      name="layer"
+                      value="sidewalks"
+                      checked
+                    />
+                    Sidewalks
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      id="crosswalks"
+                      name="layer"
+                      value="crosswalks"
+                      checked
+                    />
+                    Crosswalks
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      id="county-outline"
+                      name="layer"
+                      value="county-outline"
+                    />
+                    Counties
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      id="municipality-outline"
+                      name="layer"
+                      value="municipality-outline"
+                    />
+                    Municipalities
+                  </label>
+                </li>
+              </ul>
+            </fieldset>
+          </form>
         </div>
-        <footer>
-          <div class="sidebar-padding">
-            <a href="/"><img src="img/dvrpc_logo.png" id="footer-logo" /></a>
-            <address>
-              Aaron Fraint, AICP - Senior Transportation Planner <br />
-              DVRPC Office of Mobility Analysis & Design <br />
-              <a href="tel:+1-215-592-1800">215.592.1800</a> |
-              <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
-              <br />
-              <br />
-              190 N Independence Mall West, 8th Floor, Philadelphia, PA 19106<br />
-              <br />
-              &copy; Delaware Valley Regional Planning Commission, 2021
-            </address>
-          </div>
-        </footer>
-      </section>
-      <main id="map">
+      </article>
+
+      <div id="map">
         <img
           id="legend-image"
           class="legend"
           src="img/Webmap-Legend-v2-segment-map.png"
           alt="Legend showing sidewalk coverage"
         />
-      </main>
+      </div>
+    </main>
+
+    <div id="modal" role="dialog">
+      <div id="modal-content">
+        <span id="close-modal">&times;</span>
+
+        <h1 id="site-title" class="modal-content-subheader">
+          Sidewalk Gap Analysis Explorer
+        </h1>
+        <p>
+          Welcome to DVRPC’s <strong>Sidewalk Gap Analysis Explorer</strong>. A
+          connected pedestrian network is the foundation of a healthy,
+          accessible, and prosperous community. This analysis helps communities
+          around the region prioritize the pedestrian improvements that will
+          make the greatest impact.
+        </p>
+        <p>
+          How well connected is the pedestrian network in the Greater
+          Philadelphia region? How do gaps in the pedestrian network affect our
+          ability to travel around the region? This map explorer uses four
+          analyses to examine different elements of pedestrian accessibility.
+        </p>
+
+        <ul>
+          <li>
+            The <strong>Street Segment Gaps</strong> tool identifies sidewalk
+            coverage for each street segment in the region.
+          </li>
+          <li>
+            The <strong>Walk Time to Transit</strong> tool calculates walking
+            time to the nearest transit stop along the sidewalk network.
+          </li>
+          <li>
+            The <strong>Rail Station Walkshed</strong> tool presents accessible
+            “walksheds” for rail stations in the region by comparing the
+            accessible sidewalk network to the roadway network within a mile of
+            station.
+          </li>
+          <li>
+            The <strong>Islands of Connectivity</strong> tool identifies
+            contiguous “islands” of connected sidewalk. Larger islands mean a
+            more connected network, while smaller islands represent isolated
+            bits of sidewalk network.
+          </li>
+        </ul>
+        <p>
+          These tools are built on DVRPC’s pedestrian facilities inventory, a
+          GIS dataset that inventories sidewalks, curb ramps, and crosswalks
+          across the nine-county Greater Philadelphia region. Explore the data
+          and help plan for a pedestrian-friendly future at
+          <a href="https://walk.dvrpc.org/" target="_blank">walk.dvrpc.org</a>
+        </p>
+        <h2 class="modal-content-subheader">Tech Specs</h2>
+        <p>
+          This analysis was conducted in
+          <a href="https://www.python.org/" target="_blank">Python</a>, using
+          data stored in a
+          <a href="https://postgis.net/" target="_blank">PostgreSQL/PostGIS</a>
+          database. The walk time to transit and rail station walkshed analyses
+          utilized
+          <a href="https://github.com/UDST/pandana" target="_blank">pandana</a>,
+          a Python library from
+          <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
+          <a href="https://urbansim.com/udst" target="_blank"
+            >Urban Data Science Toolkit</a
+          >
+          that facilitates network-based routing analyses.
+        </p>
+
+        <p>
+          A detailed description of the analysis methodologies can be found
+          <a
+            href="https://docs.google.com/document/d/1KVXU-EhxuGYhcsjK-8dWIu3uzAFW5LlXN6l4AzzWzH4/edit?usp=sharing"
+            target="_blank"
+            >here</a
+          >, and the code for the
+          <a href="https://github.com/dvrpc/network-routing" target="_blank"
+            >data analysis</a
+          >
+          and
+          <a href="https://github.com/dvrpc/sidewalk-data-viz" target="_blank"
+            >map interface</a
+          >
+          can both be found on
+          <a href="https://github.com/dvrpc" target="_blank">
+            DVRPC's GitHub page</a
+          >.
+        </p>
+
+        <h2 class="modal-content-subheader">Contact</h2>
+        <address>
+          Aaron Fraint, AICP
+          <br />
+          Senior Transportation Planner
+          <br />
+          DVRPC Office of Mobility Analysis and Design
+          <br />
+          <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
+        </address>
+      </div>
     </div>
 
-    <!-- Mapbox JavaScript -->
-    <script src="js/map_logic.js"></script>
+    <footer class="flex-column flex-around">
+      Aaron Fraint, AICP - Senior Transportation Planner | Office of Mobility
+      Analysis & Design | &copy; Delaware Valley Regional Planning Commission,
+      2021
+    </footer>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
   </body>
 </html>

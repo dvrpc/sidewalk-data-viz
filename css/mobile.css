@@ -1,0 +1,58 @@
+/* General */
+body {
+  font-size: 12px;
+}
+/* END General */
+
+/* Modal */
+#modal-content {
+  width: 85%;
+}
+/* END Modal */
+
+/* Navbar */
+#dvrpc-logo {
+  display: block;
+  height: 40px;
+}
+#project-logo {
+  display: block;
+  height: 40px;
+  /* width: 250px; */
+  padding-right: 16px;
+  border-right: 1px solid white;
+}
+/* END Navbar */
+
+/* Main Webmap Area */
+#main-content-wrapper {
+  flex-direction: column-reverse;
+}
+/* END Main Webmap Area */
+
+/* Sidebar */
+#sidebar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+/* END Sidebar */
+
+/* Map */
+#map {
+  width: 100%;
+}
+/* END Map */
+
+#legend-image {
+  left: 1%;
+  max-width: 50%;
+}
+.mapboxgl-ctrl-geocoder {
+  max-width: 30% !important;
+  min-width: 175px !important;
+}
