@@ -13,7 +13,7 @@ h1 {
 }
 :root {
   --theme-dvrpc: #0078ae;
-  --theme-dark: #505a5e;
+  --theme-dark: #979797;
 
   --wrapper-padding: 10px;
   --wrapper-padding-double: 20px;
@@ -53,7 +53,10 @@ h1 {
 }
 #modal {
   position: fixed;
-  display: none;
+  /* display: none; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 3;
   top: 0;
   width: 100%;
@@ -86,7 +89,7 @@ nav {
   position: relative;
   height: 10vh;
   padding: 0 var(--wrapper-padding);
-  background-color: var(--theme-dvrpc);
+  background-color: var(--theme-dark);
   color: #f7f7f7;
   box-shadow: var(--box-shadow);
   z-index: 1;
@@ -118,8 +121,8 @@ nav {
   border-right: 1px solid white;
 }
 #title {
-  font-size: 200%;
-  line-height: 120%;
+  font-size: 175%;
+  line-height: 110%;
   margin-bottom: 20px;
 }
 /* END Navbar */
