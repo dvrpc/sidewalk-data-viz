@@ -27,11 +27,23 @@ const map = makeMap();
 const hover_popup = hoverPopup();
 
 map.on("load", () => {
+  // Find the index of the first symbol layer in the map style
+  // This becomes an argument in map.addLayer and allows the
+  // basemap labels to draw on top of the vector layers
+  var base_layers = map.getStyle().layers;
+  var firstSymbolId;
+  for (var i = 0; i < base_layers.length; i++) {
+    if (base_layers[i].type === "symbol") {
+      firstSymbolId = base_layers[i].id;
+      break;
+    }
+  }
+
   // Load vector tile sources
   for (const source in sources) map.addSource(source, sources[source]);
 
   // Load layer style definitions
-  for (const layer in layers) map.addLayer(layers[layer]);
+  for (const layer in layers) map.addLayer(layers[layer], firstSymbolId);
 
   // Load scale-based paint properties
   for (const paint in paint_props)
