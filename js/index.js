@@ -55,15 +55,26 @@ map.on("load", () => {
       () => (map.getCanvas().style.cursor = "pointer")
     );
 
-    // show the popup as mouse moves over feature
-    map.on("mousemove", this_key, function (e) {
-      var msg = hover_popup_meta[this_key](e);
-      bindPopup(map, msg, hover_popup, e);
-    });
+    // If using desktop, show popups on HOVER and remove on leave
+    if (window.innerWidth > 800) {
+      map.on("mousemove", this_key, function (e) {
+        var msg = hover_popup_meta[this_key](e);
+        bindPopup(map, msg, hover_popup, e);
+      });
+      map.on("mouseleave", this_key, function (e) {
+        hover_popup.remove();
+      });
+    }
+    // If using mobile device, use CLICK event instead
+    else {
+      map.on("click", this_key, function (e) {
+        var msg = hover_popup_meta[this_key](e);
+        bindPopup(map, msg, hover_popup, e);
+      });
+    }
 
-    // remove popup and change mouse tip upon leaving feature
+    // change mouse tip upon leaving feature
     map.on("mouseleave", this_key, function (e) {
-      hover_popup.remove();
       map.getCanvas().style.cursor = "";
     });
   }
@@ -91,6 +102,3 @@ document.onkeydown = (event) => {
   if (event.code === "Escape" && modal.style.display === "flex")
     ariaHideModal(modal);
 };
-
-// // Show the modal on initial page load
-// ariaShowModal(modal);
