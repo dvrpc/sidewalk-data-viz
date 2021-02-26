@@ -251,3 +251,47 @@ p {
 address {
   text-align: center;
 }
+
+/* NAV BUTTONS */
+.btn {
+  display: inline-block;
+  /* line-height: 6vh; */
+  width: 70px;
+  /* height: 6vh; */
+  text-align: center;
+  /* vertical-align: middle; */
+  padding: 15px 0;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #999;
+}
+
+.btn-left {
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+.btn-right {
+  border-radius: 0 0.3rem 0.3rem 0;
+  margin-right: 15px;
+}
+.btn-analyze {
+  background-color: var(--theme-dark);
+  color: #fff;
+}
+#modal-toggle {
+  padding-right: 15px;
+  text-decoration: none;
+}
+#btn-explore:hover {
+  background-color: #6f7a28;
+  color: #fff;
+}
+#btn-edit:hover {
+  background-color: #0078ad;
+  color: #fff;
+}
+#btn-plan:hover {
+  background-color: #d0701a;
+  color: #fff;
+}
