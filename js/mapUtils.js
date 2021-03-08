@@ -114,7 +114,9 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names, map) {
   togglerFieldset.appendChild(toggler);
 }
 
-function toggleAnalysis(btn_id, map) {
+function toggleAnalysis(btn_id, map, hover_popup) {
+  hover_popup.remove();
+
   // Get a list of the NON-SELECTED analyses
   var other_ids = analysis_names.filter(function (item) {
     return item !== btn_id;

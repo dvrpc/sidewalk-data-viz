@@ -73,9 +73,9 @@ map.on("load", () => {
         var msg = hover_popup_meta[this_key](e);
         bindPopup(map, msg, hover_popup, e);
       });
-      map.on("mouseleave", this_key, function (e) {
-        hover_popup.remove();
-      });
+      // map.on("mouseleave", this_key, function (e) {
+      //   hover_popup.remove();
+      // });
     }
     // If using mobile device, use CLICK event instead
     else {
@@ -99,7 +99,7 @@ map.on("load", () => {
 for (let i = 0; i < analysis_names.length; i++) {
   let this_analysis = analysis_names[i];
   document.getElementById(this_analysis).onclick = function () {
-    toggleAnalysis(this_analysis, map);
+    toggleAnalysis(this_analysis, map, hover_popup);
   };
 }
 
