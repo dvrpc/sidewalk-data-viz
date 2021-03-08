@@ -194,11 +194,12 @@ footer {
   background-color: var(--theme-dark);
   color: #f7f7f7;
   font-size: 80%;
+  color: #303030;
 }
 /* END Footer */
 
 .nav-link.active {
-  color: #007bff;
+  color: #006ce0;
 }
 .nav-link {
   font-weight: 500;
@@ -265,7 +266,7 @@ address {
   text-decoration: none;
   box-sizing: border-box;
   background-color: #fff;
-  color: #999;
+  color: #767676;
 }
 
 .btn-left {
@@ -282,6 +283,7 @@ address {
 #modal-toggle {
   padding-right: 15px;
   text-decoration: none;
+  color: #303030;
 }
 #btn-explore:hover {
   background-color: #6f7a28;
