@@ -80,7 +80,7 @@ const island_popup_msg = (e) => {
   if (props.muni_count == 1) {
     var muni_text =
       " is entirely within <strong>" +
-      props.muni_names.replace(": 100.0,", "") +
+      props.muni_names.split(":")[0] +
       "</strong>";
   } else {
     var muni_text =
