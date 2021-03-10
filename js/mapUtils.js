@@ -25,7 +25,10 @@ const analysis_meta = {
   },
   "transit-analysis": {
     layer_ids: ["transit_stops", "sw_nodes"],
-    layer_names: ["Transit Stops", "Walk Time"],
+    layer_names: [
+      "Transit Stops (SEPTA, NJ TRANSIT, & PATCO)",
+      "Walk Time to Nearest Transit Stop",
+    ],
     image_path: "img/Webmap-Legend-v2-network-map.png",
     alt_text: "Legend showing walk time to nearest transit stop",
     methodology_title: "Walk Time to Transit Methodology:",
@@ -33,8 +36,8 @@ const analysis_meta = {
   "rail-walksheds": {
     layer_ids: ["station_selected", "stations", "iso_osm", "iso_sw"],
     layer_names: [
-      "Selected Rail Station",
-      "Rail Stations",
+      "[Selected] Rail Station Sidewalk Score",
+      "Rail Station Sidewalk Score",
       "Street Centerline Walkshed (1-mile)",
       "Sidewalk Walkshed (1-mile)",
     ],
