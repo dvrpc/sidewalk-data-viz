@@ -12,7 +12,7 @@ const layers = {
       "line-color": "#6cd0ff",
     },
     filter: ["==", "dvrpc", "Yes"],
-    layout: { visibility: "none" },
+    // layout: { visibility: "none" },
   },
   muniOutline: {
     id: "municipality-outline",
@@ -23,7 +23,7 @@ const layers = {
       "line-width": 0.5,
       "line-color": "#6cd0ff",
     },
-    layout: { visibility: "none" },
+    // layout: { visibility: "none" },
   },
   iso_osm: {
     id: "iso_osm",
