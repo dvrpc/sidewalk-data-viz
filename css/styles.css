@@ -67,7 +67,7 @@ h1 {
 #modal-content {
   position: relative;
   background: #fff;
-  width: 50%;
+  width: 75%;
   padding: var(--wrapper-padding-double);
   border-radius: var(--border-radius);
   /* filter: brightness(150%); */
