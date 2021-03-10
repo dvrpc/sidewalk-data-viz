@@ -18,17 +18,17 @@
 const analysis_meta = {
   "gap-analysis": {
     layer_ids: ["centerlines"],
-    layer_names: ["Street Centerlines"],
+    layer_names: ["Sidewalk Coverage"],
     image_path: "img/Webmap-Legend-v2-segment-map.png",
     alt_text: "Legend showing sidewalk coverage",
-    methodology_title: "Street Segment Gap Methdology:",
+    methodology_title: "Street Segment Gap Methodology:",
   },
   "transit-analysis": {
     layer_ids: ["transit_stops", "sw_nodes"],
     layer_names: ["Transit Stops", "Walk Time"],
     image_path: "img/Webmap-Legend-v2-network-map.png",
     alt_text: "Legend showing walk time to nearest transit stop",
-    methodology_title: "Walk Time to Transit Methdology:",
+    methodology_title: "Walk Time to Transit Methodology:",
   },
   "rail-walksheds": {
     layer_ids: ["station_selected", "stations", "iso_osm", "iso_sw"],
@@ -41,14 +41,14 @@ const analysis_meta = {
     image_path: "img/Webmap-Legend-v2-rail-map.png",
     alt_text:
       "Legend showing sidewalk and centerline walksheds around rail stations",
-    methodology_title: "Rail Station Walksheds Methdology:",
+    methodology_title: "Rail Station Walksheds Methodology:",
   },
   "island-analysis": {
     layer_ids: ["islands"],
     layer_names: ["Islands of Connectivity"],
     image_path: "img/Webmap-Legend-v2-island-map.png",
     alt_text: "Legend for distinct islands",
-    methodology_title: "Islands of Connectivity Methdology:",
+    methodology_title: "Islands of Connectivity Methodology:",
   },
 };
 
