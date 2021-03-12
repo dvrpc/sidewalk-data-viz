@@ -327,3 +327,6 @@ address {
   font-weight: bold;
   color: var(--theme-dark);
 }
+.legend-sidewalk {
+  color: var(--theme-dark);
+}
