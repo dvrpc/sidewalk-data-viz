@@ -344,17 +344,15 @@
       <div id="modal-content">
         <span id="close-modal">&times;</span>
 
-        <h1 id="site-title" class="modal-content-subheader">
-          Sidewalk Gap Analysis Explorer
-        </h1>
-        <p>
+        <h1 id="modal-title">Sidewalk Gap Analysis Explorer</h1>
+        <p class="main-text">
           Welcome to DVRPC’s <strong>Sidewalk Gap Analysis Explorer</strong>. A
           connected pedestrian network is the foundation of a healthy,
           accessible, and prosperous community. This analysis helps communities
           around the region prioritize the pedestrian improvements that will
           make the greatest impact.
         </p>
-        <p>
+        <p class="main-text">
           How well connected is the pedestrian network in the Greater
           Philadelphia region? How do gaps in the pedestrian network affect our
           ability to travel around the region? This map explorer uses four
@@ -384,20 +382,18 @@
           </li>
         </ul>
         <p>
-          These tools are built on DVRPC’s pedestrian facilities inventory, a
-          GIS dataset that inventories sidewalks, curb ramps, and crosswalks
-          across the nine-county Greater Philadelphia region. Explore the data
-          and help plan for a pedestrian-friendly future at
-          <a href="https://walk.dvrpc.org/" target="_blank">walk.dvrpc.org</a>
-        </p>
-        <h2 class="modal-content-subheader">Tech Specs</h2>
-        <p>
-          This analysis was conducted in
+          <span class="modal-content-subheader">Tech Specs: </span>
+          These analyses were built using DVRPC’s pedestrian facilities
+          inventory, a GIS dataset that inventories sidewalks, curb ramps, and
+          crosswalks across the nine-county Greater Philadelphia region. Explore
+          the data and help plan for a pedestrian-friendly future at
+          <a href="https://walk.dvrpc.org/" target="_blank">walk.dvrpc.org</a>.
+          The analyses were conducted in
           <a href="https://www.python.org/" target="_blank">Python</a>, using
           data stored in a
           <a href="https://postgis.net/" target="_blank">PostgreSQL/PostGIS</a>
-          database. The walk time to transit and rail station walkshed analyses
-          utilized
+          database. The "Walk Time to Transit" and "Rail Station Walkshed"
+          analyses utilized
           <a href="https://github.com/UDST/pandana" target="_blank">pandana</a>,
           a Python library from
           <a href="https://urbansim.com/" target="_blank">Urbansim</a>'s
@@ -405,14 +401,11 @@
             >Urban Data Science Toolkit</a
           >
           that facilitates network-based routing analyses.
-        </p>
-
-        <p>
-          A detailed description of the analysis methodologies can be found
           <a
             href="https://drive.google.com/file/d/1CQQcEWiKvGkTobURTXuHa539V9qClZnm/view?usp=sharing"
             target="_blank"
-            >here</a
+            >A detailed description of the analysis methodologies is
+            available</a
           >, and the code for the
           <a href="https://github.com/dvrpc/network-routing" target="_blank"
             >data analysis</a
@@ -427,16 +420,18 @@
           >.
         </p>
 
-        <h2 class="modal-content-subheader">Contact</h2>
-        <address>
-          Aaron Fraint, AICP
-          <br />
-          Senior Transportation Planner
-          <br />
-          DVRPC Office of Mobility Analysis and Design
-          <br />
+        <p>
+          <span class="modal-content-subheader">Contact: </span>
+          Aaron Fraint, AICP | Senior Transportation Planner | DVRPC Office of
+          Mobility Analysis and Design |
           <a href="mailto:afraint@dvrpc.org">afraint@dvrpc.org</a>
-        </address>
+        </p>
+
+        <img
+          id="modal-logo"
+          src="./img/2c_BlackAcronymLarge.png"
+          alt="DVRPC logo"
+        />
       </div>
     </div>
 
