@@ -114,10 +114,18 @@
     </nav>
 
     <main id="main-content-wrapper" class="flex-row flex-between">
+      <div id="map">
+        <img
+          id="legend-image"
+          class="legend"
+          src="img/Webmap-Legend-v2-segment-map.png"
+          alt="Legend showing sidewalk coverage"
+        />
+      </div>
       <article id="sidebar">
         <div id="sidebar-content">
           <h1 id="title">Sidewalk Gap Analysis Explorer</h1>
-          <h2>Select an Analysis:</h2>
+          <h2>Select an Analysis</h2>
           <ul class="analysis-selector">
             <li id="gap-analysis" class="nav-link active">
               <svg
@@ -191,7 +199,7 @@
           <hr />
 
           <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
-          <h2 id="methodology-title">Street Segment Gap Methodology:</h2>
+          <h2 id="methodology-title">Street Segment Gap Methodology</h2>
           <div id="gap-analysis-description">
             <p>
               Every street centerline across the 9-county DVRPC region was
@@ -255,7 +263,7 @@
 
           <form class="sidebar-form sidebar-form-toggle">
             <fieldset id="analysis-toggler" class="sidebar-fieldset">
-              <legend>toggle analysis layers:</legend>
+              <legend class="bold-text">toggle analysis layers</legend>
 
               <ul id="toggler">
                 <li>
@@ -272,7 +280,7 @@
               </ul>
             </fieldset>
             <fieldset class="sidebar-fieldset">
-              <legend>toggle base layers:</legend>
+              <legend class="bold-text">toggle base layers</legend>
               <ul>
                 <li>
                   <label>
@@ -329,15 +337,6 @@
           </form>
         </div>
       </article>
-
-      <div id="map">
-        <img
-          id="legend-image"
-          class="legend"
-          src="img/Webmap-Legend-v2-segment-map.png"
-          alt="Legend showing sidewalk coverage"
-        />
-      </div>
     </main>
 
     <div id="modal" role="dialog">

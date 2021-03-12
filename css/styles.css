@@ -141,8 +141,8 @@ nav {
   border-right: 1px solid white;
 }
 #title {
-  font-size: 175%;
-  line-height: 110%;
+  font-size: 200%;
+  line-height: 150%;
   margin-bottom: 20px;
   color: var(--theme-dark);
 }
@@ -183,7 +183,7 @@ nav {
 .sidebar-fieldset {
   background: white;
   border-radius: var(--border-radius);
-  border: 2px solid var(--theme-dvrpc);
+  border: 2px solid var(--theme-dark);
 }
 .sidebar-fieldset label {
   margin-right: 5px;
@@ -220,19 +220,21 @@ footer {
 /* END Footer */
 
 .nav-link.active {
-  color: #006ce0;
+  color: #000000;
+  font-weight: bold;
 }
 .nav-link {
   font-weight: 500;
-  color: #333;
+  color: var(--theme-dark);
   cursor: pointer;
   padding: 2px 0px 2px 0px;
 }
 #sidebar-content ul {
   list-style-type: none;
+  padding-left: 25px;
 }
 #legend-image {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 3px;
   top: 10px;
   left: 10px;
@@ -317,4 +319,11 @@ address {
 #btn-plan:hover {
   background-color: #d0701a;
   color: #fff;
+}
+.mapboxgl-ctrl-geocoder {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.bold-text {
+  font-weight: bold;
+  color: var(--theme-dark);
 }
