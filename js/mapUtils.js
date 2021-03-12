@@ -21,7 +21,7 @@ const analysis_meta = {
     layer_names: ["Sidewalk Coverage"],
     image_path: "img/Webmap-Legend-v2-segment-map.png",
     alt_text: "Legend showing sidewalk coverage",
-    methodology_title: "Street Segment Gap Methodology:",
+    methodology_title: "Street Segment Gap Methodology",
   },
   "transit-analysis": {
     layer_ids: ["transit_stops", "sw_nodes"],
@@ -31,7 +31,7 @@ const analysis_meta = {
     ],
     image_path: "img/Webmap-Legend-v2-network-map.png",
     alt_text: "Legend showing walk time to nearest transit stop",
-    methodology_title: "Walk Time to Transit Methodology:",
+    methodology_title: "Walk Time to Transit Methodology",
   },
   "rail-walksheds": {
     layer_ids: ["station_selected", "stations", "iso_osm", "iso_sw"],
@@ -44,14 +44,14 @@ const analysis_meta = {
     image_path: "img/Webmap-Legend-v2-rail-map.png",
     alt_text:
       "Legend showing sidewalk and centerline walksheds around rail stations",
-    methodology_title: "Rail Station Walksheds Methodology:",
+    methodology_title: "Rail Station Walksheds Methodology",
   },
   "island-analysis": {
     layer_ids: ["islands"],
     layer_names: ["Islands of Connectivity"],
     image_path: "img/Webmap-Legend-v2-island-map.png",
     alt_text: "Legend for distinct islands",
-    methodology_title: "Islands of Connectivity Methodology:",
+    methodology_title: "Islands of Connectivity Methodology",
   },
 };
 
