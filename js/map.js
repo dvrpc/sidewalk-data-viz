@@ -62,10 +62,10 @@ const makeMap = () => {
     bbox: [-76.210785, 39.478606, -73.885803, 40.601963],
   });
 
-  map.addControl(geocoder);
+  map.addControl(geocoder, "top-left");
 
   const control = makeRegionalExtentControl(map);
-  map.addControl(control);
+  map.addControl(control, "bottom-right");
 
   return map;
 };

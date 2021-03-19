@@ -60,3 +60,10 @@ body {
 .btn {
   display: none;
 }
+
+input[type="checkbox"] {
+  height: 14px;
+}
+input[type="checkbox"]:after {
+  height: 10px;
+}
