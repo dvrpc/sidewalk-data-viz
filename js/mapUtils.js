@@ -34,8 +34,15 @@ const analysis_meta = {
     methodology_title: "Walk Time to Transit Methodology",
   },
   "rail-walksheds": {
-    layer_ids: ["station_selected", "stations", "iso_osm", "iso_sw"],
+    layer_ids: [
+      "ridescore_pois_all",
+      "station_selected",
+      "stations",
+      "iso_osm",
+      "iso_sw",
+    ],
     layer_names: [
+      "[Selected] Rail Station Access Point",
       "[Selected] Rail Station Sidewalk Score",
       "Rail Station Sidewalk Score",
       "Street Centerline Walkshed (1-mile)",
