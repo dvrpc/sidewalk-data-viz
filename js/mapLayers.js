@@ -28,7 +28,7 @@ const layers = {
   iso_osm: {
     id: "iso_osm",
     type: "fill",
-    source: "ridescore_analysis",
+    source: "ped_analysis",
     "source-layer": "ridescore_isos",
     paint: {
       "fill-color": "rgba(255, 255, 255, 0.5)",
@@ -40,7 +40,7 @@ const layers = {
   iso_sw: {
     id: "iso_sw",
     type: "fill",
-    source: "ridescore_analysis",
+    source: "ped_analysis",
     "source-layer": "ridescore_isos",
     paint: {
       "fill-color": "rgba(0, 255, 0, 0.5)",
@@ -123,10 +123,26 @@ const layers = {
     },
     layout: { visibility: "none" },
   },
+  ridescore_pois_all: {
+    id: "ridescore_pois_all",
+    type: "circle",
+    source: "ped_analysis",
+    "source-layer": "ridescore_pois",
+    minzoom: 12,
+    paint: {
+      "circle-radius": 4,
+      "circle-stroke-color": "white",
+      "circle-stroke-width": 1.5,
+      "circle-color": "rgba(0,0,0,1)",
+      "circle-opacity": 0,
+      "circle-stroke-opacity": 0,
+    },
+    layout: { visibility: "none" },
+  },
   stations: {
     id: "stations",
     type: "circle",
-    source: "ridescore_analysis",
+    source: "ped_analysis",
     "source-layer": "sidewalkscore",
     minzoom: 7,
     paint: {
@@ -149,7 +165,7 @@ const layers = {
   station_selected: {
     id: "station_selected",
     type: "circle",
-    source: "ridescore_analysis",
+    source: "ped_analysis",
     "source-layer": "sidewalkscore",
     minzoom: 7,
     paint: {
