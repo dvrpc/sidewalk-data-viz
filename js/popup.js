@@ -134,6 +134,10 @@ const wire_station_click = (map) => {
     map.setPaintProperty("station_selected", "circle-opacity", 1);
     map.setPaintProperty("station_selected", "circle-stroke-opacity", 1);
 
+    map.setFilter("ridescore_pois_all", ["in", "dvrpc_id", props.dvrpc_id]);
+    map.setPaintProperty("ridescore_pois_all", "circle-opacity", 1);
+    map.setPaintProperty("ridescore_pois_all", "circle-stroke-opacity", 1);
+
     map.flyTo({
       center: e.lngLat,
       zoom: 13,
