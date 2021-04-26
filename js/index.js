@@ -67,23 +67,10 @@ map.on("load", () => {
       () => (map.getCanvas().style.cursor = "pointer")
     );
 
-    // If using desktop, show popups on HOVER and remove on leave
-    if (window.innerWidth > 800) {
-      map.on("mousemove", this_key, function (e) {
-        var msg = hover_popup_meta[this_key](e);
-        bindPopup(map, msg, hover_popup, e);
-      });
-      // map.on("mouseleave", this_key, function (e) {
-      //   hover_popup.remove();
-      // });
-    }
-    // If using mobile device, use CLICK event instead
-    else {
-      map.on("click", this_key, function (e) {
-        var msg = hover_popup_meta[this_key](e);
-        bindPopup(map, msg, hover_popup, e);
-      });
-    }
+    map.on("click", this_key, function (e) {
+      var msg = hover_popup_meta[this_key](e);
+      bindPopup(map, msg, hover_popup, e);
+    });
 
     // change mouse tip upon leaving feature
     map.on("mouseleave", this_key, function (e) {
