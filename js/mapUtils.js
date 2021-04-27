@@ -124,8 +124,8 @@ function turnOnLayersAndAddButtons(list_of_ids, list_of_nice_names, map) {
   togglerFieldset.appendChild(toggler);
 }
 
-function toggleAnalysis(btn_id, map, hover_popup) {
-  hover_popup.remove();
+function toggleAnalysis(btn_id, map) {
+  remove_all_popups();
 
   // Get a list of the NON-SELECTED analyses
   var other_ids = analysis_names.filter(function (item) {
@@ -178,8 +178,17 @@ function toggleAnalysis(btn_id, map, hover_popup) {
 // END of the toggling analysis section
 // ----------------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------------
-// MOUSE HOVER EVENTS
-// ----------------------------------------------------------------------------------
+const remove_all_popups = () => {
+  // Remove a single popup, if there is one on the map
+  var existingPopup = document.getElementsByClassName("i-am-a-popup");
+  if (existingPopup.length) {
+    existingPopup[0].remove();
+  }
+};
 
-export { toggleAnalysis, turnOffLayersAndRemoveButtons, analysis_names };
+export {
+  toggleAnalysis,
+  turnOffLayersAndRemoveButtons,
+  analysis_names,
+  remove_all_popups,
+};

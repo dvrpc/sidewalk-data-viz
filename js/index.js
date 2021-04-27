@@ -3,11 +3,14 @@ import sources from "./mapSources.js";
 import { layers, paint_props } from "./mapLayers.js";
 import { ariaShowModal, ariaHideModal } from "./modal.js";
 
-import { toggleAnalysis, analysis_names } from "./mapUtils.js";
+import {
+  toggleAnalysis,
+  analysis_names,
+  remove_all_popups,
+} from "./mapUtils.js";
 
 import { toggleLayers } from "./forms.js";
 import {
-  hoverPopup,
   bindPopup,
   hover_popup_meta,
   hover_keys,
@@ -23,8 +26,6 @@ const toggleLayerForms = Array.from(
 );
 
 const map = makeMap();
-
-const hover_popup = hoverPopup();
 
 map.on("load", () => {
   // Find the index of the first symbol layer in the map style
@@ -68,8 +69,11 @@ map.on("load", () => {
     );
 
     map.on("click", this_key, function (e) {
+      remove_all_popups();
+
       var msg = hover_popup_meta[this_key](e);
-      bindPopup(map, msg, hover_popup, e);
+
+      bindPopup(map, msg, e);
     });
 
     // change mouse tip upon leaving feature
@@ -86,7 +90,7 @@ map.on("load", () => {
 for (let i = 0; i < analysis_names.length; i++) {
   let this_analysis = analysis_names[i];
   document.getElementById(this_analysis).onclick = function () {
-    toggleAnalysis(this_analysis, map, hover_popup);
+    toggleAnalysis(this_analysis, map);
   };
 }
 

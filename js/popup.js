@@ -1,9 +1,13 @@
 import { sw_filter, osm_filter } from "./mapLayers.js";
 
-const hoverPopup = () => new mapboxgl.Popup({ closebutton: false });
-const clickPopup = () => new mapboxgl.Popup();
+const newPopup = () =>
+  new mapboxgl.Popup({
+    closebutton: false,
+    className: "i-am-a-popup",
+  });
 
-const bindPopup = (map, html_msg, popup, target) => {
+const bindPopup = (map, html_msg, target) => {
+  var popup = newPopup();
   popup.setLngLat(target.lngLat).setHTML(html_msg).addTo(map);
 };
 
@@ -147,7 +151,7 @@ const wire_station_click = (map) => {
 };
 
 export {
-  hoverPopup,
+  newPopup,
   bindPopup,
   hover_popup_meta,
   hover_keys,
