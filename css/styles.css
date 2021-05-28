@@ -13,7 +13,7 @@ h1 {
 }
 :root {
   --theme-dvrpc: #0078ae;
-  --theme-dark: #979797;
+  --theme-dark: #767676;
 
   --wrapper-padding: 10px;
   --wrapper-padding-double: 20px;
@@ -314,7 +314,7 @@ address {
 #modal-toggle {
   padding-right: 15px;
   text-decoration: none;
-  color: #303030;
+  color: white;
 }
 #btn-explore:hover {
   background-color: #6f7a28;
