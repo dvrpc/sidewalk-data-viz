@@ -221,9 +221,8 @@ footer {
   padding: 0 var(--wrapper-padding);
   height: 6vh;
   background-color: var(--theme-dark);
-  color: #f7f7f7;
+  color: white;
   font-size: 80%;
-  color: #303030;
   text-align: left;
 }
 /* END Footer */
