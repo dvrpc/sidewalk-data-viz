@@ -9,7 +9,7 @@ const sources = {
   },
   ped_analysis: {
     type: "vector",
-    url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis-v2.json",
+    url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis-v3.json",
     // url: "http://0.0.0.0:8080/data/gaps.json",
   },
   regional_boundaries: {
