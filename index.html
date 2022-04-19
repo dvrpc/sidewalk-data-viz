@@ -17,7 +17,7 @@
     <meta name="owner" content="webmaster@dvrpc.org" />
     <meta name="distribution" content="global" />
     <meta name="robots" content="index, follow" />
-    <meta name="copyright" content="1995-2021 all rights reserved" />
+    <meta name="copyright" content="1995-2022 all rights reserved" />
     <!--  DVRPC Website VERSION #7.0 Copyright (c) 1995-2020 Delaware Valley Regional Planning Commission. All rights reserved.   -->
 
     <!-- social media -->
@@ -118,7 +118,7 @@
         <img
           id="legend-image"
           class="legend"
-          src="img/Webmap-Legend-v2-segment-map.png"
+          src="img/Webmap-Legend-v2_segment-map.png"
           alt="Legend showing sidewalk coverage"
         />
       </div>
@@ -161,6 +161,24 @@
               </svg>
               Walk Time to Transit
             </li>
+
+            <li id="school-analysis" class="nav-link">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-geo"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+                />
+              </svg>
+              Walk Time to School
+            </li>
+
             <li id="rail-walksheds" class="nav-link">
               <svg
                 width="1em"
@@ -220,9 +238,25 @@
               The number of minutes to the nearest stop is shown with each
               point's color. Red points highlight sidewalk segments where it's
               impossible to walk to any transit stops solely via the sidewalk
-              network.
+              network, or where the nearest transit stop is over a 2-hour walk away.
             </p>
           </div>
+
+          <div id="school-analysis-description" class="hidden-text">
+            <p>
+              The walking time to the three nearest schools was
+              calculated for the start and end points of every sidewalk segment
+              across the 9-county DVRPC region.
+            </p>
+            <p>
+              The number of minutes to the nearest school is shown with each
+              point's color. Red points highlight sidewalk segments where it's
+              impossible to walk to any school solely via the sidewalk
+              network, or where the nearest school is over a 2-hour walk away.
+            </p>
+          </div>
+
+
           <div id="rail-walksheds-description" class="hidden-text">
             <p>
               For every rail station across the 9-county DVRPC region a set of
@@ -365,8 +399,8 @@
             coverage for each street segment in the region.
           </li>
           <li>
-            The <strong>Walk Time to Transit</strong> tool calculates walking
-            time to the nearest transit stop along the sidewalk network.
+            The <strong>Walk Time to Transit</strong> and  <strong>Walk Time to School</strong> tool calculates walking
+            time to the nearest transit stops and schools along the sidewalk network.
           </li>
           <li>
             The <strong>Rail Station Walkshed</strong> tool presents accessible
@@ -414,7 +448,7 @@
 
     <footer class="flex-left flex-around">
       Aaron Fraint, AICP | Associate Manager | Office of Mobility Analysis &
-      Design | &copy; DVRPC, 2021
+      Design | &copy; DVRPC, 2022
     </footer>
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
