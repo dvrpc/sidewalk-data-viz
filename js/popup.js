@@ -76,7 +76,7 @@ const rail_walkshed_popup_msg = (e) => {
 
 const transit_stop_popup_msg = (e) => {
   var props = e.features[0].properties;
-  return "<h1>" + props.src + "</h1><p>" + props.stop_name + "</p>";
+  return "<h1>" + props.category + "</h1><p>" + props.poi_name + "</p>";
 };
 
 const island_popup_msg = (e) => {
@@ -126,7 +126,7 @@ const wire_station_click = (map) => {
   map.on("click", "stations", function (e) {
     var props = e.features[0].properties;
 
-    var id_filter = ["in", "dvrpc_id", props.dvrpc_id.toString()];
+    var id_filter = ["in", "poi_uid", props.poi_uid.toString()];
 
     map.setFilter("iso_sw", ["all", id_filter, sw_filter]);
     map.setPaintProperty("iso_sw", "fill-opacity", 0.7);
@@ -134,11 +134,11 @@ const wire_station_click = (map) => {
     map.setFilter("iso_osm", ["all", id_filter, osm_filter]);
     map.setPaintProperty("iso_osm", "fill-opacity", 0.7);
 
-    map.setFilter("station_selected", ["in", "dvrpc_id", props.dvrpc_id]);
+    map.setFilter("station_selected", ["in", "poi_uid", props.poi_uid]);
     map.setPaintProperty("station_selected", "circle-opacity", 1);
     map.setPaintProperty("station_selected", "circle-stroke-opacity", 1);
 
-    map.setFilter("ridescore_pois_all", ["in", "dvrpc_id", props.dvrpc_id]);
+    map.setFilter("ridescore_pois_all", ["in", "dvrpc_id", props.poi_uid]);
     map.setPaintProperty("ridescore_pois_all", "circle-opacity", 1);
     map.setPaintProperty("ridescore_pois_all", "circle-stroke-opacity", 1);
 
