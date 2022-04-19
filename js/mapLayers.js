@@ -1,5 +1,5 @@
-var sw_filter = ["all", ["==", "schema", "rs_sw"]];
-var osm_filter = ["all", ["==", "schema", "rs_osm"]];
+var sw_filter = ["all", ["==", "schema", "access_score_sw"]];
+var osm_filter = ["all", ["==", "schema", "access_score_osm"]];
 
 const layers = {
   countyOutline: {
@@ -29,7 +29,7 @@ const layers = {
     id: "iso_osm",
     type: "fill",
     source: "ped_analysis",
-    "source-layer": "ridescore_isos",
+    "source-layer": "accessscore_results",
     paint: {
       "fill-color": "rgba(255, 255, 255, 0.5)",
       "fill-opacity": 0,
@@ -41,7 +41,7 @@ const layers = {
     id: "iso_sw",
     type: "fill",
     source: "ped_analysis",
-    "source-layer": "ridescore_isos",
+    "source-layer": "accessscore_results",
     paint: {
       "fill-color": "rgba(0, 255, 0, 0.5)",
       "fill-opacity": 0,
@@ -116,9 +116,10 @@ const layers = {
           [10, "rgba(217,239,139,0.7)"],
           [30, "rgba(255,255,191,0.7)"],
           [60, "rgba(254,224,139,0.7)"],
-          [179, "rgba(252,141,89,0.7)"],
+          [90, "rgba(252,141,89,0.7)"],
           [180, "rgba(215,48,39,0.7)"],
         ],
+        default: "rgba(255,0,0,0.7)"
       },
     },
     layout: { visibility: "none" },
@@ -127,7 +128,7 @@ const layers = {
     id: "ridescore_pois_all",
     type: "circle",
     source: "ped_analysis",
-    "source-layer": "ridescore_pois",
+    "source-layer": "access_score_final_poi_set",
     minzoom: 12,
     paint: {
       "circle-radius": 4,
@@ -143,7 +144,7 @@ const layers = {
     id: "stations",
     type: "circle",
     source: "ped_analysis",
-    "source-layer": "sidewalkscore",
+    "source-layer": "accessscore_points",
     minzoom: 7,
     paint: {
       "circle-radius": 12,
@@ -166,7 +167,7 @@ const layers = {
     id: "station_selected",
     type: "circle",
     source: "ped_analysis",
-    "source-layer": "sidewalkscore",
+    "source-layer": "accessscore_points",
     minzoom: 7,
     paint: {
       "circle-radius": 20,
