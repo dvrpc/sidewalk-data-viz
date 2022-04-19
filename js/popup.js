@@ -40,7 +40,7 @@ const sw_node_popup_msg = (e) => {
       " minutes</h1><p>to the nearest transit stop by foot</p>"
     );
   } else {
-    return "<h1>🚷</h1><p>No transit stops are accessible solely via the sidewalk network</p>";
+    return "<h1>🚷</h1><p>No transit stops are within a 2-hour walk or accessible solely via the sidewalk network</p>";
   }
 };
 
@@ -79,6 +79,23 @@ const transit_stop_popup_msg = (e) => {
   return "<h1>" + props.category + "</h1><p>" + props.poi_name + "</p>";
 };
 
+const school_popup_msg = (e) => {
+  var props = e.features[0].properties;
+  return "<h1>" + props.type + "</h1><p>" + props.name + "</p>";
+};
+const school_node_popup_msg = (e) => {
+  var props = e.features[0].properties;
+  if (props.n_1_school < 180) {
+    return (
+      "<h1>" +
+      props.n_1_school.toFixed(1) +
+      " minutes</h1><p>to the nearest school by foot</p>"
+    );
+  } else {
+    return "<h1>🚷</h1><p>No schools are within a 2-hour walk or accessible solely via the sidewalk network</p>";
+  }
+};
+
 const island_popup_msg = (e) => {
   var props = e.features[0].properties;
   if (props.muni_count == 1) {
@@ -114,6 +131,8 @@ const hover_popup_meta = {
   stations: rail_walkshed_popup_msg,
   transit_stops: transit_stop_popup_msg,
   islands: island_popup_msg,
+  school_nodes: school_node_popup_msg,
+  schools: school_popup_msg,
 };
 
 const hover_keys = Object.keys(hover_popup_meta);

@@ -124,6 +124,30 @@ const layers = {
     },
     layout: { visibility: "none" },
   },
+  school_nodes: {
+    id: "school_nodes",
+    type: "circle",
+    source: "ped_analysis",
+    "source-layer": "school_results",
+    minzoom: 7,
+    paint: {
+      "circle-radius": 4,
+      "circle-color": {
+        property: "n_1_school",
+        stops: [
+          [0, "rgba(26,152,80,0.7)"],
+          [5, "rgba(145,207,96,0.7)"],
+          [10, "rgba(217,239,139,0.7)"],
+          [30, "rgba(255,255,191,0.7)"],
+          [60, "rgba(254,224,139,0.7)"],
+          [90, "rgba(252,141,89,0.7)"],
+          [180, "rgba(215,48,39,0.7)"],
+        ],
+        default: "rgba(255,0,0,0.7)"
+      },
+    },
+    layout: { visibility: "none" },
+  },
   ridescore_pois_all: {
     id: "ridescore_pois_all",
     type: "circle",
@@ -212,6 +236,20 @@ const layers = {
     },
     layout: { visibility: "none" },
   },
+  schools: {
+    id: "schools",
+    type: "circle",
+    source: "ped_analysis",
+    "source-layer": "school_points",
+    minzoom: 12,
+    paint: {
+      "circle-radius": 6,
+      "circle-stroke-color": "white",
+      "circle-stroke-width": 1.5,
+      "circle-color": "rgba(0,0,0,0)",
+    },
+    layout: { visibility: "none" },
+  },
 };
 
 const paint_props = {
@@ -247,6 +285,16 @@ const paint_props = {
   },
   transit_stops: {
     id: "transit_stops",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 1.5, 18, 12],
+  },
+  school_nodes: {
+    id: "school_nodes",
+    attribute: "circle-radius",
+    style: ["interpolate", ["linear"], ["zoom"], 12, 1.5, 18, 12],
+  },
+  schools: {
+    id: "schools",
     attribute: "circle-radius",
     style: ["interpolate", ["linear"], ["zoom"], 12, 1.5, 18, 12],
   },
