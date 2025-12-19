@@ -53,17 +53,15 @@
 
     <script defer type="module" src="./js/index.js"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JBJS8YDBDQ"></script>
     <script>
-      window.ga =
-        window.ga ||
-        function () {
-          (ga.q = ga.q || []).push(arguments);
-        };
-      ga.l = +new Date();
-      ga("create", "UA-9825778-1", "auto");
-      ga("send", "pageview");
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-JBJS8YDBDQ');
     </script>
-    <script async src="//www.google-analytics.com/ga.js"></script>
   </head>
 
   <body>
