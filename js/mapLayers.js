@@ -84,8 +84,8 @@ const layers = {
   centerlines: {
     id: "centerlines",
     type: "line",
-    source: "ped_analysis",
-    "source-layer": "osm_sw_coverage",
+    source: "ped_coverage",
+    "source-layer": "pedestriannetwork_coverage",
     minzoom: 7,
     paint: {
       "line-width": 4,

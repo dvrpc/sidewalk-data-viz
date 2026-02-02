@@ -16,6 +16,10 @@ const sources = {
     type: "vector",
     url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json",
   },
+  ped_coverage: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/transportation/pedestriannetwork_coverage",
+  },
 };
 
 export default sources;
