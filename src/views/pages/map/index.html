@@ -1,0 +1,375 @@
+{% extends "src/views/layouts/default.html" %}
+
+<!-- set variables used in layout -->
+{% set title="Home" %} {% block styles %}
+<!-- load specific page style -->
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700&amp;display=swap" />
+<link
+  rel="stylesheet"
+  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+  type="text/css"
+/>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" />
+<link href="@styles/legend.css" rel="stylesheet" />
+<link href="@styles/map.css" rel="stylesheet" />
+<link href="@styles/modal.css" rel="stylesheet" />
+<link href="@styles/sidebar.css" rel="stylesheet" />
+<link href="@styles/mobile.css" rel="stylesheet" media="screen and (max-width: 768px)" />
+{% endblock %} {% block scripts %}
+<!-- load specific page script -->
+<script src="./index.js"></script>
+{% endblock %} {% block content %}
+<main class="flex-row flex-between main-content-wrapper">
+  <section class="sidebar">
+    <div id="sidebar-content">
+      <h1 id="title">Sidewalk Gap Analysis Explorer</h1>
+      <h2>Select an Analysis</h2>
+      <ul class="analysis-selector">
+        <li id="gap-analysis" class="nav-link active">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-signpost-2"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z" />
+            <path
+              fill-rule="evenodd"
+              d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"
+            />
+            <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z" />
+          </svg>
+          Street Segment Gaps
+        </li>
+        <li id="transit-analysis" class="nav-link">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-geo"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+            />
+          </svg>
+          Walk Time to Transit
+        </li>
+
+        <li id="school-analysis" class="nav-link">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-geo"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+            />
+          </svg>
+          Walk Time to School
+        </li>
+
+        <li id="rail-walksheds" class="nav-link">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-egg-fried"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
+            />
+            <circle cx="8" cy="8" r="3" />
+          </svg>
+          Rail Station Walksheds
+        </li>
+        <li id="island-analysis" class="nav-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            fill="currentColor"
+            class="bi bi-grid-3x3-gap"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4 2H2v2h2V2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2H7v2h2V2zm5 0h-2v2h2V2zM4 7H2v2h2V7zm5 0H7v2h2V7zm5 0h-2v2h2V7zM4 12H2v2h2v-2zm5 0H7v2h2v-2zm5 0h-2v2h2v-2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z"
+            />
+          </svg>
+          Islands of Connectivity
+        </li>
+      </ul>
+
+      <hr />
+
+      <!-- BASIC METHODOLOGY DESCRIPTION FOR EACH PROJECT -->
+      <h2 id="methodology-title">Street Segment Gap Methodology</h2>
+      <div id="gap-analysis-description">
+        <p>
+          Every street segment across the 9-county DVRPC region was analyzed to find gaps in the sidewalk network. For
+          each segment, the length of parallel sidewalks was identified and divided by the segments's length. The
+          resulting ratio was classified into one of the three groups shown in the legend.
+        </p>
+      </div>
+      <div id="transit-analysis-description" class="hidden-text">
+        <p>
+          The walking time to the three nearest public transit stops was calculated for the start and end points of
+          every sidewalk segment across the 9-county DVRPC region. This includes all modes operated by SEPTA, NJ
+          TRANSIT, and PATCO.
+        </p>
+        <p>
+          The number of minutes to the nearest stop is shown with each point's color. Red points highlight sidewalk
+          segments where it's impossible to walk to any transit stops solely via the sidewalk network, or where the
+          nearest transit stop is over a 2-hour walk away.
+        </p>
+      </div>
+
+      <div id="school-analysis-description" class="hidden-text">
+        <p>
+          The walking time to the three nearest schools was calculated for the start and end points of every sidewalk
+          segment across the 9-county DVRPC region.
+        </p>
+        <p>
+          The number of minutes to the nearest school is shown with each point's color. Red points highlight sidewalk
+          segments where it's impossible to walk to any school solely via the sidewalk network, or where the nearest
+          school is over a 2-hour walk away.
+        </p>
+      </div>
+
+      <div id="rail-walksheds-description" class="hidden-text">
+        <p>
+          For every rail station across the 9-county DVRPC region a set of one-mile "walksheds" was calculated, one
+          using the sidewalk network and the other using the vehicular street network. These two areas were compared as
+          a ratio to create a "sidewalk score," highlighting stations where sidewalk accessibility is limited or
+          non-existent.
+        </p>
+        <p>Clicking on a rail station will zoom in and show the two associated walksheds.</p>
+      </div>
+      <div id="island-analysis-description" class="hidden-text">
+        <p>
+          Every sidewalk segment was grouped with all adjacent sidewalk segments. The result of this analysis is a set
+          of "islands," with each one representing a single portion of the network where a person could walk from one
+          end to another entirely on sidewalks (and crosswalks).
+        </p>
+        <p>
+          Each island is represented with a distinct color. Hovering your mouse over an island will identify the size of
+          the island in linear miles.
+        </p>
+      </div>
+
+      <!-- <p>
+            Read more about the methodology
+            <a
+              href="https://drive.google.com/file/d/1CQQcEWiKvGkTobURTXuHa539V9qClZnm/view?usp=sharing"
+              target="_blank"
+              >here</a
+            >.
+          </p> -->
+
+      <form class="sidebar-form sidebar-form-toggle">
+        <fieldset id="analysis-toggler" class="sidebar-fieldset">
+          <legend class="bold-text">toggle analysis layers</legend>
+
+          <ul id="toggler">
+            <li>
+              <label>
+                <input type="checkbox" id="centerlines" name="layer" value="centerlines" checked />
+                Sidewalk Coverage
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+        <fieldset class="sidebar-fieldset">
+          <legend class="bold-text">toggle base layers</legend>
+          <ul>
+            <li>
+              <label>
+                <input type="checkbox" id="sidewalks" name="layer" value="sidewalks" checked />
+                <i class="fa fa-minus fa-sm legend-sidewalk"></i>
+                Sidewalks
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" id="crosswalks" name="layer" value="crosswalks" checked />
+                <i class="fa fa-minus fa-lg legend-sidewalk"></i>
+                Crosswalks
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" id="county-outline" name="layer" value="county-outline" checked />
+                County Boundaries
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" id="municipality-outline" name="layer" value="municipality-outline" checked />
+                Municipal Boundaries
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+  <div id="map" class="map">
+    <button id="remove-selection-btn" class="remove-selection">
+      <p>Remove Selection</p>
+      <span>x</span>
+    </button>
+    <div class="legend-container-parent">
+      <div class="legend-container map-overlay-trans">
+        <div id="legend-container" class="map-legend-container"></div>
+      </div>
+      <div id="legend-toggles" class="legend-container map-overlay-trans legend-toggles">
+        <details class="form-wrapper">
+          <summary id="toggle-expand">Base Layers and Themes</summary>
+          <i id="close-form" class="fa-solid fa-xmark"></i>
+          <form id="main-form" class="legend-form">
+            <h3 class="sidebar-h3">select a map theme</h3>
+            <div class="layerTogglers">
+              <label id="vulnerable-btn" class="toggle-btn toggle-btn-active">
+                <input type="radio" class="lbox" name="theme" value="vulnerable" checked />
+
+                Vulnerable Populations
+              </label>
+
+              <label id="essential-btn" class="toggle-btn">
+                <input type="radio" class="lbox" name="theme" value="essential" checked />
+
+                Essential Services
+              </label>
+              <label id="mismatch-btn" class="toggle-btn">
+                <input type="radio" class="lbox" name="theme" value="mismatch" checked />
+                Population-Services Mismatch
+              </label>
+
+              <label id="transit-btn" class="toggle-btn">
+                <input type="radio" class="lbox" name="theme" value="transit" checked />
+                Transit Accessibility
+              </label>
+
+              <label id="priority-btn" class="toggle-btn">
+                <input type="radio" class="lbox" name="theme" value="priority" />
+                Priority Score
+              </label>
+            </div>
+          </form>
+          <form id="checkbox-form" class="legend-form">
+            <h3 class="sidebar-h3 overlay-h3">add context</h3>
+            <div class="checkbox-group">
+              <div class="checkbox-subgroup">
+                <div>
+                  <span class="checkbox-subgroup-title">Essential Services</span>
+                  <button id="essential-select-all" type="button">Select All</button>
+                </div>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="es-senior" />
+                  <svg id="es-senior" class="checkbox-legend-icon" width="12" height="12">
+                    <circle cx="6" cy="6" r="6" fill="#FDAA02" />
+                  </svg>
+                  Activity Center for Seniors or Disabled
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="es-food" />
+                  <svg id="es-food" class="checkbox-legend-icon" width="12" height="12">
+                    <circle cx="6" cy="6" r="6" fill="#AAFE00" />
+                  </svg>
+                  Food store
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="es-health" />
+                  <svg id="es-health" class="checkbox-legend-icon" width="12" height="12">
+                    <circle value="es-health" cx="6" cy="6" r="6" fill="#eb548c" />
+                  </svg>
+                  Health Care Facility
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="es-school" />
+                  <svg id="es-school" class="checkbox-legend-icon" width="12" height="12">
+                    <circle cx="6" cy="6" r="6" fill="#00A9E5" />
+                  </svg>
+                  School
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="trail-lines" />
+                  <svg id="trail-lines" class="checkbox-legend-icon" width="12" height="12">
+                    <line x1="0" x2="12" y1="6" y2="6" stroke="#8AAB52" />
+                  </svg>
+                  Multi-use Trail
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="es-checkbox" type="checkbox" value="open-space-fill" />
+                  <svg id="open-space-fill" class="checkbox-legend-icon" width="12" height="12">
+                    <rect x="0" y="0" width="12" height="12" fill="#B6CC89" />
+                  </svg>
+                  Park/Open Space
+                </label>
+              </div>
+              <div class="checkbox-subgroup">
+                <div>
+                  <span class="checkbox-subgroup-title">Transit Accessibility</span>
+                  <button id="transit-select-all" type="button">Select All</button>
+                </div>
+                <label class="label-input overlay-input">
+                  <input class="tr-checkbox" type="checkbox" value="bus" />
+                  <svg id="bus" class="checkbox-legend-icon" width="24" height="12">
+                    <line x1="0" x2="24" y1="6" y2="6" stroke="#66b2b2" />
+                    <circle cx="12" cy="6" r="6" fill="#66b2b2" />
+                  </svg>
+                  Bus Route
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="tr-checkbox" type="checkbox" value="rail" />
+                  <svg id="rail" class="checkbox-legend-icon" width="24" height="12">
+                    <line x1="0" x2="24" y1="6" y2="6" stroke="#C203FA" />
+                    <line x1="0" x2="24" y1="6" y2="6" stroke="#C203FA" />
+                    <line x1="0" x2="24" y1="6" y2="6" stroke="#C203FA" />
+
+                    <circle cx="12" cy="6" r="6" fill="#FF73DF" />
+                  </svg>
+                  Passenger Rail
+                </label>
+                <label class="label-input overlay-input">
+                  <input class="tr-checkbox" type="checkbox" value="ped" />
+                  <svg id="ped" class="checkbox-legend-icon" width="24" height="12">
+                    <circle cx="2" cy="6" r="2" fill="#AC7E4B" />
+                    <line x1="0" x2="24" y1="6" y2="6" stroke="#DABC94" />
+                    <circle cx="22" cy="6" r="2" fill="#AC7E4B" />
+                  </svg>
+                  Pedestrian Network (Sidewalks and Curb Ramps)
+                </label>
+              </div>
+            </div>
+          </form>
+          <div class="opacity-slider-container">
+            <label>Layer opacity: <span id="slider-value">100%</span></label>
+            <input id="slider" type="range" min="0" max="100" step="0" value="100" autocomplete="off" />
+          </div>
+        </details>
+      </div>
+    </div>
+    <div class="lds-ring lds-ring-active">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,20 @@
+.footer {
+  background-color: var(--theme-main);
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  height: 200px;
+}
+
+.social-media-link-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.footer-info-wrapper {
+  color: var(--theme-white);
+  padding-left: 32px;
+  border-left: 1px solid white;
+}

@@ -1,0 +1,161 @@
+/* General */
+body {
+    font-size: 12px;
+}
+/* END General */
+
+
+
+/* Modal */
+.modal-content {
+    width: 85%;
+    max-height: 85%;
+}
+.modal-section, .modal-hr {
+    width: unset;
+}
+/* END Modal */
+
+
+
+/* Navbar */
+.top-nav {
+    height: 40px;
+}
+#dvrpc-logo {
+    width: 80px;
+}
+.nav-vr {
+    margin: 0 8px;
+}
+.nav-btn {
+    width: 32px;
+    min-width: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-btn span {
+    display: none;
+}
+
+.nav-left h1 {
+    font-size: 18px;
+}
+/* END Navbar */
+
+
+
+/* Main Webmap Area */
+.main-content-wrapper {
+    flex-direction: column-reverse;
+    height: 95vh;
+}
+/* END Main Webmap Area */
+
+
+
+/* Sidebar */
+.sidebar {
+    width: 100%;
+    height: 30%;
+}
+.sidebar-content {
+    height: unset;
+}
+/* END Sidebar */
+
+/* Map */
+.map {
+    width: 100%;
+    height: 70%;
+}
+
+.mapboxgl-ctrl-geocoder {
+    font-size: 0.8rem;
+    min-width: unset;
+    width: 75%;
+}
+.mapboxgl-ctrl-geocoder--input {
+    height: 30px;
+    padding: 6px 35px;
+    padding-right: 0;
+}
+.mapboxgl-ctrl-geocoder--icon-search {
+    top: 3px;
+    left: 6px;
+}
+/* END Map */
+
+/* Legend */
+.legend-description {
+    display: none;
+}
+
+.legend-title {
+    font-size: 14px;
+}
+.legend-container {
+    min-width: unset;
+    max-width: 150px;
+    min-height: unset;
+}
+.legend-form {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.layerTogglers {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+.legend-toggles {
+    max-width: 200px;
+    max-height: 50%;
+}
+/* End Legend */
+
+.blog-navigator {
+    position: relative;
+    top: 40px;
+    left: 0px;
+    width: 100%;
+    padding: 0px;
+    padding-bottom: 16px 
+}
+
+.blog-container {
+    max-width: 100%;
+    width: 100%;
+    left: 0px
+}
+
+.eta-logo-wrapper {
+    flex-direction: column;
+}
+
+#eta-logo {
+    height: 160px;
+}
+
+.remove-selection {
+    display: none;
+}
+
+#contact {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
+#footer-dvrpc-logo {
+    height: 75px;
+}
+
+.main-content-wrapper {
+    top: 40px;
+}
+
+.blog-text {
+    padding: 0px
+}

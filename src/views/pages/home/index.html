@@ -1,0 +1,241 @@
+{% extends "src/views/layouts/default.html" %}
+
+<!-- set variables used in layout -->
+{% set title="Home" %} {% block styles %}
+<!-- load specific page style -->
+<link href="@styles/home.css" rel="stylesheet" />
+<link href="@styles/footer.css" rel="stylesheet" />
+<link href="@styles/mobile.css" rel="stylesheet" media="screen and (max-width: 768px)" />
+
+{% endblock %} {% block scripts %}
+<!-- load specific page script -->
+<script src="./index.js"></script>
+{% endblock %} {% block content %}
+<main>
+  <div class="blog-navigator">
+    <div class="jump-to-wrapper">
+      <h2>Home</h2>
+      <h3>Jump to Section</h3>
+      <a class="jump-to-link" href="#">Purpose</a>
+      <a class="jump-to-link" href="#about">DVRPC Analysis</a>
+      <a class="jump-to-link" href="#disclaimer">Data Disclaimer</a>
+      <a class="jump-to-link" href="#contact">Staff Contact</a>
+    </div>
+    <div class="large-nav-btn-wrapper">
+      <a id="map-link">
+        <button class="large-nav-btn">
+          <div class="large-nav-btn-inner">
+            <i class="fa-solid fa-map large-nav-btn-icon"></i>
+            <div class="large-nav-btn-text">
+              <h3>VIEW MAP</h3>
+              <span>EXPLORE SIDEWALK GAPS</span>
+            </div>
+          </div>
+        </button>
+      </a>
+      <a id="data-link" href="https://catalog.dvrpc.org/dataset/equity-through-access-priority-score" target="_blank">
+        <button class="large-nav-btn">
+          <div class="large-nav-btn-inner">
+            <i class="fa-solid fa-table"></i>
+            <div class="large-nav-btn-text">
+              <h3>DATA DOWNLOAD</h3>
+              <span>ACCESS AND DOWNLOAD SIDEWALK GAP DATA</span>
+            </div>
+          </div>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="blog-container">
+    <div class="blog">
+      <div id="purpose" class="blog-section">
+        <div class="blog-text">
+          <div class="description">
+            <div class="eta-logo-wrapper">
+              <img id="eta-logo" src="@images/eta.svg" alt="eta logo" height="210px" />
+
+              <div>
+                <h2 style="margin-left: 0px; margin-top: 0px; margin-bottom: 8px;">Purpose of Equity Through Access (ETA)</h2>
+                <p>
+                  The Equity Through Access project of the <a href="https://www.dvrpc.org/" target="_blank">Delaware Valley Regional Planning Commission (DVRPC)</a> is an
+                  update to the region's <a href="https://www.dvrpc.org/coordinatedhumanservices/" target="_blank">Coordinated Human Services Transportation Plan (CHSTP)</a>. The ETA project engaged a
+                  variety of stakeholders to identify unmet needs and service gaps, recommend innovative transportation
+                  access solutions, and empower communities to climb "ladders of opportunity" toward greater social and
+                  economic mobility.
+                </p>
+              </div>
+
+            </div>
+
+            <br />
+            <p>
+              As part of the ETA project, DVRPC created this ETA Priority Score Map Toolkit. This interactive web-based
+              tool demonstrates disparities in access to essential services like hospitals, health clinics, recreational
+              spaces, senior centers, and more in the Greater Philadelphia region. Users can view layers representing
+              different datasets including the locations of essential services; bus routes, transit stops, and rail
+              lines; transit walksheds; distributions of vulnerable populations like seniors, households in poverty, and
+              people with disabilities; and areas where transit access is low. By reviewing these simple, color-coded
+              layers, users can explore the relationships between transportation access, opportunity, and equity.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="about" class="blog-section">
+        <h2>DVRPC Analysis</h2>
+        <div class="blog-text">
+          <div class="description">
+            <p>This web map visually walks you through the analysis DVRPC performed to create the ETA Priority
+              Score, a layer that helps users visualize where there is a potentially high need to improve transit
+              service for vulnerable populations to reach essential services in the Greater Philadelphia region. To
+              see how this toolkit can be used to answer a planning question, refer to the case study
+              <a href="http://www.dvrpc.org/eta/CaseStudies/pdf/Lower_Bucks_Case_Study.pdf" target="_blank"><span
+                  >&ldquo;Putting the Equity Through Access Map Toolkit to Work in Lower Bucks County (pdf).&rdquo;</span
+                ></a
+              >&nbsp;<i>(Note: This case study uses an older version of the ETA Map Toolkit, but the methodology can still be applied to this updated version.)</i></span>
+            </p>
+            <br/>
+            <p>
+              <strong>Vulnerable Populations </strong>answers the question, &ldquo;Who lives here?&rdquo;
+                and highlights populations in need.
+            </p>
+            <p>
+              <strong>Essential Services</strong> answers the question, &ldquo;Where do people need to
+                go?&rdquo; and highlights areas with more services in the region.
+            </p>
+            <p>
+              <strong>Population-Services Mismatch</strong> answers the question, &ldquo;Where is there a
+                gap between areas of need and essential services?&rdquo; This layer highlights areas where there are
+                higher numbers of vulnerable populations but fewer essential services and vice versa.
+            </p>
+            <p>
+              <strong>Transit Accessibility </strong>answers the question, &ldquo;How is transit service
+                distributed?&rdquo; and highlights areas in the region with lower transit accessibility.
+            </p>
+            <p>
+              <strong>Priority Score</strong> answers the question, &ldquo;Where can transit service be
+                improved to help vulnerable populations access essential services?&rdquo; This layer, the result of
+                our analysis, highlights areas with higher numbers of vulnerable populations or essential services,
+                but lower transit accessibility and vice versa.
+            </p>
+            <br/>
+            <h3>Exploring the Data:</h3>
+            <p>Select <i>Base Layers and Themes</i> to expand the legend overlay, and select a different map theme to display different layers.</p>
+            <p>Find your area of interest by clicking on the magnifying glass at the top right of the map, and type in your
+                town&rsquo;s name or ZIP code. Pan and zoom using the arrows just below the search bar or use your
+                mouse.
+            </p>
+            <p>
+              Click on features in the map to view more information about the data in the sidebar.
+            </p>
+            <br/>
+            <p>
+              <a href="https://catalog.dvrpc.org/dataset/equity-through-access-priority-score" target="_blank" class="large-link">ETA – Data Download</a>
+            </p>
+            <br/>
+            <p>
+              <a href="https://docs.google.com/document/d/1DnaLktigQVwtBuBB3R8PWhL6oRzdc15mYLHf6v1yweM/edit?usp=sharing" target="_blank" class="large-link">ETA – Priority Score Methodology (Google Doc)</a>
+            </p>
+            <br/>
+            <p>
+              <i>
+                Data Sources: DVRPC (Circuit Trails, 2020; Parks/Open Space, 2016), DVRPC Pedestrian Network (2022), DVRPC Travel Models (2023), Overture Maps (2024), HRSA (2020), NETS (2015), National Center for Education Statistics (NCES 2017-2018), SEPTA (2024), NJT (2024), PATCO (2024), U.S. Census, ACS 2018-2022 5-Year Estimates. 
+                ACS data are derived from a survey and are subject to sampling variability.
+              </i>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="disclaimer" class="blog-section">
+        <h2>Data Disclaimer</h2>
+        <div class="blog-text">
+          <div class="description">
+            <p>
+              This webpage is a public resource using ACS data. The Delaware Valley Regional Planning Commission (DVRPC) makes
+              no warranty, representation, or guarantee as to the content, sequence, accuracy, timeliness, or completeness of
+              any of the spatial data or database information provided herein. DVRPC and partner state, local, and other 
+              agencies shall assume no liability for errors, omissions, or inaccuracies in the information provided 
+              regardless of how caused; or any decision made or action taken or not taken by any person relying on 
+              any information or data furnished within.
+            </p>
+            <br/>
+            <p>
+              The Delaware Valley Regional Planning Commission (DVRPC) fully complies with Title VI of the Civil Rights 
+              Act of 1964, the Civil Rights Restoration Act of 1987, Executive Order 12898 on Environmental Justice, 
+              and related nondiscrimination mandates in all programs and activities. DVRPC is committed to ensuring 
+              that no person is excluded from participation in, or denied the benefits of, all programs and activities
+               on the basis of race, creed color, national origin, age, gender, disability, sexual orientation, or 
+               income level, as protected by Title VI of the Civil Rights Act of 1964 and other related nondiscrimination mandates.
+            </p>
+            <br/>
+            <p>
+              DVRPC's website, <a href="http://www.dvrpc.org/" target="_blank">www.dvrpc.org</a>, may be translated into multiple languages. Publications and other public documents 
+              can be made available in alternative languages and formats, if requested. DVRPC’s public meetings are always held 
+              in ADA-accessible facilities, and held in transit-accessible locations whenever possible. DVRPC will work to 
+              accommodate all reasonable requests for translation, interpretation, accommodations or other auxiliary services 
+              and encourages that requests be made at least seven days prior to a public meeting. Requests can be made by 
+              contacting the Commission’s ADA and Title VI Compliance Officer Shoshana Akins via email at <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>, 
+              calling (215) 592-1800, or while registering for an upcoming meeting.
+            </p>
+            <br/>
+            <p>
+              Any person who believes they have been aggrieved by an unlawful discriminatory practice by DVRPC under Title VI 
+              has a right to file a formal complaint. Any such complaint must be in writing and filed with DVRPC's ADA and 
+              Title VI Compliance Officer Shoshana Akins and/or the appropriate state or federal agency within 180 days of 
+              the alleged discriminatory occurrence. Complaints that a program, service, or activity of DVRPC is not accessible 
+              to persons with disabilities should be directed to Shoshana Akins as well. For more information on DVRPC's Title 
+              VI program or to obtain a <a href="https://www.dvrpc.org/GetInvolved/TitleVI/pdf/TitleVIComplaintForm_English.pdf" target="_blank">Title VI Complaint Form (pdf)</a>, 
+              please visit: <a href="https://www.dvrpc.org/GetInvolved/TitleVI/" target="_blank">www.dvrpc.org/GetInvolved/TitleVI</a>, 
+              call (215) 592-1800, or email <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>.
+            </p>
+          </div>
+        </div>
+        
+      </div>
+      <div id="contact">
+        <p><strong>Staff Contact: <a href="mailto:abernknopf@dvrpc.org">Amy Bernknopf</a></strong>  | Manager, Office of Transit, Bicycle, and Pedestrian Planning</p>
+        <p><i><a target="_blank" href="https://www.dvrpc.org/products/web19510">Product Number: web19510</a>&nbsp;|&nbsp;<a target="_blank" href="https://www.dvrpc.org/policies/">DVRPC Policies</a></i></p>
+        <p><strong><a href="https://www.dvrpc.org/eta/">Learn more about Equity Through Access</a></strong></p>
+
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<footer class="footer">
+  <a href="https://www.dvrpc.org" target="_blank">
+    <img src="@images/dvrpc.svg" alt="dvrpc logo" height="96px" id="footer-dvrpc-logo"/>
+  </a>
+  <div class="footer-info-wrapper">
+    <p>190 N Independence Mall West</p>
+    <p>8th Floor</p>
+    <p>Philadelphia PA 19106-1520</p>
+    <p>215.592.1800</p>
+    <p><a href="https://www.dvrpc.org" target="_blank" class="secondary-color">www.dvrpc.org</a></p>
+    <div>
+      <p>Connect With Us!</p>
+      <div class="social-media-link-wrapper">
+        <a href="https://www.facebook.com/DVRPC" target="_blank">
+          <img src="@images/facebook.svg" height="16px" />
+        </a>
+        <a href="https://www.instagram.com/dvrpc/" target="_blank">
+          <img src="@images/instagram.svg" alt="instagram logo" height="16px" />
+        </a>
+        <a href="http://www.linkedin.com/company/delaware-valley-regional-planning-commission" target="_blank">
+          <img src="@images/linkedin.svg" alt="linkedin logo" height="16px" />
+        </a>
+        <a href="https://www.youtube.com/channel/UCEU8UI5_iGkVypHP93b5jLA" target="_blank">
+          <img src="@images/youtube.svg" alt="youtube logo" height="16px" />
+        </a>
+        <a href="https://www.twitter.com/DVRPC" target="_blank">
+          <img src="@images/twitter.svg" alt="twitter logo" height="16px" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}

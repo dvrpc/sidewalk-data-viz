@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sidewalk Gap Analysis Explorer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+    <meta name="created" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Delaware Valley Regional Planning Commission (DVRPC)" />
+    <meta name="owner" content="webmaster@dvrpc.org" />
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="index, follow" />
+    <meta name="copyright" content="1995-2023 all rights reserved" />
+    <!--  DVRPC Website VERSION #7.0 Copyright (c) 1995-2023 Delaware Valley Regional Planning Commission. All rights reserved.   -->
+
+    <!-- social media -->
+    <meta property="og:title" content="" />
+    <meta propery="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <!-- block for specific page styles -->
+    {% block styles %}{% endblock %}
+    <link href="@styles/main.css" rel="stylesheet" />
+    <link href="@styles/header.css" rel="stylesheet" />
+    <link href="@styles/mobile.css" rel="stylesheet" media="screen and (max-width: 768px)" />
+  </head>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9825778-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-9825778-1');
+  </script>
+
+  <body>
+    <!-- Header -->
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="https://www.dvrpc.org/" target="_blank" class="nav-links"
+          ><img src="@images/dvrpc-mini.svg" alt="DVRPC logo" id="dvrpc-logo" height="48px"
+        /></a>
+
+        <span class="nav-vr">|</span>
+
+        <h1>Sidewalk Gap Analysis Explorer</h1>
+      </div>
+
+      <!-- <span class="nav-vr">|</span> -->
+
+      <!-- <button id="modal-toggle" class="nav-btn">about</button> -->
+      <!-- <span class="nav-vr">|</span> -->
+
+      <div class="nav-right">
+        <a href="/map.html" id="nav-button-link"
+          ><button id="nav-button" class="nav-btn">
+            <i class="fa-solid fa-map"></i><span>&nbsp;&nbsp;View Map</span>
+          </button></a
+        >
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <!-- block for specific page content -->
+    {% block content %}{% endblock %}
+
+    <!-- block for specific page scripts -->
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

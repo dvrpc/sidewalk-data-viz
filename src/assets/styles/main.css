@@ -1,0 +1,122 @@
+/* General */
+* {
+  margin: 0;
+}
+body {
+  font-size: 15px;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  background-color: var(--theme-offwhite);
+  height: 100vh;
+}
+pre {
+  font-family: 'Roboto', sans-serif;
+}
+h1 {
+  text-align: center;
+  font-size: 28px;
+}
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 18px;
+  
+}
+summary {
+  cursor: pointer;
+}
+fieldset {
+  font-size: 1em;
+  border-radius: var(--border-radius);
+  background-color: white;
+}
+select,
+input {
+  cursor: pointer;
+}
+select {
+  border-radius: var(--border-radius);
+  padding: 0.5em 0.75em;
+  background-color: white;
+}
+input[type='radio'],
+input[type='checkbox'] {
+  margin-right: 0.5em;
+}
+a {
+  color: var(--theme-main);
+}
+
+button {
+  transition: 0.3s;
+}
+
+:root {
+  --theme-main: #0078ae;
+  --theme-accent: #366478;
+  --theme-black: #505a5e;
+  --theme-white: #f7f7f7;
+  --theme-offwhite: #f0f0f0;
+
+  --padding-half: 5px;
+  --padding: 10px;
+  --padding-double: 20px;
+
+  --border-radius: 4px;
+  --box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
+  --box-shadow-nav: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  --box-shadow-half: 0.5px 1px 1.5px rgba(0, 0, 0, 0.15);
+}
+
+.secondary-color {
+  color: var(--theme-white) !important;
+}
+.flex {
+  display: flex;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flex-between {
+  justify-content: space-between;
+}
+.flex-around {
+  justify-content: space-around;
+}
+.flex-end {
+  justify-content: flex-end;
+}
+.container {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-half);
+  padding: 10px;
+  margin: 5px auto;
+}
+/* END General */
+
+/* Footer */
+footer {
+  height: calc(5% - 20px);
+  padding: var(--padding);
+  box-shadow: var(--box-shadow);
+  overflow-y: auto;
+  background-color: white;
+  color: var(--theme-black);
+}
+/* END Footer */

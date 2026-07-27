@@ -1,0 +1,24 @@
+const sources = {
+  boundaries: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json",
+  },
+  sidewalk_inventory: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/pedestrian-network.json",
+  },
+  ped_analysis: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/sidewalk-gaps-analysis-v3.json",
+  },
+  regional_boundaries: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/dvrpc-municipal.json",
+  },
+  ped_coverage: {
+    type: "vector",
+    url: "https://tiles.dvrpc.org/data/transportation/pedestriannetwork_coverage",
+  },
+};
+
+export default sources;

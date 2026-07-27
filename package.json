@@ -1,0 +1,47 @@
+{
+  "name": "eta",
+  "version": "1.0.0",
+  "description": "Equity Through Access Web Map",
+  "keywords": [
+    ""
+  ],
+  "author": "DVRPC",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "test": "test",
+    "start": "webpack && webpack serve",
+    "build": "webpack --env production",
+    "build:prod": "webpack -p && npm version minor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvrpc/map-templates/tree/main/sidebar-template"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^7.0.0",
+    "css-loader": "^5.0.1",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "file-loader": "^6.2.0",
+    "html-bundler-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^4.5.2",
+    "mini-css-extract-plugin": "^1.3.3",
+    "nunjucks": "^3.2.4",
+    "path": "^0.12.7",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.10.3",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "dotenv-webpack": "^8.1.0",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.3",
+    "mapbox-gl": "^3.6.0",
+    "svg2pdf.js": "^2.2.4"
+  }
+}

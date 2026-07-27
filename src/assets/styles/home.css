@@ -1,0 +1,154 @@
+.blog-container {
+  position: relative;
+  left: 48px;
+  max-width: calc(100% - 500px);
+  display: flex;
+  justify-content: center;
+}
+
+.blog {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin-top: 16px;
+  flex-direction: column;
+  padding-bottom: 32px;
+  top: 60px;
+}
+
+.blog-section {
+  background-color: var(--theme-white);
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  position: relative;
+  max-width: 1000px;
+  margin-top: 16px;
+  padding: 16px;
+  text-align: center;
+  scroll-margin-top: 60px;
+}
+
+.blog-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+  margin-left: 24px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  color: #003B59;
+  margin-bottom: -8px;
+}
+
+.blog-section h3 {
+  font-weight: 700;
+}
+.blog-text {
+  display: inline-block;
+  text-align: left;
+  padding: 24px;
+}
+
+.blog-navigator {
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  position: sticky;
+  float: left;
+  top: 92px;
+  width: 400px;
+  left: 32px;
+  padding: 16px 16px 32px;
+  max-height: 75%;
+  overflow: auto;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: -28px
+}
+
+.jump-to-wrapper {
+  display: flex;
+  margin-top: 16px;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.contact-table {
+  border-spacing: 50px 0;
+}
+
+.large-link {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#contact {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.large-nav-btn-wrapper {
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.large-nav-btn {
+  width: 100%;
+  height: 80px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  background-color: var(--theme-main);
+  color: white;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
+  border: 1px;
+}
+
+.large-nav-btn:hover {
+  color: black;
+  background-color: var(--theme-offwhite);
+  cursor: pointer;
+}
+
+.large-nav-btn-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.large-nav-btn-inner svg {
+  font-size: 42px;
+}
+
+.large-nav-btn-text {
+  text-align: left;
+  font-weight: 700;
+}
+
+.large-nav-btn-text h3 {
+  font-size: 18px;
+}
+
+.large-nav-btn-text span {
+  font-size: 14px;
+}
+
+.eta-logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  font-size: 17px;
+  align-items: center;
+}

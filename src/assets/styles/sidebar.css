@@ -1,0 +1,140 @@
+/* Sidebar */
+.sidebar {
+  width: 35%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--theme-offwhite);
+  color: var(--theme-black);
+  box-shadow: var(--box-shadow-half);
+  z-index: 1;
+}
+.sidebar-content {
+  padding: var(--padding);
+  height: calc(95% - 20px);
+  overflow-y: auto;
+}
+.sidebar-h2 {
+  color: var(--theme-main);
+  font-size: 1.25em;
+  text-align: center;
+}
+.sidebar-h3 {
+  color: var(--theme-accent);
+  font-size: 1.125em;
+  font-weight: 400;
+  margin-top: var(--padding-double);
+}
+.sidebar-h3:first-of-type {
+  margin-top: var(--padding);
+}
+.sidebar-img {
+  display: block;
+  max-width: 100%;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+.legend-form {
+  margin: var(--padding) auto;
+  padding-left: var(--padding-double);
+  padding-right: var(--padding-double);
+}
+.sidebar-fieldset label {
+  margin-right: 5px;
+}
+.label-select {
+  margin-bottom: var(--padding);
+}
+
+.data-value {
+  text-align: center;
+  float: right;
+}
+
+.data-value-multi {
+  text-align: center;
+}
+
+.data-row {
+  border-bottom: 1px dotted #414770;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table tr {
+  border-bottom: 1px dotted #414770;
+}
+
+.data-table tr:first-child {
+  border-bottom: none;
+}
+
+.data-table th {
+  font-size: small;
+  font-weight: 0;
+}
+
+.bg-title {
+  text-align: center;
+}
+#BGInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px;
+  position: relative;
+}
+
+.table-wrapper {
+  background: var(--theme-white);
+  padding: 16px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  border-radius: 4px;
+}
+
+.focused {
+  border: 2px solid var(--theme-main);
+}
+
+.layer-description {
+  margin-top: 16px;
+}
+
+.action-icon-wrapper {
+  display: flex;
+  gap: 12px;
+  margin-left: 20px;
+  margin-bottom: -8px;
+}
+
+.action-icon {
+  cursor: pointer;
+}
+/* END Sidebar */
+
+.rank-icon {
+  background: black;
+  color: white;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-bottom: 4px;
+  text-align: center;
+  width: 1.6em;
+}
+
+.rank-icon-wrapper {
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.emphasized-value {
+  font-weight: 700;
+  font-size: 18px;
+}
