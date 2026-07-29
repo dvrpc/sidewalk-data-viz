@@ -12,23 +12,23 @@
   justify-content: space-between;
 }
 .nav-btn {
-  color: black;
+  color: var(--theme-white);
   cursor: pointer;
-  background: var(--theme-white);
+  background: var(--theme-main);
   min-width: 64px;
   padding: 6px 16px;
   border-radius: 4px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
     0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   outline: 0;
-  border: 0;
+  border: 1px solid var(--color-dvrpc-blue-5);
   font-size: 15px;
 }
 .nav-btn:hover {
-  background-color: #d6d6d6;
+  background-color: var(--color-dvrpc-blue-2);
 }
 .nav-btn-link :hover {
-  background: #cccccc !important;
+  background: var(--color-dvrpc-blue-2) !important;
 }
 .nav-vr {
   margin: 0 16px;

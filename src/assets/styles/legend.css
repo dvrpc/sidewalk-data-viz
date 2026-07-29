@@ -55,8 +55,8 @@ input[type='checkbox'].switch-input {
   width: 32px;
   height: 18px;
   border-radius: 999px;
-  border: 1px solid #979797;
-  background: #d4d4d4;
+  border: 1px solid var(--color-dvrpc-gray-4);
+  background: var(--color-dvrpc-gray-6);
   position: relative;
   margin-right: 0.5em;
   cursor: pointer;
@@ -95,12 +95,13 @@ input[type='checkbox'].switch-input:focus-visible {
   } */
 .toggle-btn {
   height: 32px;
-  background: white;
-  border: 1px solid #979797;
+  background: var(--theme-white);
+  border: 1px solid var(--color-dvrpc-blue-4);
   border-radius: 10px;
   padding: 5px 10px;
   box-shadow: 0px 3px 10px -2px rgba(48, 149, 140, 0.5);
   cursor: pointer;
+  color: var(--theme-black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,8 +119,10 @@ input[type='checkbox'].switch-input:focus-visible {
   font-weight: 700;
 }
 
-.toggle-btn:hover {
-  background-color: #d6d6d6;
+.toggle-btn:not(.toggle-btn-active):hover {
+  background-color: var(--color-dvrpc-blue-1);
+  border-color: var(--color-dvrpc-blue-1);
+  color: var(--theme-white);
 }
 
 #mismatch-btn {
@@ -140,7 +143,6 @@ input[class='lbox'] {
   display: flex;
   gap: 10px;
   flex-direction: column;
-  height: calc(100vh - 80px);
 }
 /* Legend Boxes */
 .legend-container {
@@ -155,6 +157,10 @@ input[class='lbox'] {
 }
 
 .legend-toggles {
+  overflow-y: auto;
+}
+.map-context-controls {
+  max-height: calc(100vh - 270px);
   overflow-y: auto;
 }
 
@@ -197,6 +203,46 @@ input[class='lbox'] {
 .map-legend-container {
   display: flex;
   flex-direction: column;
+}
+.analysis-legend-title {
+  color: var(--theme-dvrpc-accent);
+  font-size: 1.125em;
+  font-weight: 500;
+  margin: 0;
+}
+.analysis-legend-description {
+  margin: 4px 0 8px;
+}
+.analysis-legend-list {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.analysis-legend-list li {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.analysis-legend-swatch {
+  display: inline-block;
+  flex: 0 0 28px;
+}
+.analysis-legend-swatch--line {
+  height: 8px;
+}
+.analysis-legend-swatch--circle {
+  border-radius: 50%;
+  height: 18px;
+}
+.analysis-legend-swatch--polygon {
+  clip-path: polygon(50% 0, 95% 32%, 78% 100%, 22% 100%, 5% 32%);
+  height: 24px;
+}
+.analysis-legend-swatch--multicolor {
+  background: linear-gradient(90deg, #d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641);
+  height: 12px;
 }
 .map-legend {
   width: 375px;

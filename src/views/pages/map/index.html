@@ -103,7 +103,7 @@
           <summary id="toggle-expand">Base Layers and Themes</summary>
           <i id="close-form" class="fa-solid fa-xmark"></i>
           <form id="main-form" class="legend-form">
-            <h3 class="sidebar-h3">select a map theme</h3>
+            <h3 class="sidebar-h3">select an analysis</h3>
             <div class="layerTogglers">
               <label id="street-gaps-btn" class="toggle-btn toggle-btn-active">
                 <input type="radio" class="lbox" name="theme" value="gap-analysis" checked />
@@ -126,7 +126,7 @@
               </label>
 
               <label id="walk-transit-btn" class="toggle-btn">
-                <input type="radio" class="lbox" name="theme" value="transit-analysis" checked />
+                <input type="radio" class="lbox" name="theme" value="transit-analysis" />
                 <svg
                   width="1em"
                   height="1em"
@@ -143,7 +143,7 @@
                 Walk Time to Transit
               </label>
               <label id="walk-school-btn" class="toggle-btn">
-                <input type="radio" class="lbox" name="theme" value="school-analysis" checked />
+                <input type="radio" class="lbox" name="theme" value="school-analysis" />
                 <svg
                   width="1em"
                   height="1em"
@@ -161,7 +161,7 @@
               </label>
 
               <label id="rail-walksheds-btn" class="toggle-btn">
-                <input type="radio" class="lbox" name="theme" value="rail-walksheds" checked />
+                <input type="radio" class="lbox" name="theme" value="rail-walksheds" />
                 <svg
                   width="1em"
                   height="1em"
@@ -203,16 +203,7 @@
             <div class="checkbox-group">
               <div class="checkbox-subgroup">
                 <span class="checkbox-subgroup-title">Toggle Analysis Layers</span>
-                <label class="label-input overlay-input">
-                  <input
-                    id="centerlines"
-                    class="switch-input es-checkbox"
-                    type="checkbox"
-                    value="centerlines"
-                    checked
-                  />
-                  Sidewalk Coverage
-                </label>
+                <div id="analysis-layer-checkboxes"></div>
               </div>
               <div class="checkbox-subgroup">
                 <span class="checkbox-subgroup-title">Toggle Base Layers</span>

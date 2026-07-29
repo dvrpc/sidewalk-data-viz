@@ -94,13 +94,14 @@
   width: 150px;
   padding: 10px;
   visibility: hidden;
-  background-color: var(--theme-white);
-  border: var(--theme-white);
+  background-color: var(--theme-main);
+  border: var(--theme-main);
   border-radius: 4px;
+  color: var(--theme-white);
 }
 
 .remove-selection:hover {
-  background-color: #d6d6d6;
+  background-color: var(--color-dvrpc-blue-2);
   cursor: pointer;
 }
 /* END Map */

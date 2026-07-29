@@ -8,6 +8,7 @@ body {
   line-height: 1.5;
   text-rendering: optimizeLegibility;
   background-color: var(--theme-offwhite);
+  color: var(--theme-black);
   height: 100vh;
 }
 pre {
@@ -60,11 +61,26 @@ button {
 }
 
 :root {
-  --theme-main: #0078ae;
-  --theme-accent: #366478;
-  --theme-black: #505a5e;
-  --theme-white: #f7f7f7;
-  --theme-offwhite: #f0f0f0;
+  --color-dvrpc-blue-1: #005475;
+  --color-dvrpc-blue-2: #06688e;
+  --color-dvrpc-blue-3: #0078ae;
+  --color-dvrpc-blue-4: #67abd0;
+  --color-dvrpc-blue-5: #91bfdc;
+  --color-dvrpc-blue-6: #bcd8ea;
+  --color-dvrpc-blue-7: #deecf4;
+  --color-dvrpc-gray-1: #3a3a3a;
+  --color-dvrpc-gray-2: #585858;
+  --color-dvrpc-gray-3: #767676;
+  --color-dvrpc-gray-4: #929292;
+  --color-dvrpc-gray-5: #b3b3b3;
+  --color-dvrpc-gray-6: #d3d3d3;
+  --color-dvrpc-gray-7: #e9e9e9;
+
+  --theme-main: var(--color-dvrpc-blue-3);
+  --theme-accent: var(--color-dvrpc-blue-2);
+  --theme-black: var(--color-dvrpc-gray-1);
+  --theme-white: #ffffff;
+  --theme-offwhite: var(--color-dvrpc-gray-7);
 
   --padding-half: 5px;
   --padding: 10px;

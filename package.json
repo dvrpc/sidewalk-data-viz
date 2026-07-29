@@ -35,13 +35,9 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
     "dotenv-webpack": "^8.1.0",
-    "jspdf": "^2.5.2",
-    "jspdf-autotable": "^3.8.3",
-    "mapbox-gl": "^3.6.0",
-    "svg2pdf.js": "^2.2.4"
+    "mapbox-gl": "^3.6.0"
   }
 }
