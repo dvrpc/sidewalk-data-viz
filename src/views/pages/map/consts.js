@@ -237,6 +237,49 @@ const countyLookup = {
   42091: 'Montgomery County',
 };
 
+const analysis_meta = {
+  'gap-analysis': {
+    layer_ids: ['centerlines'],
+    layer_names: ['Sidewalk Coverage'],
+    image_path: 'img/Webmap-Legend-v2_segment-map.png',
+    alt_text: 'Legend showing sidewalk coverage',
+    methodology_title: 'Street Segment Gap Methodology',
+  },
+  'transit-analysis': {
+    layer_ids: ['transit_stops', 'sw_nodes'],
+    layer_names: ['Transit Stops (SEPTA, NJ TRANSIT, & PATCO)', 'Walk Time to Nearest Transit Stop'],
+    image_path: 'img/Webmap-Legend-v2_network-map.png',
+    alt_text: 'Legend showing walk time to nearest transit stop',
+    methodology_title: 'Walk Time to Transit Methodology',
+  },
+  'school-analysis': {
+    layer_ids: ['schools', 'school_nodes'],
+    layer_names: ['Public and Private Schools', 'Walk Time to Nearest School'],
+    image_path: 'img/Webmap-Legend-v2_school.png',
+    alt_text: 'Legend showing walk time to nearest school',
+    methodology_title: 'Walk Time to School Methodology',
+  },
+  'rail-walksheds': {
+    layer_ids: ['ridescore_pois_all', 'station_selected', 'stations', 'iso_osm', 'iso_sw'],
+    layer_names: [
+      '[Selected] Rail Station Access Point',
+      '[Selected] Rail Station Sidewalk Score',
+      'Rail Station Sidewalk Score',
+      'Street Centerline Walkshed (1-mile)',
+      'Sidewalk Walkshed (1-mile)',
+    ],
+    image_path: 'img/Webmap-Legend-v2_rail-map.png',
+    alt_text: 'Legend showing sidewalk and centerline walksheds around rail stations',
+    methodology_title: 'Rail Station Walksheds Methodology',
+  },
+  'island-analysis': {
+    layer_ids: ['islands'],
+    layer_names: ['Islands of Connectivity'],
+    image_path: 'img/Webmap-Legend-v2_island-map.png',
+    alt_text: 'Legend for distinct islands',
+    methodology_title: 'Islands of Connectivity Methodology',
+  },
+};
 export {
   vulnerableColorEnds,
   essentialColorStops,
@@ -248,4 +291,5 @@ export {
   defaultSidebarInfo,
   countyLookup,
   layerTitleMap,
+  analysis_meta,
 };

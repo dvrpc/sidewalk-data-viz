@@ -7,7 +7,7 @@ mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
 const initMap = () => {
   return new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/dark-v11',
+    style: 'mapbox://styles/mapbox/dark-v11',
     center: [-75.2273, 40.071],
     minZoom: 8,
     bounds: [
