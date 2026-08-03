@@ -5,9 +5,9 @@ const analysis_meta = {
     legend: {
       title: 'Sidewalk Coverage',
       items: [
-        { label: 'Missing sidewalks on both sides', color: '#d7191c', symbol: 'line' },
-        { label: 'Missing a sidewalk on one side', color: '#ff8c3e', symbol: 'line' },
-        { label: 'Has sidewalks on both sides', color: '#1a9641', symbol: 'line' },
+        { label: 'Missing sidewalks on both sides', color: '#762a83', symbol: 'line' },
+        { label: 'Missing a sidewalk on one side', color: '#af8dc3', symbol: 'line' },
+        { label: 'Has sidewalks on both sides', color: '#1b7837', symbol: 'line' },
       ],
     },
     methodology_title: 'Street Segment Gap Methodology',
@@ -19,13 +19,13 @@ const analysis_meta = {
       title: 'Walk time to the nearest transit stop',
       description: 'Minutes',
       items: [
-        { label: '0–5', color: '#1a9850', symbol: 'circle' },
-        { label: '5–10', color: '#91cf60', symbol: 'circle' },
-        { label: '10–30', color: '#d9ef8b', symbol: 'circle' },
-        { label: '30–60', color: '#ffffbf', symbol: 'circle' },
-        { label: '60–90', color: '#fee08b', symbol: 'circle' },
-        { label: '90+', color: '#fc8d59', symbol: 'circle' },
-        { label: 'Over 2 hours away or not accessible by sidewalk', color: '#d73027', symbol: 'circle' },
+        { label: '0–5', color: '#1b7837', symbol: 'circle' },
+        { label: '5–10', color: '#5aae61', symbol: 'circle' },
+        { label: '10–30', color: '#a6dba0', symbol: 'circle' },
+        { label: '30–60', color: '#f7f7f7', symbol: 'circle' },
+        { label: '60–90', color: '#d8b5d4', symbol: 'circle' },
+        { label: '90+', color: '#af8dc3', symbol: 'circle' },
+        { label: 'Over 2 hours away or not accessible by sidewalk', color: '#762a83', symbol: 'circle' },
       ],
     },
     methodology_title: 'Walk Time to Transit Methodology',
@@ -37,13 +37,13 @@ const analysis_meta = {
       title: 'Walk time to the nearest school',
       description: 'Minutes',
       items: [
-        { label: '0–5', color: '#1a9850', symbol: 'circle' },
-        { label: '5–10', color: '#91cf60', symbol: 'circle' },
-        { label: '10–30', color: '#d9ef8b', symbol: 'circle' },
-        { label: '30–60', color: '#ffffbf', symbol: 'circle' },
-        { label: '60–90', color: '#fee08b', symbol: 'circle' },
-        { label: '90+', color: '#fc8d59', symbol: 'circle' },
-        { label: 'Over 2 hours away or not accessible by sidewalk', color: '#d73027', symbol: 'circle' },
+        { label: '0–5', color: '#1b7837', symbol: 'circle' },
+        { label: '5–10', color: '#5aae61', symbol: 'circle' },
+        { label: '10–30', color: '#a6dba0', symbol: 'circle' },
+        { label: '30–60', color: '#f7f7f7', symbol: 'circle' },
+        { label: '60–90', color: '#d8b5d4', symbol: 'circle' },
+        { label: '90+', color: '#af8dc3', symbol: 'circle' },
+        { label: 'Over 2 hours away or not accessible by sidewalk', color: '#762a83', symbol: 'circle' },
       ],
     },
     methodology_title: 'Walk Time to School Methodology',
@@ -60,9 +60,9 @@ const analysis_meta = {
     legend: {
       title: 'Rail Station Sidewalk Score',
       items: [
-        { label: 'Walksheds are the same size', color: '#00a000', symbol: 'circle' },
-        { label: 'Sidewalk walkshed is roughly half the size of the centerline walkshed', color: '#ffeb00', symbol: 'circle' },
-        { label: 'Centerline walkshed is substantially larger than the sidewalk walkshed', color: '#ff0000', symbol: 'circle' },
+        { label: 'Walksheds are the same size', color: '#5aae61', symbol: 'circle' },
+        { label: 'Sidewalk walkshed is roughly half the size of the centerline walkshed', color: '#af8dc3', symbol: 'circle' },
+        { label: 'Centerline walkshed is substantially larger than the sidewalk walkshed', color: '#762a83', symbol: 'circle' },
         { label: '1-mile walkshed on the sidewalk network', color: '#00ff00', symbol: 'polygon' },
         { label: '1-mile walkshed on the centerline network', color: '#000000', symbol: 'polygon' },
       ],
@@ -75,9 +75,19 @@ const analysis_meta = {
     legend: {
       title: 'Islands of Connectivity',
       description: 'Each color identifies a group of connected sidewalks.',
-      items: [{ label: 'Connected sidewalk group', symbol: 'multicolor' }],
+      items: [],
     },
     methodology_title: 'Islands of Connectivity Methodology',
   },
+  'sidewalk-view': {
+    layer_ids: [],
+    layer_names: [],
+    legend: {
+      title: 'Explore Sidewalks',
+      description: 'Click a sidewalk or crosswalk segment to view its properties.',
+      items: [],
+    },
+    methodology_title: 'Sidewalk View Methodology',
+  }
 };
 export { analysis_meta };

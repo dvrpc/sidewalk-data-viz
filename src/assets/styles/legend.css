@@ -156,6 +156,46 @@ input[class='lbox'] {
   position: relative;
 }
 
+.overlay-minimize {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-weight: 700;
+  justify-content: flex-end;
+  margin: 0 0 -20px;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.overlay-minimize:focus-visible {
+  outline: 3px solid rgba(0, 120, 174, 0.5);
+  outline-offset: 2px;
+}
+
+.overlay-minimize-icon {
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 0.75;
+}
+
+.legend-container.is-minimized {
+  width: auto;
+}
+
+.legend-container.is-minimized > :not(.overlay-minimize) {
+  display: none;
+}
+
+.legend-container.is-minimized .overlay-minimize {
+  margin-bottom: 0;
+  min-width: 24px;
+}
+
 .legend-toggles {
   overflow-y: auto;
 }
@@ -220,6 +260,12 @@ input[class='lbox'] {
   margin: 8px 0 0;
   padding: 0;
 }
+.analysis-legend-list--walk-time {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.analysis-legend-list--walk-time li:last-child {
+  grid-column: 1 / -1;
+}
 .analysis-legend-list li {
   align-items: center;
   display: flex;
@@ -235,6 +281,8 @@ input[class='lbox'] {
 .analysis-legend-swatch--circle {
   border-radius: 50%;
   height: 18px;
+  flex-basis: 18px;
+  width: 18px;
 }
 .analysis-legend-swatch--polygon {
   clip-path: polygon(50% 0, 95% 32%, 78% 100%, 22% 100%, 5% 32%);
@@ -243,6 +291,7 @@ input[class='lbox'] {
 .analysis-legend-swatch--multicolor {
   background: linear-gradient(90deg, #d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641);
   height: 12px;
+  width: 200px;
 }
 .map-legend {
   width: 375px;
