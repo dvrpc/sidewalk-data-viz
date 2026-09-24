@@ -61,10 +61,18 @@ const analysis_meta = {
       title: 'Rail Station Sidewalk Score',
       items: [
         { label: 'Walksheds are the same size', color: '#5aae61', symbol: 'circle' },
-        { label: 'Sidewalk walkshed is roughly half the size of the centerline walkshed', color: '#af8dc3', symbol: 'circle' },
-        { label: 'Centerline walkshed is substantially larger than the sidewalk walkshed', color: '#762a83', symbol: 'circle' },
+        {
+          label: 'Sidewalk walkshed is roughly half the size of the centerline walkshed',
+          color: '#af8dc3',
+          symbol: 'circle',
+        },
+        {
+          label: 'Centerline walkshed is substantially larger than the sidewalk walkshed',
+          color: '#762a83',
+          symbol: 'circle',
+        },
         { label: '1-mile walkshed on the sidewalk network', color: '#00ff00', symbol: 'polygon' },
-        { label: '1-mile walkshed on the centerline network', color: '#000000', symbol: 'polygon' },
+        { label: '1-mile walkshed on the centerline network', color: '#bfbfbf', symbol: 'polygon' },
       ],
     },
     methodology_title: 'Rail Station Walksheds Methodology',
@@ -88,6 +96,6 @@ const analysis_meta = {
       items: [],
     },
     methodology_title: 'Sidewalk View Methodology',
-  }
+  },
 };
 export { analysis_meta };

@@ -1,8 +1,8 @@
 import makeMap from './map/map.js';
-import mapboxgl from 'mapbox-gl';
 import sources from './map/mapSources.js';
 import { layers } from './map/mapLayers.js';
 import { analysis_meta } from './consts.js';
+import { addFeaturePopup, popupLayerThemes, setStationSelection, wireStationClick } from './map/popup.js';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faHouse, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -79,7 +79,6 @@ const analysisLayerIds = Object.values(analysis_meta).flatMap((meta) => meta.lay
 const baseLayerIds = ['sidewalks', 'crosswalks', 'county-outline', 'municipality-outline'];
 const sidewalkViewLayerIds = ['sidewalks', 'crosswalks'];
 let activeTheme;
-let segmentPopup;
 
 const setLayerVisibility = (layerId, visible) => {
   if (!map.getLayer(layerId)) return;
@@ -183,10 +182,7 @@ const handleThemeSelection = (themeValue) => {
   const selectedLayers = analysis_meta[themeValue]?.layer_ids ?? [];
   const isSidewalkView = themeValue === 'sidewalk-view';
   activeTheme = themeValue;
-  if (segmentPopup && !isSidewalkView) {
-    segmentPopup.remove();
-    segmentPopup = undefined;
-  }
+  if (themeValue !== 'rail-walksheds') setStationSelection(map);
   renderAnalysisLayerControls(themeValue);
   renderAnalysisDetails(themeValue);
 
@@ -199,38 +195,6 @@ const handleThemeSelection = (themeValue) => {
   });
   updateBaseLayerControls(isSidewalkView);
   updateThemeButtons(themeValue);
-};
-
-const formatPropertyLabel = (property) =>
-  property
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (character) => character.toUpperCase());
-
-const createSegmentPopupContent = (layerId, properties) => {
-  const container = document.createElement('div');
-  const heading = document.createElement('strong');
-  heading.textContent = layerId === 'crosswalks' ? 'Crosswalk segment' : 'Sidewalk segment';
-  container.appendChild(heading);
-
-  Object.entries(properties)
-    .filter(([, value]) => value !== null && value !== undefined && value !== '')
-    .forEach(([property, value]) => {
-      const row = document.createElement('span');
-      row.className = 'popup-span';
-      row.textContent = `${formatPropertyLabel(property)}: ${value}`;
-      container.appendChild(row);
-    });
-
-  return container;
-};
-
-const addSegmentPopup = (layerId, event) => {
-  if (activeTheme !== 'sidewalk-view' || !event.features?.length) return;
-  segmentPopup?.remove();
-  segmentPopup = new mapboxgl.Popup()
-    .setLngLat(event.lngLat)
-    .setDOMContent(createSegmentPopupContent(layerId, event.features[0].properties))
-    .addTo(map);
 };
 
 const handleSwitchToggle = ({ target }) => {
@@ -253,15 +217,19 @@ const addLayersToMap = () => {
 const initializeMapLayers = () => {
   addSourcesToMap();
   addLayersToMap();
+  setStationSelection(map);
+  wireStationClick(map, () => activeTheme);
   const initialTheme = mainForm.querySelector('input[name="theme"]:checked');
   if (initialTheme) handleThemeSelection(initialTheme.value);
 };
 
 map.on('load', initializeMapLayers);
-['sidewalks', 'crosswalks'].forEach((layerId) => {
-  map.on('click', layerId, (event) => addSegmentPopup(layerId, event));
+['sidewalks', 'crosswalks', ...Object.keys(popupLayerThemes)].forEach((layerId) => {
+  map.on('click', layerId, (event) => addFeaturePopup(map, layerId, event, activeTheme));
   map.on('mouseenter', layerId, () => {
-    if (activeTheme === 'sidewalk-view') map.getCanvas().style.cursor = 'pointer';
+    if (activeTheme === 'sidewalk-view' || activeTheme === popupLayerThemes[layerId]) {
+      map.getCanvas().style.cursor = 'pointer';
+    }
   });
   map.on('mouseleave', layerId, () => {
     map.getCanvas().style.cursor = '';

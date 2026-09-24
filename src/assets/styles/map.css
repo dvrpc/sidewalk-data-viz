@@ -65,7 +65,29 @@
   height: 100%;
 }
 .mapboxgl-popup-content {
-  padding: var(--padding-double) var(--padding);
+  min-width: 170px;
+  max-width: 280px;
+  max-height: min(320px, calc(100vh - 120px));
+  padding: 16px 18px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow-y: auto;
+}
+.popup-value {
+  color: var(--color-dvrpc-gray-1);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.popup-description {
+  margin-top: 6px;
+  color: var(--theme-black);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.popup-description--island {
+  margin-top: 0;
 }
 .popup-span {
   display: block;
