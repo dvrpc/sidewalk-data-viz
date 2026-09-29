@@ -9,7 +9,7 @@ library.add(faMap, faTable);
 dom.watch();
 
 process.env.NODE_ENV;
-headerLink.href = process.env.NODE_ENV === 'production' ? '/webmaps/eta/map.html' : '/map.html';
-mapLink.href = process.env.NODE_ENV === 'production' ? '/webmaps/eta/map.html' : '/map.html';
+headerLink.href = process.env.NODE_ENV === 'production' ? '/webmaps/sidewalk-gaps/map.html' : '/map.html';
+mapLink.href = process.env.NODE_ENV === 'production' ? '/webmaps/sidewalk-gaps/map.html' : '/map.html';
 
 button.innerHTML = '<i class="fa-solid fa-map"></i><span>&nbsp;&nbsp;View Map</span>';
