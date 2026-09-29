@@ -10,6 +10,14 @@ const sources = {
   ped_analysis: {
     type: 'vector',
     url: 'https://tiles.dvrpc.org/data/sidewalk-gaps-analysis-v3',
+    promoteId: {
+      accessscore_points: 'uid',
+      access_score_final_poi_set: 'uid',
+      transit_stops: 'uid',
+      school_points: 'uid',
+      school_results: 'uid',
+      islands: 'uid',
+    },
   },
   regional_boundaries: {
     type: 'vector',

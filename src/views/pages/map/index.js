@@ -2,7 +2,7 @@ import makeMap from './map/map.js';
 import sources from './map/mapSources.js';
 import { layers } from './map/mapLayers.js';
 import { analysis_meta } from './consts.js';
-import { addFeaturePopup, popupLayerThemes, setStationSelection, wireStationClick } from './map/popup.js';
+import { addFeaturePopup, clearHoverState, popupLayerThemes, setStationSelection, wireHover, wireStationClick } from './map/popup.js';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faHouse, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,23 +35,13 @@ const createSidebarSection = (className, labelledBy) => {
 };
 
 const themeSection = createSidebarSection('sidebar-theme-section', 'theme-heading');
+const layersSection = createSidebarSection('sidebar-layer-section', 'layer-heading');
 const methodologySection = createSidebarSection('sidebar-methodology-section', 'methodology-title');
-const contextSection = document.createElement('section');
-contextSection.className = 'legend-container map-context-controls';
-contextSection.setAttribute('aria-labelledby', 'layer-heading');
-
-const contextToggle = document.createElement('button');
-contextToggle.className = 'overlay-minimize';
-contextToggle.type = 'button';
-contextToggle.setAttribute('aria-expanded', 'true');
-contextToggle.setAttribute('aria-controls', 'checkbox-form');
-contextToggle.innerHTML = '<span>Context</span><span class="overlay-minimize-icon" aria-hidden="true">−</span>';
 
 themeSection.appendChild(mainForm);
+layersSection.appendChild(checkboxForm);
 methodologySection.append(methodologyTitle, ...methodologyDescriptions);
-contextSection.append(contextToggle, checkboxForm);
-sidebarContent.append(themeSection, methodologySection);
-legendContainerParent.appendChild(contextSection);
+sidebarContent.append(themeSection, layersSection, methodologySection);
 mapControls.remove();
 
 const initializeOverlayMinimizers = () => {
@@ -163,11 +153,13 @@ const renderAnalysisDetails = (themeValue) => {
   if (themeValue === 'transit-analysis' || themeValue === 'school-analysis') {
     list.classList.add('analysis-legend-list--walk-time');
   }
-  meta.legend.items.forEach(({ label, color, symbol }) => {
+  meta.legend.items.forEach(({ label, color, symbol, border, fullWidth }) => {
     const item = document.createElement('li');
     const swatch = document.createElement('span');
     swatch.className = `analysis-legend-swatch analysis-legend-swatch--${symbol}`;
     if (color) swatch.style.backgroundColor = color;
+    if (border) swatch.style.border = border;
+    if (fullWidth) item.style.gridColumn = '1 / -1';
     swatch.setAttribute('aria-hidden', 'true');
 
     const text = document.createElement('span');
@@ -179,6 +171,7 @@ const renderAnalysisDetails = (themeValue) => {
 };
 
 const handleThemeSelection = (themeValue) => {
+  clearHoverState(map);
   const selectedLayers = analysis_meta[themeValue]?.layer_ids ?? [];
   const isSidewalkView = themeValue === 'sidewalk-view';
   activeTheme = themeValue;
@@ -219,6 +212,7 @@ const initializeMapLayers = () => {
   addLayersToMap();
   setStationSelection(map);
   wireStationClick(map, () => activeTheme);
+  wireHover(map, () => activeTheme);
   const initialTheme = mainForm.querySelector('input[name="theme"]:checked');
   if (initialTheme) handleThemeSelection(initialTheme.value);
 };

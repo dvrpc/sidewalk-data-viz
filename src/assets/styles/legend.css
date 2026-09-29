@@ -21,16 +21,13 @@
     background-color: #efa801;
   } */
 .layerTogglers {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   border-radius: var(--border-radius);
   border-color: #dadada;
   display: grid;
   row-gap: 8px;
   column-gap: 8px;
-  grid-template-columns: 1fr 1fr;
-  /* justify-content: space-between;
-      flex-direction: row;
-      flex-wrap: wrap; */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .checkbox-group {
   display: flex;
@@ -95,22 +92,24 @@ input[type='checkbox'].switch-input:focus-visible {
     background-color: blue;
   } */
 .toggle-btn {
-  height: 32px;
+  min-height: 34px;
   background: var(--theme-white);
   border: 1px solid var(--color-dvrpc-blue-4);
   border-radius: 10px;
-  padding: 5px 10px;
+  padding: 8px 10px;
   box-shadow: 0px 3px 10px -2px rgba(48, 149, 140, 0.5);
   cursor: pointer;
   color: var(--theme-black);
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1.25;
   transition: 0.3s;
 }
 
 .toggle-btn svg {
   margin-right: 4px;
+  flex-shrink: 0;
 }
 .toggle-btn-active {
   background: var(--theme-main) !important;
@@ -128,6 +127,11 @@ input[type='checkbox'].switch-input:focus-visible {
 
 #mismatch-btn {
   grid-column: span 2;
+}
+@media (max-width: 1000px) {
+  .layerTogglers {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 input.radio:active {
   background: #200007;
@@ -282,6 +286,7 @@ input[class='lbox'] {
 }
 .analysis-legend-swatch--circle {
   border-radius: 50%;
+  box-sizing: border-box;
   height: 18px;
   flex-basis: 18px;
   width: 18px;

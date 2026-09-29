@@ -66,8 +66,25 @@ const islandPopupMessage = (event) => {
   return `<p class="popup-description popup-description--island">This island is <strong>${Number(properties.size_miles).toFixed(1)}</strong> linear miles long, and ${municipalities}</p>`;
 };
 
+const escapeHtml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const inventoryPopupMessage = (event, layerId) => {
+  const properties = event.features[0].properties;
+  const rows = Object.entries(properties)
+    .map(([key, value]) => {
+      const label = escapeHtml(key.replace(/_/g, ' '));
+      const display = value === undefined || value === null || value === '' ? '—' : escapeHtml(value);
+      return `<span class="popup-span"><strong>${label}:</strong> ${display}</span>`;
+    })
+    .join('');
+  const title = layerId === 'crosswalks' ? 'Crosswalk' : 'Sidewalk';
+  return `<div class="popup-value">${title}</div><div>${rows}</div>`;
+};
+
 const popupMessages = {
   centerlines: centerlinePopupMessage,
+  sidewalks: inventoryPopupMessage,
+  crosswalks: inventoryPopupMessage,
   sw_nodes: swNodePopupMessage,
   stations: railWalkshedPopupMessage,
   station_selected: railWalkshedPopupMessage,
@@ -96,7 +113,7 @@ const addFeaturePopup = (map, layerId, event, activeTheme) => {
   if (activeTheme !== 'sidewalk-view' && activeTheme !== popupLayerThemes[layerId]) return;
   const message = popupMessages[layerId];
   if (!event.features?.length || !message) return;
-  bindPopup(map, message(event), event);
+  bindPopup(map, message(event, layerId), event);
 };
 
 const setStationSelection = (map, { poiUid, uid } = {}) => {
@@ -128,8 +145,7 @@ const setStationSelection = (map, { poiUid, uid } = {}) => {
     if (map.getLayer('iso_osm')) map.setLayoutProperty('iso_osm', 'visibility', 'visible');
     if (map.getLayer('iso_sw')) map.setLayoutProperty('iso_sw', 'visibility', 'visible');
     if (map.getLayer('station_selected')) map.setLayoutProperty('station_selected', 'visibility', 'visible');
-    if (map.getLayer('ridescore_pois_all'))
-      map.setLayoutProperty('ridescore_pois_all', 'visibility', 'visible');
+    if (map.getLayer('ridescore_pois_all')) map.setLayoutProperty('ridescore_pois_all', 'visibility', 'visible');
   }
 };
 
@@ -154,4 +170,136 @@ const wireStationClick = (map, getActiveTheme) => {
   });
 };
 
-export { addFeaturePopup, newPopup, popupLayerThemes, setStationSelection, wireStationClick };
+const featureStateHoverLayers = [
+  'centerlines',
+  'stations',
+  'ridescore_pois_all',
+  'transit_stops',
+  'schools',
+  'school_nodes',
+  'islands',
+];
+
+// Layers without a unique feature id can't use feature-state; they get a
+// geometry overlay highlight instead (see wireHover).
+const overlayHoverLayers = ['sw_nodes', 'sidewalks', 'crosswalks'];
+
+const HOVER_SOURCE = 'hover-highlight';
+const HOVER_LINE_LAYER = 'hover-highlight-line';
+const HOVER_DOT_LAYER = 'hover-highlight-dot';
+
+const emptyHighlight = () => ({ type: 'FeatureCollection', features: [] });
+
+const isHoverable = (layerId, activeTheme) => {
+  if (activeTheme === 'sidewalk-view') return layerId === 'sidewalks' || layerId === 'crosswalks';
+  return popupLayerThemes[layerId] === activeTheme;
+};
+
+const clearHoverState = (map) => {
+  if (clearHoverState.current) {
+    map.setFeatureState(clearHoverState.current, { hover: false });
+    clearHoverState.current = null;
+  }
+  if (map.getSource(HOVER_SOURCE)) map.getSource(HOVER_SOURCE).setData(emptyHighlight());
+};
+
+const wireHover = (map, getActiveTheme) => {
+  if (!map.getSource(HOVER_SOURCE)) {
+    map.addSource(HOVER_SOURCE, { type: 'geojson', data: emptyHighlight() });
+  }
+  if (!map.getLayer(HOVER_LINE_LAYER)) {
+    map.addLayer(
+      {
+        id: HOVER_LINE_LAYER,
+        type: 'line',
+        source: HOVER_SOURCE,
+        paint: { 'line-color': '#0078ae', 'line-width': 8, 'line-opacity': 0.55 },
+        filter: ['match', ['geometry-type'], ['LineString', 'MultiLineString'], true, false],
+      },
+      'sidewalks',
+    );
+  }
+  if (!map.getLayer(HOVER_DOT_LAYER)) {
+    map.addLayer({
+      id: HOVER_DOT_LAYER,
+      type: 'circle',
+      source: HOVER_SOURCE,
+      paint: {
+        'circle-radius': 6,
+        'circle-color': [
+          'interpolate',
+          ['linear'],
+          ['get', 'hover_value'],
+          0,
+          'rgba(0,136,55,0.9)',
+          5,
+          'rgba(83,178,108,0.9)',
+          10,
+          'rgba(166,219,160,0.9)',
+          30,
+          'rgba(247,247,247,0.9)',
+          60,
+          'rgba(220,206,227,0.9)',
+          90,
+          'rgba(194,165,207,0.9)',
+          180,
+          'rgba(123,50,148,0.9)',
+        ],
+      },
+      filter: ['match', ['geometry-type'], ['Point', 'MultiPoint'], true, false],
+    });
+  }
+
+  map.on('mousemove', (event) => {
+    const candidates = [...featureStateHoverLayers, ...overlayHoverLayers].filter(
+      (layerId) => map.getLayer(layerId) && isHoverable(layerId, getActiveTheme()),
+    );
+    if (!candidates.length) {
+      clearHoverState(map);
+      return;
+    }
+    const feature = map.queryRenderedFeatures(event.point, { layers: candidates })[0];
+    if (!feature) {
+      clearHoverState(map);
+      return;
+    }
+
+    if (overlayHoverLayers.includes(feature.layer.id)) {
+      clearHoverState(map);
+      map.getSource(HOVER_SOURCE).setData({
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: feature.geometry,
+            properties: {
+              hover_value: feature.properties.walk_time ?? feature.properties.n_1_school ?? 30,
+            },
+          },
+        ],
+      });
+      return;
+    }
+
+    const key = { source: feature.source, sourceLayer: feature.sourceLayer, id: feature.id };
+    const current = clearHoverState.current;
+    if (current && current.source === key.source && current.sourceLayer === key.sourceLayer && current.id === key.id) {
+      return;
+    }
+    clearHoverState(map);
+    if (key.id === undefined || key.id === null) return;
+    clearHoverState.current = key;
+    map.setFeatureState(key, { hover: true });
+  });
+  map.on('mouseout', () => clearHoverState(map));
+};
+
+export {
+  addFeaturePopup,
+  clearHoverState,
+  newPopup,
+  popupLayerThemes,
+  setStationSelection,
+  wireHover,
+  wireStationClick,
+};
