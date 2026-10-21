@@ -16,8 +16,10 @@
     <div class="jump-to-wrapper">
       <h2>Home</h2>
       <h3>Jump to Section</h3>
-      <a class="jump-to-link" href="#">Purpose</a>
-      <a class="jump-to-link" href="#about">DVRPC Analysis</a>
+      <a class="jump-to-link" href="#">Overview</a>
+      <a class="jump-to-link" href="#sidewalk-gaps">Sidewalk Gap Analysis</a>
+      <a class="jump-to-link" href="#ped-network">Pedestrian Network</a>
+
       <a class="jump-to-link" href="#disclaimer">Data Disclaimer</a>
       <a class="jump-to-link" href="#contact">Staff Contact</a>
     </div>
@@ -49,102 +51,177 @@
 
   <div class="blog-container">
     <div class="blog">
-      <div id="purpose" class="blog-section">
+      <div id="overview" class="blog-section">
+        <h2>Overview</h2>
         <div class="blog-text">
           <div class="description">
-            <div class="eta-logo-wrapper">
-              <img id="eta-logo" src="@images/eta.svg" alt="eta logo" height="210px" />
-
-              <div>
-                <h2 style="margin-left: 0px; margin-top: 0px; margin-bottom: 8px;">Purpose of Equity Through Access (ETA)</h2>
-                <p>
-                  The Equity Through Access project of the <a href="https://www.dvrpc.org/" target="_blank">Delaware Valley Regional Planning Commission (DVRPC)</a> is an
-                  update to the region's <a href="https://www.dvrpc.org/coordinatedhumanservices/" target="_blank">Coordinated Human Services Transportation Plan (CHSTP)</a>. The ETA project engaged a
-                  variety of stakeholders to identify unmet needs and service gaps, recommend innovative transportation
-                  access solutions, and empower communities to climb "ladders of opportunity" toward greater social and
-                  economic mobility.
-                </p>
-              </div>
-
-            </div>
-
+            <p>
+              Welcome to DVRPC’s Sidewalk Gap Analysis Explorer. A connected pedestrian network is the foundation of a
+              healthy, accessible, and prosperous community. This analysis helps communities around the region
+              prioritize the pedestrian improvements that will make the greatest impact.
+            </p>
             <br />
             <p>
-              As part of the ETA project, DVRPC created this ETA Priority Score Map Toolkit. This interactive web-based
-              tool demonstrates disparities in access to essential services like hospitals, health clinics, recreational
-              spaces, senior centers, and more in the Greater Philadelphia region. Users can view layers representing
-              different datasets including the locations of essential services; bus routes, transit stops, and rail
-              lines; transit walksheds; distributions of vulnerable populations like seniors, households in poverty, and
-              people with disabilities; and areas where transit access is low. By reviewing these simple, color-coded
-              layers, users can explore the relationships between transportation access, opportunity, and equity.
+              How well connected is the pedestrian network in the Greater Philadelphia region? How do gaps in the
+              pedestrian network affect our ability to travel around the region? This map explorer uses four analyses to
+              examine different elements of pedestrian accessibility.
             </p>
+            <br />
+            <p></p>
+            <ul>
+              <li>The Street Segment Gaps tool identifies sidewalk coverage for each street segment in the region.</li>
+              <li>
+                The Walk Time to Transit and Walk Time to School tool calculates walking time to the nearest transit
+                stops and schools along the sidewalk network.
+              </li>
+              <li>
+                The Rail Station Walkshed tool presents accessible “walksheds” for rail stations in the region by
+                comparing the accessible sidewalk network to the roadway network within a mile of station.
+              </li>
+              <li>
+                The Islands of Connectivity tool identifies contiguous “islands” of connected sidewalk. Larger islands
+                mean a more connected network, while smaller islands represent isolated bits of sidewalk network.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <div id="about" class="blog-section">
-        <h2>DVRPC Analysis</h2>
+      <div id="sidewalk-gaps" class="blog-section">
+        <h2>Sidewalk Gap Analysis</h2>
         <div class="blog-text">
           <div class="description">
-            <p>This web map visually walks you through the analysis DVRPC performed to create the ETA Priority
-              Score, a layer that helps users visualize where there is a potentially high need to improve transit
-              service for vulnerable populations to reach essential services in the Greater Philadelphia region. To
-              see how this toolkit can be used to answer a planning question, refer to the case study
-              <a href="http://www.dvrpc.org/eta/CaseStudies/pdf/Lower_Bucks_Case_Study.pdf" target="_blank"><span
-                  >&ldquo;Putting the Equity Through Access Map Toolkit to Work in Lower Bucks County (pdf).&rdquo;</span
-                ></a
-              >&nbsp;<i>(Note: This case study uses an older version of the ETA Map Toolkit, but the methodology can still be applied to this updated version.)</i></span>
-            </p>
-            <br/>
             <p>
-              <strong>Vulnerable Populations </strong>answers the question, &ldquo;Who lives here?&rdquo;
-                and highlights populations in need.
+              This web map visually walks you through the analyses DVRPC performed to identify gaps and accessibility
+              issues in the region&rsquo;s pedestrian network.
             </p>
+            <br />
+            <h3>Street Segment Gaps</h3>
             <p>
-              <strong>Essential Services</strong> answers the question, &ldquo;Where do people need to
-                go?&rdquo; and highlights areas with more services in the region.
+              Every street segment across the 9-county DVRPC region was analyzed to find gaps in the sidewalk network.
+              For each segment, the length of parallel sidewalks was identified and divided by the segment&rsquo;s
+              length. The resulting ratio was classified into one of the three groups shown in the legend.
             </p>
+            <br />
+            <h3>Walk Time to Transit</h3>
             <p>
-              <strong>Population-Services Mismatch</strong> answers the question, &ldquo;Where is there a
-                gap between areas of need and essential services?&rdquo; This layer highlights areas where there are
-                higher numbers of vulnerable populations but fewer essential services and vice versa.
+              The walking time to the three nearest public transit stops was calculated for the start and end points of
+              every sidewalk segment across the 9-county DVRPC region. This includes all modes operated by SEPTA, NJ
+              TRANSIT, and PATCO.
             </p>
             <p>
-              <strong>Transit Accessibility </strong>answers the question, &ldquo;How is transit service
-                distributed?&rdquo; and highlights areas in the region with lower transit accessibility.
+              The number of minutes to the nearest stop is shown with each point&rsquo;s color. Purple points highlight
+              sidewalk segments where it&rsquo;s impossible to walk to any transit stops solely via the sidewalk
+              network, or where the nearest transit stop is over a 2-hour walk away.
+            </p>
+            <br />
+            <h3>Walk Time to Schools</h3>
+            <p>
+              The walking time to the three nearest schools was calculated for the start and end points of every
+              sidewalk segment across the 9-county DVRPC region.
             </p>
             <p>
-              <strong>Priority Score</strong> answers the question, &ldquo;Where can transit service be
-                improved to help vulnerable populations access essential services?&rdquo; This layer, the result of
-                our analysis, highlights areas with higher numbers of vulnerable populations or essential services,
-                but lower transit accessibility and vice versa.
+              The number of minutes to the nearest school is shown with each point&rsquo;s color. Purple points
+              highlight sidewalk segments where it&rsquo;s impossible to walk to any school solely via the sidewalk
+              network, or where the nearest school is over a 2-hour walk away.
             </p>
-            <br/>
+            <br />
+            <h3>Rail Station Walksheds</h3>
+            <p>
+              For every rail station across the 9-county DVRPC region a set of one-mile &ldquo;walksheds&rdquo; was
+              calculated, one using the sidewalk network and the other using the vehicular street network. These two
+              areas were compared as a ratio to create a &ldquo;sidewalk score,&rdquo; highlighting stations where
+              sidewalk accessibility is limited or non-existent.
+            </p>
+            <p>Clicking on a rail station will zoom in and show the two associated walksheds.</p>
+            <br />
+            <h3>Islands of Connectivity</h3>
+            <p>
+              Every sidewalk segment was grouped with all adjacent sidewalk segments. The result of this analysis is a
+              set of &ldquo;islands,&rdquo; with each one representing a single portion of the network where a person
+              could walk from one end to another entirely on sidewalks (and crosswalks).
+            </p>
+            <p>
+              Each island is represented with a distinct color. Hovering your mouse over an island will identify the
+              size of the island in linear miles.
+            </p>
+            <br />
             <h3>Exploring the Data:</h3>
-            <p>Select <i>Base Layers and Themes</i> to expand the legend overlay, and select a different map theme to display different layers.</p>
-            <p>Find your area of interest by clicking on the magnifying glass at the top right of the map, and type in your
-                town&rsquo;s name or ZIP code. Pan and zoom using the arrows just below the search bar or use your
-                mouse.
+            <p>
+              Select <i>Base Layers and Themes</i> to expand the legend overlay, and select a different map theme to
+              display different layers.
             </p>
             <p>
-              Click on features in the map to view more information about the data in the sidebar.
+              Find your area of interest by clicking on the magnifying glass at the top right of the map, and type in
+              your town&rsquo;s name or ZIP code. Pan and zoom using the arrows just below the search bar or use your
+              mouse.
             </p>
-            <br/>
+            <p>Click on features in the map to view more information about the data in the sidebar.</p>
+            <br />
             <p>
-              <a href="https://catalog.dvrpc.org/dataset/equity-through-access-priority-score" target="_blank" class="large-link">ETA – Data Download</a>
+              <a
+                href="https://catalog.dvrpc.org/dataset/equity-through-access-priority-score"
+                target="_blank"
+                class="large-link"
+                >Data Download</a
+              >
             </p>
-            <br/>
+            <br />
             <p>
-              <a href="https://docs.google.com/document/d/1DnaLktigQVwtBuBB3R8PWhL6oRzdc15mYLHf6v1yweM/edit?usp=sharing" target="_blank" class="large-link">ETA – Priority Score Methodology (Google Doc)</a>
+              <a href="https://dvrpc.github.io/network-routing/" target="_blank" class="large-link"
+                >Sidewalk Gap Methodology</a
+              >
             </p>
-            <br/>
+            <br />
             <p>
               <i>
-                Data Sources: DVRPC (Circuit Trails, 2020; Parks/Open Space, 2016), DVRPC Pedestrian Network (2022), DVRPC Travel Models (2023), Overture Maps (2024), HRSA (2020), NETS (2015), National Center for Education Statistics (NCES 2017-2018), SEPTA (2024), NJT (2024), PATCO (2024), U.S. Census, ACS 2018-2022 5-Year Estimates. 
-                ACS data are derived from a survey and are subject to sampling variability.
+                Data Sources: DVRPC (Circuit Trails, 2020; Parks/Open Space, 2016), DVRPC Pedestrian Network (2022),
+                DVRPC Travel Models (2023), Overture Maps (2024), HRSA (2020), NETS (2015), National Center for
+                Education Statistics (NCES 2017-2018), SEPTA (2024), NJT (2024), PATCO (2024), U.S. Census, ACS
+                2018-2022 5-Year Estimates. ACS data are derived from a survey and are subject to sampling variability.
               </i>
             </p>
           </div>
+        </div>
+      </div>
+      <div id="ped-network" class="blog-section">
+        <h2>Pedestrian Network</h2>
+        <div class="blog-text">
+          <p>
+            In 2017, DVRPC hired a consultant to develop a pedestrian facilities network (previously referred to as the
+            “sidewalk inventory”) for the Greater Philadelphia region. This GIS dataset inventories the presence of
+            sidewalks, as well as locations where curb ramps and crosswalks are or should be. This inventory allows
+            DVRPC and its planning partners to do things like map and measure the mileage and connectivity of sidewalks
+            in the region or a local area, identify gaps in sidewalk infrastructure, and can serve as a starting point
+            for the development of priorities to address sidewalk gaps in the most appropriate places.
+          </p>
+          <br />
+          <h3>How the network was created (methodology)</h3>
+          <p>
+            DVRPC hired a consultant to create a standardized GIS dataset of the sidewalks in the region, along with
+            crosswalks and curb ramps. Due to the large scale of this undertaking and available resources, the dataset
+            was developed in phases. The GIS network was created using heads-up digitizing (tracing features in GIS),
+            utilizing 2017 aerial imagery in our suburban southeastern PA counties, and 2015 aerial imagery in our NJ
+            counties. The data in Philadelphia was developed using high resolution 2018 imagery, also referencing
+            existing datasets.
+          </p>
+          <br />
+          <p>
+            Three pedestrian facility feature types were collected for this project: sidewalks, crosswalks, and curb
+            ramps.
+          </p>
+          <br />
+          <p>
+            The sidewalks and crosswalks are represented as lines in the network and depict where features existed the
+            year of the location’s aerial imagery. Curb ramps are represented as points in the network and indicate
+            where a ramp is present or should be. None of the features in the network have been verified in the field.
+          </p>
+          <br />
+          <p>
+            Because the features have not been field-verified, and because our collection method used older aerial
+            imagery, DVRPC is seeking your help in improving and maintaining our network, using updated aerial imagery
+            and Google Street View tools available in our Edit webmap.
+          </p>
         </div>
       </div>
 
@@ -153,62 +230,67 @@
         <div class="blog-text">
           <div class="description">
             <p>
-              This webpage is a public resource using ACS data. The Delaware Valley Regional Planning Commission (DVRPC) makes
-              no warranty, representation, or guarantee as to the content, sequence, accuracy, timeliness, or completeness of
-              any of the spatial data or database information provided herein. DVRPC and partner state, local, and other 
-              agencies shall assume no liability for errors, omissions, or inaccuracies in the information provided 
-              regardless of how caused; or any decision made or action taken or not taken by any person relying on 
-              any information or data furnished within.
+              This webpage is a public resource using ACS data. The Delaware Valley Regional Planning Commission (DVRPC)
+              makes no warranty, representation, or guarantee as to the content, sequence, accuracy, timeliness, or
+              completeness of any of the spatial data or database information provided herein. DVRPC and partner state,
+              local, and other agencies shall assume no liability for errors, omissions, or inaccuracies in the
+              information provided regardless of how caused; or any decision made or action taken or not taken by any
+              person relying on any information or data furnished within.
             </p>
-            <br/>
+            <br />
             <p>
-              The Delaware Valley Regional Planning Commission (DVRPC) fully complies with Title VI of the Civil Rights 
-              Act of 1964, the Civil Rights Restoration Act of 1987, Executive Order 12898 on Environmental Justice, 
-              and related nondiscrimination mandates in all programs and activities. DVRPC is committed to ensuring 
-              that no person is excluded from participation in, or denied the benefits of, all programs and activities
-               on the basis of race, creed color, national origin, age, gender, disability, sexual orientation, or 
-               income level, as protected by Title VI of the Civil Rights Act of 1964 and other related nondiscrimination mandates.
+              The Delaware Valley Regional Planning Commission (DVRPC) fully complies with Title VI of the Civil Rights
+              Act of 1964, the Civil Rights Restoration Act of 1987, Executive Order 12898 on Environmental Justice, and
+              related nondiscrimination mandates in all programs and activities. DVRPC is committed to ensuring that no
+              person is excluded from participation in, or denied the benefits of, all programs and activities on the
+              basis of race, creed color, national origin, age, gender, disability, sexual orientation, or income level,
+              as protected by Title VI of the Civil Rights Act of 1964 and other related nondiscrimination mandates.
             </p>
-            <br/>
+            <br />
             <p>
-              DVRPC's website, <a href="http://www.dvrpc.org/" target="_blank">www.dvrpc.org</a>, may be translated into multiple languages. Publications and other public documents 
-              can be made available in alternative languages and formats, if requested. DVRPC’s public meetings are always held 
-              in ADA-accessible facilities, and held in transit-accessible locations whenever possible. DVRPC will work to 
-              accommodate all reasonable requests for translation, interpretation, accommodations or other auxiliary services 
-              and encourages that requests be made at least seven days prior to a public meeting. Requests can be made by 
-              contacting the Commission’s ADA and Title VI Compliance Officer Shoshana Akins via email at <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>, 
-              calling (215) 592-1800, or while registering for an upcoming meeting.
+              DVRPC's website, <a href="http://www.dvrpc.org/" target="_blank">www.dvrpc.org</a>, may be translated into
+              multiple languages. Publications and other public documents can be made available in alternative languages
+              and formats, if requested. DVRPC’s public meetings are always held in ADA-accessible facilities, and held
+              in transit-accessible locations whenever possible. DVRPC will work to accommodate all reasonable requests
+              for translation, interpretation, accommodations or other auxiliary services and encourages that requests
+              be made at least seven days prior to a public meeting. Requests can be made by contacting the Commission’s
+              ADA and Title VI Compliance Officer Shoshana Akins via email at
+              <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>, calling (215)
+              592-1800, or while registering for an upcoming meeting.
             </p>
-            <br/>
+            <br />
             <p>
-              Any person who believes they have been aggrieved by an unlawful discriminatory practice by DVRPC under Title VI 
-              has a right to file a formal complaint. Any such complaint must be in writing and filed with DVRPC's ADA and 
-              Title VI Compliance Officer Shoshana Akins and/or the appropriate state or federal agency within 180 days of 
-              the alleged discriminatory occurrence. Complaints that a program, service, or activity of DVRPC is not accessible 
-              to persons with disabilities should be directed to Shoshana Akins as well. For more information on DVRPC's Title 
-              VI program or to obtain a <a href="https://www.dvrpc.org/GetInvolved/TitleVI/pdf/TitleVIComplaintForm_English.pdf" target="_blank">Title VI Complaint Form (pdf)</a>, 
-              please visit: <a href="https://www.dvrpc.org/GetInvolved/TitleVI/" target="_blank">www.dvrpc.org/GetInvolved/TitleVI</a>, 
-              call (215) 592-1800, or email <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>.
+              Any person who believes they have been aggrieved by an unlawful discriminatory practice by DVRPC under
+              Title VI has a right to file a formal complaint. Any such complaint must be in writing and filed with
+              DVRPC's ADA and Title VI Compliance Officer Shoshana Akins and/or the appropriate state or federal agency
+              within 180 days of the alleged discriminatory occurrence. Complaints that a program, service, or activity
+              of DVRPC is not accessible to persons with disabilities should be directed to Shoshana Akins as well. For
+              more information on DVRPC's Title VI program or to obtain a
+              <a href="https://www.dvrpc.org/GetInvolved/TitleVI/pdf/TitleVIComplaintForm_English.pdf" target="_blank"
+                >Title VI Complaint Form (pdf)</a
+              >, please visit:
+              <a href="https://www.dvrpc.org/GetInvolved/TitleVI/" target="_blank">www.dvrpc.org/GetInvolved/TitleVI</a
+              >, call (215) 592-1800, or email
+              <a href="mailto:public_affairs@dvrpc.org" target="_blank">public_affairs@dvrpc.org</a>.
             </p>
           </div>
         </div>
-        
       </div>
       <div id="contact">
-        <p><strong>Staff Contact: <a href="mailto:abernknopf@dvrpc.org">Amy Bernknopf</a></strong>  | Manager, Office of Transit, Bicycle, and Pedestrian Planning</p>
-        <p><i><a target="_blank" href="https://www.dvrpc.org/products/web19510">Product Number: web19510</a>&nbsp;|&nbsp;<a target="_blank" href="https://www.dvrpc.org/policies/">DVRPC Policies</a></i></p>
-        <p><strong><a href="https://www.dvrpc.org/eta/">Learn more about Equity Through Access</a></strong></p>
-
+        <p>
+          <strong>Staff Contact: <a href="mailto:cboulan@dvrpc.org">Cassidy Boulan, AICP</a></strong> | Associate
+          Manager | Bicycle Programs
+        </p>
+        <!-- <p><i><a target="_blank" href="https://www.dvrpc.org/products/web19510">Product Number: web19510</a>&nbsp;|&nbsp;<a target="_blank" href="https://www.dvrpc.org/policies/">DVRPC Policies</a></i></p> -->
+        <!-- <p><strong><a href="https://www.dvrpc.org/eta/">Learn more about Equity Through Access</a></strong></p> -->
       </div>
     </div>
   </div>
-
-
 </main>
 
 <footer class="footer">
   <a href="https://www.dvrpc.org" target="_blank">
-    <img src="@images/dvrpc.svg" alt="dvrpc logo" height="96px" id="footer-dvrpc-logo"/>
+    <img src="@images/dvrpc.svg" alt="dvrpc logo" height="96px" id="footer-dvrpc-logo" />
   </a>
   <div class="footer-info-wrapper">
     <p>190 N Independence Mall West</p>
