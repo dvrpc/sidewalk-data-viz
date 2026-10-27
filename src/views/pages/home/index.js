@@ -15,4 +15,4 @@ mapLink.href = process.env.NODE_ENV === 'production' ? '/webmaps/pedestrian-port
 glossaryLink.href =
   process.env.NODE_ENV === 'production' ? '/webmaps/pedestrian-portal/glossary.html' : '/glossary.html';
 
-button.innerHTML = '<i class="fa-solid fa-map"></i><span>&nbsp;&nbsp;View Map</span>';
+button.innerHTML = '<i class="fa-solid fa-map"></i><span>View Map</span>';

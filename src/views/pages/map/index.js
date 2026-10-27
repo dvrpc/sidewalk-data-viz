@@ -67,7 +67,7 @@ const initializeOverlayMinimizers = () => {
 initializeOverlayMinimizers();
 
 link.href = process.env.NODE_ENV === 'production' ? '/webmaps/pedestrian-portal/' : '/';
-button.innerHTML = '<i class="fa-solid fa-home"></i><span>&nbsp;&nbsp;Home</span>';
+button.innerHTML = '<i class="fa-solid fa-home"></i><span>Home</span>';
 
 // map
 const map = makeMap();
