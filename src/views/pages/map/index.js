@@ -2,7 +2,14 @@ import makeMap from './map/map.js';
 import sources from './map/mapSources.js';
 import { layers } from './map/mapLayers.js';
 import { analysis_meta } from './consts.js';
-import { addFeaturePopup, clearHoverState, popupLayerThemes, setStationSelection, wireHover, wireStationClick } from './map/popup.js';
+import {
+  addFeaturePopup,
+  clearHoverState,
+  popupLayerThemes,
+  setStationSelection,
+  wireHover,
+  wireStationClick,
+} from './map/popup.js';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faHouse, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -59,7 +66,7 @@ const initializeOverlayMinimizers = () => {
 
 initializeOverlayMinimizers();
 
-link.href = process.env.NODE_ENV === 'production' ? '/webmaps/sidewalk-gaps/' : '/';
+link.href = process.env.NODE_ENV === 'production' ? '/webmaps/pedestrian-portal/' : '/';
 button.innerHTML = '<i class="fa-solid fa-home"></i><span>&nbsp;&nbsp;Home</span>';
 
 // map

@@ -35,7 +35,8 @@ module.exports = (env) => {
           // define the simple template
           index: 'src/views/pages/home/index.html', // => dist/index.html
           // define the template with passed external variables
-          map: 'src/views/pages/map/index.html', // => dist/about.html
+          map: 'src/views/pages/map/index.html', // => dist/map.html
+          glossary: 'src/views/pages/glossary/index.html', // => dist/glossary.html
         },
 
         js: {

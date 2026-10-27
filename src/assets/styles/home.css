@@ -152,3 +152,44 @@
   font-size: 17px;
   align-items: center;
 }
+
+/* Glossary */
+.jump-to-heading {
+  margin: 0;
+  font-size: 16px;
+  color: #003b59;
+}
+
+.jump-to-link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 16px;
+}
+
+.blog-subsection {
+  scroll-margin-top: 60px;
+  margin-top: 24px;
+}
+
+.glossary-figure {
+  margin: 16px 0;
+}
+
+.glossary-image {
+  height: auto;
+  max-width: 100%;
+}
+
+.glossary-caption {
+  margin-top: 8px;
+}
+
+.glossary-term {
+  font-weight: 700;
+}
+
+.glossary-note {
+  font-style: italic;
+}
+/* END Glossary */
