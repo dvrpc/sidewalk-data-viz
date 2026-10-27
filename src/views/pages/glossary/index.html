@@ -17,21 +17,21 @@
       <h2>Visual Glossary</h2>
       <h3>Jump to Section</h3>
       <a class="jump-to-link" href="#glossary-overview">Overview</a>
-      <h4 class="jump-to-heading">Sidewalks</h4>
+      <h4><a class="jump-to-link jump-to-heading" href="#sidewalks">Sidewalks</a></h4>
       <div class="jump-to-link-group">
         <a class="jump-to-link" href="#side-surface">Surface Material</a>
         <a class="jump-to-link" href="#side-type">Type</a>
         <a class="jump-to-link" href="#side-remove">Remove</a>
         <a class="jump-to-link" href="#side-length">Length</a>
       </div>
-      <h4 class="jump-to-heading">Ramps</h4>
+      <h4><a class="jump-to-link jump-to-heading" href="#ramps">Ramps</a></h4>
       <div class="jump-to-link-group">
         <a class="jump-to-link" href="#ramp-status">Status</a>
         <a class="jump-to-link" href="#ramp-dws">Detectable Warning Surface</a>
         <a class="jump-to-link" href="#ramp-position">Ramp Position</a>
         <a class="jump-to-link" href="#ramp-remove">Remove</a>
       </div>
-      <h4 class="jump-to-heading">Crosswalks</h4>
+      <h4><a class="jump-to-link jump-to-heading" href="#crosswalks">Crosswalks</a></h4>
       <div class="jump-to-link-group">
         <a class="jump-to-link" href="#cross-raised">Raised</a>
         <a class="jump-to-link" href="#cross-sig">Pedestrian Signalization</a>
@@ -57,59 +57,25 @@
 
   <div class="blog-container">
     <div class="blog">
-      <div id="glossary-overview" class="blog-section">
-        <h2>Visual Glossary</h2>
+      <div class="blog-section">
+        <h2 id="glossary-overview">Visual Glossary</h2>
         <div class="blog-text">
           <div class="description">
-            <p>
-              These are the terms and attribute values assigned to features in DVRPC&rsquo;s Pedestrian Network.
-              <a href="https://walk.dvrpc.org/help/" target="_blank">HELP Topics</a> contains additional guidance for
-              exploring and updating the data.
-            </p>
-            <br />
-            <p>
-              <strong>Sidewalks:</strong> <a href="#side-surface">Surface Material</a> | <a href="#side-type">Type</a> |
-              <a href="#side-remove">Remove</a> | <a href="#side-length">Length</a>
-            </p>
-            <p>
-              <strong>Ramps:</strong> <a href="#ramp-status">Status</a> |
-              <a href="#ramp-dws">Detectable Warning Surface</a> | <a href="#ramp-position">Ramp Position</a> |
-              <a href="#ramp-remove">Remove</a>
-            </p>
-            <p>
-              <strong>Crosswalks:</strong> <a href="#cross-raised">Raised</a> |
-              <a href="#cross-sig">Pedestrian Signalization</a> | <a href="#cross-type">Type</a> |
-              <a href="#cross-remove">Remove</a> | <a href="#cross-length">Length</a>
-            </p>
-            <br />
-            <p>
-              Click
-              <a
-                href="https://walk.dvrpc.org/wp-content/uploads/2021/01/DVRPC_walkDVRPC_Glossary_Jan2021.pdf"
-                target="_blank"
-                >here</a
-              >
-              to download a .pdf of the Visual Glossary.
-            </p>
-            <br />
+            <p>These are the terms and attribute values assigned to features in DVRPC&rsquo;s Pedestrian Network.</p>
           </div>
         </div>
       </div>
 
-      <div id="sidewalks" class="blog-section">
-        <h2>Sidewalks</h2>
+      <div class="blog-section">
+        <h2 id="sidewalks">Sidewalks</h2>
         <div class="blog-text">
           <p>
             <strong>Sidewalks</strong> are defined as any paved pedestrian path adjacent to, and running primarily
             parallel to, a named roadway.
           </p>
-          <p>
-            Guidance for modifying or creating new sidewalks can be found
-            <a href="https://walk.dvrpc.org/help/edit/#guidance" target="_blank">here</a>.
-          </p>
 
-          <div id="side-surface" class="blog-subsection">
-            <h3>Sidewalks: Surface Material</h3>
+          <div class="blog-subsection">
+            <h3 id="side-surface">Sidewalks: Surface Material</h3>
             <p>
               Material selected for the line segment should represent the material that makes up most of the surface for
               the segment.
@@ -128,12 +94,16 @@
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image25.png" alt="Mixed" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Mixed</span> &ndash; If there is more than one material present, and it is difficult to determine which
-                material is predominant, choose &ldquo;Mixed&rdquo;.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Mixed</span> &ndash; If there is more than one material present, and it is
+                difficult to determine which material is predominant, choose &ldquo;Mixed&rdquo;.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image3.png" alt="Other" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Other</span> &ndash; In this case, the material type is wood.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Other</span> &ndash; In this case, the material type is wood.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image24.png" alt="Paver" />
@@ -141,75 +111,84 @@
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image17.png" alt="Unknown" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Unknown</span> &ndash; The material could not be determined from the aerial and Google Street View is not
-                available.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Unknown</span> &ndash; The material could not be determined from the aerial
+                and Google Street View is not available.
+              </figcaption>
             </figure>
           </div>
 
-          <div id="side-type" class="blog-subsection">
-            <h3>Sidewalks: Type</h3>
+          <div class="blog-subsection">
+            <h3 id="side-type">Sidewalks: Type</h3>
             <p>Type of sidewalks are defined as path (at-grade) or grade-separated.</p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image18.png" alt="Grade-separated" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Grade-separated</span> &ndash; This feature type should only be used if a pedestrian path is at a different
-                grade than related roadway or it overlaps another (at-grade) sidewalk. This is not intended to capture
-                roadway bridges with sidewalks.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Grade-separated</span> &ndash; This feature type should only be used if a
+                pedestrian path is at a different grade than related roadway or it overlaps another (at-grade) sidewalk.
+                This is not intended to capture roadway bridges with sidewalks.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image2.png" alt="Path" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Path</span> &ndash; At-grade sidewalk adjacent to, or running primarily parallel to, a named roadway.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Path</span> &ndash; At-grade sidewalk adjacent to, or running primarily
+                parallel to, a named roadway.
+              </figcaption>
             </figure>
           </div>
 
-          <div id="side-remove" class="blog-subsection">
-            <h3>Sidewalks: Remove</h3>
+          <div class="blog-subsection">
+            <h3 id="side-remove">Sidewalks: Remove</h3>
             <p>
               Remove this sidewalk from the dataset. There is no sidewalk present at this time or the alignment shown is
               incorrect.
             </p>
           </div>
 
-          <div id="side-length" class="blog-subsection">
-            <h3>Sidewalks: Length</h3>
+          <div class="blog-subsection">
+            <h3 id="side-length">Sidewalks: Length</h3>
             <p>Approximate length of the sidewalk feature as calculated by the software. Not verified.</p>
           </div>
         </div>
       </div>
 
-      <div id="ramps" class="blog-section">
-        <h2>Ramps</h2>
+      <div class="blog-section">
+        <h2 id="ramps">Ramps</h2>
         <div class="blog-text">
           <p>
             <strong>Ramps</strong> (also referred to as a curb ramps) are a sloped section of sidewalk that transitions
             between a sidewalk and a road or driveway.
           </p>
-          <p>
-            Guidance for modifying or creating new ramps can be found
-            <a href="https://walk.dvrpc.org/help/edit/#guidance" target="_blank">here</a>.
-          </p>
 
-          <div id="ramp-status" class="blog-subsection">
-            <h3>Ramps: Status</h3>
+          <div class="blog-subsection">
+            <h3 id="ramp-status">Ramps: Status</h3>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image30.png" alt="Ramp Status Assumed" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Assumed</span> &ndash; Ramps where the physical ramp cannot be confirmed, but assumed based on context
-                (crosswalks, side flares, etc.) Please help us improve the inventory by registering to become an editor.
-                You can use the tools provided in the Edit portion of the Pedestrian Portal to determine if the ramp is
-                existing or missing.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Assumed</span> &ndash; Ramps where the physical ramp cannot be confirmed,
+                but assumed based on context (crosswalks, side flares, etc.) Please help us improve the inventory by
+                registering to become an editor. You can use the tools provided in the Edit portion of the Pedestrian
+                Portal to determine if the ramp is existing or missing.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image5.png" alt="Ramp Status Existing" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Existing</span> &ndash; Ramps that are confirmed from the aerial imagery via the identification of a detectable
-                warning surface.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Existing</span> &ndash; Ramps that are confirmed from the aerial imagery via
+                the identification of a detectable warning surface.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image20.png" alt="Ramp Status Missing" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Missing</span> &ndash; Ramp is not present at this location.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Missing</span> &ndash; Ramp is not present at this location.
+              </figcaption>
             </figure>
           </div>
 
-          <div id="ramp-dws" class="blog-subsection">
-            <h3>Ramps: Detectable Warning Surface</h3>
+          <div class="blog-subsection">
+            <h3 id="ramp-dws">Ramps: Detectable Warning Surface</h3>
             <p>
               Is a detectable warning surface present? (A detectable warning surface means the ramp has a rough texture
               embedded in the surface.)
@@ -224,16 +203,18 @@
             </figure>
           </div>
 
-          <div id="ramp-position" class="blog-subsection">
-            <h3>Ramps: Ramp Position</h3>
+          <div class="blog-subsection">
+            <h3 id="ramp-position">Ramps: Ramp Position</h3>
             <p>
               Ramp position describes the physical location of the ramp and how it conveys pedestrians from a sidewalk
               to a crosswalk.
             </p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image4.png" alt="Ramp: Single Direction" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Single Direction</span> &ndash; Ramp that conveys pedestrians in only one direction, as represented with a
-                single marked or unmarked crosswalk.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Single Direction</span> &ndash; Ramp that conveys pedestrians in only one
+                direction, as represented with a single marked or unmarked crosswalk.
+              </figcaption>
             </figure>
             <p class="glossary-note">
               Note: ramp must be located within an intersection (defined as any location where two (2) or more named
@@ -241,8 +222,10 @@
             </p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image15.png" alt="Ramp: Multidirection" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Multi-Direction</span> &ndash; Ramp that conveys pedestrians in two or more directions, as represented with
-                multiple marked or unmarked crosswalks.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Multi-Direction</span> &ndash; Ramp that conveys pedestrians in two or more
+                directions, as represented with multiple marked or unmarked crosswalks.
+              </figcaption>
             </figure>
             <p class="glossary-note">
               Note: ramp must be located within an intersection (defined as any location where two (2) or more named
@@ -250,55 +233,62 @@
             </p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image11.png" alt="Ramp: Island" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Island / Median</span> &ndash; Ramp located within a corner island, dividing island, or median surrounded by
-                roadway.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Island / Median</span> &ndash; Ramp located within a corner island, dividing
+                island, or median surrounded by roadway.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image32.png" alt="Ramp: Mid-Block" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Mid-Block</span> &ndash; Ramp not located at an intersection or within an island / median. As the name
-                suggests, it is a mid-block conveyance of pedestrian traffic.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Mid-Block</span> &ndash; Ramp not located at an intersection or within an
+                island / median. As the name suggests, it is a mid-block conveyance of pedestrian traffic.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image8.png" alt="Ramp: Other" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Other</span> &ndash; For any ramp that does not meet one of the above criteria. Used primarily at commercial
-                entrances or aprons, where a roadway centerline does not exist. Other ramps should not be used at
-                roadway intersections.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Other</span> &ndash; For any ramp that does not meet one of the above
+                criteria. Used primarily at commercial entrances or aprons, where a roadway centerline does not exist.
+                Other ramps should not be used at roadway intersections.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image14.png" alt="Ramp: Unknown" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Unknown</span> &ndash; Any ramp that has an unclear type or is located at an intersection and does not connect
-                to a crosswalk.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Unknown</span> &ndash; Any ramp that has an unclear type or is located at an
+                intersection and does not connect to a crosswalk.
+              </figcaption>
             </figure>
           </div>
 
-          <div id="ramp-remove" class="blog-subsection">
-            <h3>Ramps: Remove?</h3>
+          <div class="blog-subsection">
+            <h3 id="ramp-remove">Ramps: Remove?</h3>
             <p>
               Remove this ramp from the dataset. This is only applicable in locations where recent infrastructure
               improvements have been made, where the data is now out of date.
             </p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image23.png" alt="Ramp: Remove" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Yes</span> &ndash; The ramps circled in yellow on the left are no longer present in that location.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Yes</span> &ndash; The ramps circled in yellow on the left are no longer
+                present in that location.
+              </figcaption>
             </figure>
           </div>
         </div>
       </div>
 
-      <div id="crosswalks" class="blog-section">
-        <h2>Crosswalks</h2>
+      <div class="blog-section">
+        <h2 id="crosswalks">Crosswalks</h2>
         <div class="blog-text">
           <p>
             <strong>Crosswalks</strong> are defined as any marked or unmarked paths across a roadway, most often found
             at intersections and connections between non&#8208;intersection ramps.
           </p>
-          <p>
-            Guidance for modifying or creating new crosswalks can be found
-            <a href="https://walk.dvrpc.org/help/edit/#guidance" target="_blank">here</a>.
-          </p>
 
-          <div id="cross-raised" class="blog-subsection">
-            <h3>Crosswalks: Raised</h3>
+          <div class="blog-subsection">
+            <h3 id="cross-raised">Crosswalks: Raised</h3>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image7.jpg" alt="Crosswalks Raised" />
             </figure>
@@ -309,67 +299,93 @@
             </p>
           </div>
 
-          <div id="cross-sig" class="blog-subsection">
-            <h3>Crosswalks: Pedestrian Signalization</h3>
+          <div class="blog-subsection">
+            <h3 id="cross-sig">Crosswalks: Pedestrian Signalization</h3>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image22.jpg" alt="Crosswalks Signalized" />
             </figure>
             <p>Is there a pedestrian signal at this crosswalk?</p>
           </div>
 
-          <div id="cross-type" class="blog-subsection">
-            <h3>Crosswalks: Type</h3>
+          <div class="blog-subsection">
+            <h3 id="cross-type">Crosswalks: Type</h3>
             <p>What type of crosswalk is it?</p>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image6.jpg" alt="Crosswalks Type Bar Pair" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Bar Pairs</span> &ndash; Perpendicular striping that is grouped into pairs throughout the crosswalk area.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Bar Pairs</span> &ndash; Perpendicular striping that is grouped into pairs
+                throughout the crosswalk area.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image12.jpg" alt="Crosswalks Type Continental" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Continental</span> &ndash; Evenly spaced perpendicular bars.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Continental</span> &ndash; Evenly spaced perpendicular bars.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image29.jpg" alt="Crosswalks Type Dashed" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Dashed</span> &ndash; Dashed parallel striping that denotes the outer boundaries of the crosswalk area.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Dashed</span> &ndash; Dashed parallel striping that denotes the outer
+                boundaries of the crosswalk area.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image28.jpg" alt="Crosswalks Type Decorative" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Decorative</span> &ndash; A segment of crosswalk that contains geometric patterns, artistic scenes, or other
-                non-traditional patterns.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Decorative</span> &ndash; A segment of crosswalk that contains geometric
+                patterns, artistic scenes, or other non-traditional patterns.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image16.jpg" alt="Crosswalks Type Diagonal" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Diagonal</span> &ndash; Evenly spaced diagonal lines.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Diagonal</span> &ndash; Evenly spaced diagonal lines.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image33.jpg" alt="Crosswalks Type Ladder" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Ladder</span> &ndash; Evenly spaced perpendicular bars with parallel striping abutting the bars on either side.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Ladder</span> &ndash; Evenly spaced perpendicular bars with parallel
+                striping abutting the bars on either side.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image21.jpg" alt="Crosswalks Type Parallel" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Parallel</span> &ndash; Solid parallel striping that denotes the outer boundaries of the crosswalk area.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Parallel</span> &ndash; Solid parallel striping that denotes the outer
+                boundaries of the crosswalk area.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image9.jpg" alt="Crosswalks Type Solid" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Solid</span> &ndash; Solid marking that covers the entire crosswalk area.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Solid</span> &ndash; Solid marking that covers the entire crosswalk area.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image1.png" alt="Unmarked Crosswalk" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Unmarked</span> &ndash; A segment of crosswalk that is not marked on the roadway.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Unmarked</span> &ndash; A segment of crosswalk that is not marked on the
+                roadway.
+              </figcaption>
             </figure>
             <figure class="glossary-figure">
               <img class="glossary-image" src="@images/glossary/image31.jpg" alt="Crosswalks Type Unknown" />
-              <figcaption class="glossary-caption"><span class="glossary-term">Unknown</span> &ndash; Any segment of crosswalk that has an unclear marking type.</figcaption>
+              <figcaption class="glossary-caption">
+                <span class="glossary-term">Unknown</span> &ndash; Any segment of crosswalk that has an unclear marking
+                type.
+              </figcaption>
             </figure>
           </div>
 
-          <div id="cross-remove" class="blog-subsection">
-            <h3>Crosswalks: Remove?</h3>
+          <div class="blog-subsection">
+            <h3 id="cross-remove">Crosswalks: Remove?</h3>
             <p>Remove this crosswalk from the dataset. There is no ramp present at this time.</p>
           </div>
 
-          <div id="cross-length" class="blog-subsection">
-            <h3>Crosswalks: Length</h3>
+          <div class="blog-subsection">
+            <h3 id="cross-length">Crosswalks: Length</h3>
             <p>Approximate length of the crosswalk feature. Not verified.</p>
           </div>
 
