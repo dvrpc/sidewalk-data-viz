@@ -5,6 +5,7 @@ import { analysis_meta } from './consts.js';
 import {
   addFeaturePopup,
   clearHoverState,
+  closeActivePopup,
   popupLayerThemes,
   setStationSelection,
   wireHover,
@@ -80,6 +81,20 @@ let activeTheme;
 const setLayerVisibility = (layerId, visible) => {
   if (!map.getLayer(layerId)) return;
   map.setLayoutProperty(layerId, 'visibility', visible ? 'visible' : 'none');
+};
+
+const INVENTORY_BASE_COLOR = 'rgba(255,255,255,0.5)';
+const SIDEWALK_VIEW_COLORS = {
+  sidewalks: '#67abd0',
+  crosswalks: '#cc00cc',
+};
+
+const applySidewalkViewStyle = (isSidewalkView) => {
+  ['sidewalks', 'crosswalks'].forEach((layerId) => {
+    if (!map.getLayer(layerId)) return;
+    map.setPaintProperty(layerId, 'line-color', isSidewalkView ? SIDEWALK_VIEW_COLORS[layerId] : INVENTORY_BASE_COLOR);
+  });
+  setLayerVisibility('ramps', isSidewalkView);
 };
 
 const updateThemeButtons = (selectedValue) => {
@@ -179,12 +194,14 @@ const renderAnalysisDetails = (themeValue) => {
 
 const handleThemeSelection = (themeValue) => {
   clearHoverState(map);
+  closeActivePopup();
   const selectedLayers = analysis_meta[themeValue]?.layer_ids ?? [];
   const isSidewalkView = themeValue === 'sidewalk-view';
   activeTheme = themeValue;
   if (themeValue !== 'rail-walksheds') setStationSelection(map);
   renderAnalysisLayerControls(themeValue);
   renderAnalysisDetails(themeValue);
+  layersSection.hidden = isSidewalkView;
 
   analysisLayerIds.forEach((layerId) => {
     const visible = selectedLayers.includes(layerId);
@@ -194,11 +211,13 @@ const handleThemeSelection = (themeValue) => {
     if (control) control.checked = visible;
   });
   updateBaseLayerControls(isSidewalkView);
+  applySidewalkViewStyle(isSidewalkView);
   updateThemeButtons(themeValue);
 };
 
 const handleSwitchToggle = ({ target }) => {
   if (!target.matches('.switch-input')) return;
+  if (analysisLayerIds.includes(target.value)) closeActivePopup();
   setLayerVisibility(target.value, target.checked);
 };
 

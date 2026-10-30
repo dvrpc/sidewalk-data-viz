@@ -15,6 +15,11 @@ const bindPopup = (map, htmlMessage, target) => {
   activePopup = newPopup().setLngLat(target.lngLat).setHTML(htmlMessage).addTo(map);
 };
 
+const closeActivePopup = () => {
+  activePopup?.remove();
+  activePopup = undefined;
+};
+
 const centerlinePopupMessage = (event) => {
   const coverage = Math.min(Number(event.features[0].properties.sw_ratio) * 100, 100);
   const text = coverage === 100 ? '100%' : coverage === 0 ? 'No' : `${coverage.toFixed(1)}%`;
@@ -77,7 +82,7 @@ const inventoryPopupMessage = (event, layerId) => {
       return `<span class="popup-span"><strong>${label}:</strong> ${display}</span>`;
     })
     .join('');
-  const title = layerId === 'crosswalks' ? 'Crosswalk' : 'Sidewalk';
+  const title = layerId === 'crosswalks' ? 'Crosswalk' : layerId === 'ramps' ? 'Ramp' : 'Sidewalk';
   return `<div class="popup-value">${title}</div><div>${rows}</div>`;
 };
 
@@ -85,6 +90,7 @@ const popupMessages = {
   centerlines: centerlinePopupMessage,
   sidewalks: inventoryPopupMessage,
   crosswalks: inventoryPopupMessage,
+  ramps: inventoryPopupMessage,
   sw_nodes: swNodePopupMessage,
   stations: railWalkshedPopupMessage,
   station_selected: railWalkshedPopupMessage,
@@ -97,6 +103,7 @@ const popupMessages = {
 
 const popupLayerThemes = {
   centerlines: 'gap-analysis',
+  ramps: 'sidewalk-view',
   transit_stops: 'transit-analysis',
   sw_nodes: 'transit-analysis',
   schools: 'school-analysis',
@@ -117,11 +124,6 @@ const addFeaturePopup = (map, layerId, event, activeTheme) => {
 };
 
 const setStationSelection = (map, { poiUid, uid } = {}) => {
-  // NOTE: vector tile types are inconsistent across layers:
-  // - accessscore_points.poi_uid is a NUMBER (station id)
-  // - access_score_final_poi_set.dvrpc_id is a NUMBER (station id)
-  // - accessscore_results.poi_uid is a STRING (station id)
-  // Mapbox `==` filters are type-strict, so normalize before filtering.
   const poiUidStr = poiUid !== undefined && poiUid !== null && poiUid !== '' ? String(poiUid) : null;
   const poiUidNum = poiUidStr !== null ? Number(poiUidStr) : null;
   const hasStation = poiUidStr !== null && !Number.isNaN(poiUidNum);
@@ -182,16 +184,27 @@ const featureStateHoverLayers = [
 
 // Layers without a unique feature id can't use feature-state; they get a
 // geometry overlay highlight instead (see wireHover).
-const overlayHoverLayers = ['sw_nodes', 'sidewalks', 'crosswalks'];
+const overlayHoverLayers = ['sw_nodes', 'sidewalks', 'crosswalks', 'ramps'];
 
 const HOVER_SOURCE = 'hover-highlight';
 const HOVER_LINE_LAYER = 'hover-highlight-line';
 const HOVER_DOT_LAYER = 'hover-highlight-dot';
+const HOVER_RAMP_LAYER = 'hover-highlight-ramp';
+
+const SIDEWALK_COLOR = '#67abd0';
+const CROSSWALK_COLOR = '#cc00cc';
+
+const hoverLinePaint = (layerId) => ({
+  'line-color': layerId === 'crosswalks' ? CROSSWALK_COLOR : SIDEWALK_COLOR,
+  'line-width': layerId === 'crosswalks' ? 6 : ['interpolate', ['linear'], ['zoom'], 10, 2.5, 14, 2.7, 18, 6.5],
+});
 
 const emptyHighlight = () => ({ type: 'FeatureCollection', features: [] });
 
 const isHoverable = (layerId, activeTheme) => {
-  if (activeTheme === 'sidewalk-view') return layerId === 'sidewalks' || layerId === 'crosswalks';
+  if (activeTheme === 'sidewalk-view') {
+    return layerId === 'sidewalks' || layerId === 'crosswalks' || layerId === 'ramps';
+  }
   return popupLayerThemes[layerId] === activeTheme;
 };
 
@@ -213,7 +226,7 @@ const wireHover = (map, getActiveTheme) => {
         id: HOVER_LINE_LAYER,
         type: 'line',
         source: HOVER_SOURCE,
-        paint: { 'line-color': '#0078ae', 'line-width': 8, 'line-opacity': 0.55 },
+        paint: { 'line-opacity': 1, ...hoverLinePaint('sidewalks') },
         filter: ['match', ['geometry-type'], ['LineString', 'MultiLineString'], true, false],
       },
       'sidewalks',
@@ -246,7 +259,29 @@ const wireHover = (map, getActiveTheme) => {
           'rgba(123,50,148,0.9)',
         ],
       },
-      filter: ['match', ['geometry-type'], ['Point', 'MultiPoint'], true, false],
+      filter: [
+        'all',
+        ['match', ['geometry-type'], ['Point', 'MultiPoint'], true, false],
+        ['!=', ['get', 'hover_kind'], 'ramp'],
+      ],
+    });
+  }
+  if (!map.getLayer(HOVER_RAMP_LAYER)) {
+    map.addLayer({
+      id: HOVER_RAMP_LAYER,
+      type: 'circle',
+      source: HOVER_SOURCE,
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 4.5, 16, 6, 18, 8],
+        'circle-color': '#ffffff',
+        'circle-stroke-color': '#0078ae',
+        'circle-stroke-width': 1.5,
+      },
+      filter: [
+        'all',
+        ['match', ['geometry-type'], ['Point', 'MultiPoint'], true, false],
+        ['==', ['get', 'hover_kind'], 'ramp'],
+      ],
     });
   }
 
@@ -266,6 +301,13 @@ const wireHover = (map, getActiveTheme) => {
 
     if (overlayHoverLayers.includes(feature.layer.id)) {
       clearHoverState(map);
+      const isRamp = feature.layer.id === 'ramps';
+      const isLine = feature.layer.id === 'sidewalks' || feature.layer.id === 'crosswalks';
+      if (isLine) {
+        Object.entries(hoverLinePaint(feature.layer.id)).forEach(([paint, value]) =>
+          map.setPaintProperty(HOVER_LINE_LAYER, paint, value),
+        );
+      }
       map.getSource(HOVER_SOURCE).setData({
         type: 'FeatureCollection',
         features: [
@@ -273,6 +315,7 @@ const wireHover = (map, getActiveTheme) => {
             type: 'Feature',
             geometry: feature.geometry,
             properties: {
+              ...(isRamp ? { hover_kind: 'ramp', hover_value: 30 } : { hover_kind: 'node' }),
               hover_value: feature.properties.walk_time ?? feature.properties.n_1_school ?? 30,
             },
           },
@@ -297,6 +340,7 @@ const wireHover = (map, getActiveTheme) => {
 export {
   addFeaturePopup,
   clearHoverState,
+  closeActivePopup,
   newPopup,
   popupLayerThemes,
   setStationSelection,

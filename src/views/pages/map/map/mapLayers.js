@@ -34,6 +34,20 @@ const layers = {
     'source-layer': 'ped_lines',
     filter: ['==', 'line_type', 2],
   },
+  ramps: {
+    id: 'ramps',
+    type: 'circle',
+    source: 'sidewalk_inventory',
+    'source-layer': 'ped_points',
+    minzoom: 13,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 2.5, 16, 4, 18, 6],
+      'circle-color': '#ffffff',
+      'circle-stroke-color': '#0078ae',
+      'circle-stroke-width': 1.5,
+    },
+    layout: { visibility: 'none' },
+  },
   countyOutline: {
     id: 'county-outline',
     type: 'line',
@@ -172,9 +186,21 @@ const layers = {
     'source-layer': 'accessscore_points',
     minzoom: 7,
     paint: {
-      'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 16, 12],
+      'circle-radius': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        7,
+        ['case', ['boolean', ['feature-state', 'hover'], false], 8, 6],
+        12,
+        ['case', ['boolean', ['feature-state', 'hover'], false], 10, 8],
+        16,
+        ['case', ['boolean', ['feature-state', 'hover'], false], 15, 12],
+        18,
+        ['case', ['boolean', ['feature-state', 'hover'], false], 18, 15],
+      ],
       'circle-stroke-color': 'white',
-      'circle-stroke-width': 1.5,
+      'circle-stroke-width': 1,
       'circle-color': {
         property: 'sidewalkscore',
         default: 'black',
@@ -196,9 +222,9 @@ const layers = {
     'source-layer': 'accessscore_points',
     minzoom: 7,
     paint: {
-      'circle-radius': 20,
-      'circle-stroke-color': 'black',
-      'circle-stroke-width': 4,
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 7, 8, 12, 12, 16, 18, 18, 22],
+      'circle-stroke-color': 'white',
+      'circle-stroke-width': 2,
       'circle-color': {
         property: 'sidewalkscore',
         default: 'black',

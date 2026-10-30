@@ -127,8 +127,12 @@ const analysis_meta = {
     layer_names: [],
     legend: {
       title: 'Explore Sidewalks',
-      description: 'Click a sidewalk or crosswalk segment to view its properties.',
-      items: [],
+      description: 'Click a sidewalk, crosswalk, or ramp to view its properties.',
+      items: [
+        { label: 'Sidewalk', color: '#67abd0', symbol: 'line' },
+        { label: 'Crosswalk', color: '#cc00cc', symbol: 'line' },
+        { label: 'Curb ramp', color: '#ffffff', border: '2px solid #0078ae', symbol: 'circle' },
+      ],
     },
     methodology_title: 'Sidewalk View Methodology',
   },
