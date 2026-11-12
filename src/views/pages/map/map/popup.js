@@ -20,10 +20,32 @@ const closeActivePopup = () => {
   activePopup = undefined;
 };
 
+const formatSidewalkLength = (value) => {
+  const length = Number(value);
+  return Number.isFinite(length) ? `${Math.round(length).toLocaleString()} ft` : '—';
+};
+
+const formatSidewalkPercent = (value) => {
+  const percent = Number(value);
+  return Number.isFinite(percent) ? `${Math.min(percent, 100)}%` : '—';
+};
+
 const centerlinePopupMessage = (event) => {
-  const coverage = Math.min(Number(event.features[0].properties.sw_ratio) * 100, 100);
+  const properties = event.features[0].properties;
+  const coverage = Math.min(Number(properties.sw_ratio) * 100, 100);
   const text = coverage === 100 ? '100%' : coverage === 0 ? 'No' : `${coverage.toFixed(1)}%`;
-  return `<div class="popup-value">${text}</div><p class="popup-description">sidewalk coverage</p>`;
+  const sides = [1, 2]
+    .map((side) => {
+      const length = formatSidewalkLength(properties[`sw_side${side}_length`]);
+      const percent = formatSidewalkPercent(properties[`side${side}_coverage_pct`]);
+      return `<tr><th scope="row">Side ${side}</th><td>${length}</td><td>${percent}</td></tr>`;
+    })
+    .join('');
+  return `<div class="popup-value">${text}</div><p class="popup-description">sidewalk coverage</p>
+    <table class="popup-sidewalk-table">
+      <thead><tr><th scope="col">Side</th><th scope="col">Length</th><th scope="col">Coverage</th></tr></thead>
+      <tbody>${sides}</tbody>
+    </table>`;
 };
 
 const swNodePopupMessage = (event) => {
