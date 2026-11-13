@@ -83,7 +83,10 @@ const setLayerVisibility = (layerId, visible) => {
   map.setLayoutProperty(layerId, 'visibility', visible ? 'visible' : 'none');
 };
 
-const INVENTORY_BASE_COLOR = 'rgba(255,255,255,0.5)';
+const INVENTORY_BASE_COLORS = {
+  sidewalks: 'rgba(255,255,255,0.5)',
+  crosswalks: 'rgba(185,185,185,0.9)',
+};
 const SIDEWALK_VIEW_COLORS = {
   sidewalks: '#67abd0',
   crosswalks: '#cc00cc',
@@ -92,7 +95,11 @@ const SIDEWALK_VIEW_COLORS = {
 const applySidewalkViewStyle = (isSidewalkView) => {
   ['sidewalks', 'crosswalks'].forEach((layerId) => {
     if (!map.getLayer(layerId)) return;
-    map.setPaintProperty(layerId, 'line-color', isSidewalkView ? SIDEWALK_VIEW_COLORS[layerId] : INVENTORY_BASE_COLOR);
+    map.setPaintProperty(
+      layerId,
+      'line-color',
+      isSidewalkView ? SIDEWALK_VIEW_COLORS[layerId] : INVENTORY_BASE_COLORS[layerId],
+    );
   });
   setLayerVisibility('ramps', isSidewalkView);
 };
@@ -175,11 +182,17 @@ const renderAnalysisDetails = (themeValue) => {
   if (themeValue === 'transit-analysis' || themeValue === 'school-analysis') {
     list.classList.add('analysis-legend-list--walk-time');
   }
-  meta.legend.items.forEach(({ label, color, symbol, border, fullWidth }) => {
+  meta.legend.items.forEach(({ label, color, symbol, border, fullWidth, dashed }) => {
     const item = document.createElement('li');
     const swatch = document.createElement('span');
     swatch.className = `analysis-legend-swatch analysis-legend-swatch--${symbol}`;
-    if (color) swatch.style.backgroundColor = color;
+    if (color) {
+      if (dashed) {
+        swatch.style.backgroundImage = `repeating-linear-gradient(90deg, ${color} 0 4px, transparent 4px 7px)`;
+      } else {
+        swatch.style.backgroundColor = color;
+      }
+    }
     if (border) swatch.style.border = border;
     if (fullWidth) item.style.gridColumn = '1 / -1';
     swatch.setAttribute('aria-hidden', 'true');

@@ -28,7 +28,8 @@ const layers = {
     minzoom: 13,
     paint: {
       'line-width': 4,
-      'line-color': 'rgba(255,255,255,0.5)',
+      'line-color': 'rgba(185,185,185,0.9)',
+      'line-dasharray': [2, 1],
       // "line-dasharray": [1, 0.5]
     },
     'source-layer': 'ped_lines',

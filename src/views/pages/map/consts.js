@@ -130,7 +130,7 @@ const analysis_meta = {
       description: 'Click a sidewalk, crosswalk, or ramp to view its properties.',
       items: [
         { label: 'Sidewalk', color: '#67abd0', symbol: 'line' },
-        { label: 'Crosswalk', color: '#cc00cc', symbol: 'line' },
+        { label: 'Crosswalk', color: '#cc00cc', symbol: 'line', dashed: true },
         { label: 'Curb ramp', color: '#ffffff', border: '2px solid #0078ae', symbol: 'circle' },
       ],
     },
