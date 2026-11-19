@@ -1,7 +1,7 @@
 {
   "name": "eta",
   "version": "1.0.0",
-  "description": "Equity Through Access Web Map",
+  "description": "Pedestrian Portal",
   "keywords": [
     ""
   ],
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dvrpc/map-templates/tree/main/sidebar-template"
+    "url": "https://github.com/dvrpc/sidewalk-data-viz"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^7.0.0",

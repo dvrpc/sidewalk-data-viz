@@ -6,7 +6,7 @@ const analysis_meta = {
       title: 'Sidewalk Coverage',
       items: [
         { label: 'Missing sidewalks on both sides', color: '#7b3294', symbol: 'line' },
-        { label: 'Missing a sidewalk on one side', color: '#f7f7f7', symbol: 'line' },
+        { label: 'Missing a sidewalk on one side', color: '#ffffff', symbol: 'line' },
         { label: 'Has sidewalks on both sides', color: '#008837', symbol: 'line' },
       ],
     },
